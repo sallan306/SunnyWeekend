@@ -16,7 +16,8 @@ Our first project.
   
   # Sketch
   
-  
+  See images folder
+ 
   
   # APIs We Will Use
   
