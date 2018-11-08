@@ -1,0 +1,11 @@
+body {
+    background-image: url(../images/simon-rae-732820-unsplash.jpg);
+    background-size: cover;
+}
+
+.jumbotron {
+    opacity: 0.75;
+    max-width: 80%;
+    margin: auto;
+
+}
