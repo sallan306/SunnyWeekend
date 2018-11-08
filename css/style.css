@@ -1,11 +1,36 @@
 body {
     background-image: url(../images/simon-rae-732820-unsplash.jpg);
     background-size: cover;
+    display: flex;
+    justify-content: space-between;
+}
+
+.SW-container {
+    max-width: 80%;
+    margin: auto;
 }
 
 .jumbotron {
-    opacity: 0.75;
-    max-width: 80%;
-    margin: auto;
+    background: rgba(255, 255, 255, 0.804);
+    text-align: center;
+}
 
+
+button {
+    color:  rgb(0, 253, 200);
+}
+
+.list-group{
+    width:100%;
+    padding: 20px;
+}
+
+.btn.btn-primary{
+    float:right;
+    background-color:#00fdc8;
+    color: black;
+    border-color: #00fdc8;
+}
+.card {
+    background: rgba(255, 255, 255, 0.804);;
 }
