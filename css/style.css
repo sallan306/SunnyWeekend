@@ -5,4 +5,7 @@ body {
 
 .jumbotron {
     opacity: 0.75;
+    max-width: 80%;
+    margin: auto;
+
 }

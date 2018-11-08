@@ -17,8 +17,22 @@
         <!-- We can put a bootstrap form in here -->
         <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
         <hr class="my-4">
-        <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-        <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+        <form>
+            <div class="form-group">
+              <label for="exampleInputEmail1">Email address</label>
+              <input type="email" class="form-control" id="user-email" aria-describedby="emailHelp" placeholder="Enter email">
+              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+            </div>
+            <div class="form-group">
+                <label for="formControlRange">Budget</label>
+                <input type="range"  class="form-control-range" id="budget-range">
+              </div>
+            <div class="form-group form-check">
+              <input type="checkbox" class="form-check-input" id="pet-friendly-btn">
+              <label class="form-check-label" for="exampleCheck1">Pet-Friendly</label>
+            </div>
+            <button type="submit" class="btn btn-primary" id ="submit-btn" >Find My Sunny Weekend!</button>
+          </form>
       </div>
 
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
