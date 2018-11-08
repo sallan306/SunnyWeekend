@@ -10,9 +10,10 @@ body {
 
 .jumbotron {
     background: rgba(204, 204, 204, 0.5);
-
-
+    text-align: center;
 }
+
+
 
 
 .list-group{
@@ -22,4 +23,7 @@ body {
 
 .btn.btn-primary{
     float:right;
+}
+.card {
+    background: rgba(204, 204, 204, 0.5);
 }
