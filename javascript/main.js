@@ -86,8 +86,7 @@ var queryURL = "https://api.openweathermap.org/data/2.5/weather?" +
   "&appid=" + APIKey;
 var isClear = false;
 console.log(queryURL)
-var callsLeft = 60;
-//var cityInterval = setInterval(rerollCity, 500);
+var cityInterval = setInterval(rerollCity, 500);
 
 $.ajax({
   url: queryURL,
@@ -114,30 +113,31 @@ $.ajax({
 
 
 
-// function rerollCity() {
-//     if (isClear === false) {
+function rerollCity() {
+    if (isClear === false) {
 
-//         randomCity = Math.floor(Math.random(cityArray.length)*100);
-//         cityURL = cityArray[randomCity]+",3166-2"
-//         queryURL = "https://api.openweathermap.org/data/2.5/weather?" +
-//         "q="+ cityURL +
-//         "&units=imperial" + 
-//         "&appid=" + APIKey;
+        randomCity = Math.floor(Math.random(cityArray.length)*100);
+        cityURL = cityArray[randomCity]+",3166-2"
+        queryURL = "https://api.openweathermap.org/data/2.5/weather?" +
+        "q="+ cityURL +
+        "&units=imperial" + 
+        "&appid=" + APIKey;
 
-//         $.ajax({
-//             url: queryURL,
-//             method: "GET"
-//         })
-//         .then(function(response) {
-//             if (response.weather[0].description === "clear sky") {
-//                 isClear = true;
-//                 clearInterval(cityInterval);
-//                 console.log("rerollcity function: clear sky")
-//             }
-//             else {
-//                 console.log("rerollcity function: "+response.weather[0].description)
-//             }
-//         })
-//     }
-// }
+        $.ajax({
+            url: queryURL,
+            method: "GET"
+        })
+        .then(function(response) {
+            if (response.weather[0].description === "clear sky") {
+                isClear = true;
+                clearInterval(cityInterval);
+                console.log("rerollcity function: clear sky")
+            }
+            else {
+                console.log("rerollcity function: "+response.weather[0].description);
+                clearInterval(cityInterval)
+            }
+        })
+    }
+}
 
