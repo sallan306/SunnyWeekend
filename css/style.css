@@ -11,12 +11,14 @@ body {
 }
 
 .jumbotron {
-    background: rgba(204, 204, 204, 0.7);
+    background: rgba(255, 255, 255, 0.804);
     text-align: center;
 }
 
 
-
+button {
+    color:  rgb(0, 253, 200);
+}
 
 .list-group{
     width:100%;
@@ -27,5 +29,5 @@ body {
     float:right;
 }
 .card {
-    background: rgba(204, 204, 204, 0.7);
+    background: rgba(255, 255, 255, 0.804);;
 }
