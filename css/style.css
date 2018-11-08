@@ -3,9 +3,13 @@ body {
     background-size: cover;
 }
 
-.jumbotron {
-    opacity: 0.75;
+.SW-container {
     max-width: 80%;
     margin: auto;
+}
+
+.jumbotron {
+    background: rgba(204, 204, 204, 0.5);
+
 
 }
