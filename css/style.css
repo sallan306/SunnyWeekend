@@ -25,6 +25,9 @@ body {
 
 .btn.btn-primary{
     float:right;
+    background-color:#00fdc8;
+    color: black;
+    border-color: #00fdc8;
 }
 .card {
     background: rgba(204, 204, 204, 0.7);
