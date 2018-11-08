@@ -2,6 +2,8 @@
 
 People don't like making decisions, but travel planning requires hours upon hours of decision making. Our website will deliver "customized" travel itineraries for a city with good weather this weekend. Carpe diem!
 
+https://sallan306.github.io/Project1/
+
 
 # Team Members
   * Scott Allan -- GitHub Guru, Backend, APIs (weather, google maps)
