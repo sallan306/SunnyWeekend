@@ -1,6 +1,8 @@
 body {
     background-image: url(../images/simon-rae-732820-unsplash.jpg);
     background-size: cover;
+    display: flex;
+    justify-content: space-between;
 }
 
 .SW-container {
@@ -9,10 +11,10 @@ body {
 }
 
 .jumbotron {
-    background: rgba(204, 204, 204, 0.5);
+    background: rgba(204, 204, 204, 0.7);
     text-align: center;
 }
 
 .card {
-    background: rgba(204, 204, 204, 0.5);
+    background: rgba(204, 204, 204, 0.7);
 }
