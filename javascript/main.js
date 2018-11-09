@@ -85,8 +85,12 @@ var queryURL = "https://api.openweathermap.org/data/2.5/weather?" +
   "&units=imperial" + 
   "&appid=" + APIKey;
 var isClear = false;
-console.log(queryURL)
-var cityInterval = setInterval(rerollCity, 500);
+//var cityInterval = setInterval(rerollCity, 500);
+var userAddress = '';
+var userEmail = '';
+var userBudget = 0;
+var sunnyCity = '';
+var petFriendly = false;
 
 $.ajax({
   url: queryURL,
@@ -99,6 +103,8 @@ $.ajax({
     if (response.weather[0].description === "clear sky") {
         
         isClear = true;
+        sunnyCity = randomCity;
+        clearInterval(cityInterval)
         
     }
     else {
@@ -111,6 +117,26 @@ $.ajax({
     // }
 });
 
+
+$("#submit-btn").on("click", function() {
+
+   userAddress = $(".user-location").val().trim();
+   userEmail = $(".user-email").val().trim();
+   petFriendly = $(".pet-friendly-btn").val();
+   
+    if ($(".dollar-1").val() === true) {
+        userBudget = "$";
+    }
+    else if ($(".dollar-2").val() === true) {
+        userBudget = "$$";
+    }
+    else if ($(".dollar-3").val() === true) {
+        userBudget = "$$$";
+    }
+    else if ($(".dollar-4").val() === true) {
+        userBudget = "$$$$";
+    }
+})
 
 
 function rerollCity() {
@@ -132,6 +158,7 @@ function rerollCity() {
                 isClear = true;
                 clearInterval(cityInterval);
                 console.log("rerollcity function: clear sky")
+                sunnyCity = randomCity;
             }
             else {
                 console.log("rerollcity function: "+response.weather[0].description);
@@ -141,3 +168,35 @@ function rerollCity() {
     }
 }
 
+function cityDistance() {
+    var googleAPI = "AIzaSyDrYhqyBH2hkafHTgA89V5lqBVXzXesLfE"
+    var mapsURL = 'https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial' +
+    "&origins=Vancouver+BC|Seattle" +
+    "&destinations=San+Francisco|Victoria+BC" +
+    "&key="+ googleAPI
+
+    $.ajax({
+        url: mapsURL,
+        method: "GET"
+    })
+    .then(function(response) {
+        console.log(response)
+    })
+
+}
+// cityDistance();
+
+var origin2 = 'Greenwich, England';
+var destinationA = 'Stockholm, Sweden';
+var service = new google.maps.DistanceMatrixService();
+
+service.getDistanceMatrix(
+  {
+    origins: origin2,
+    destinations: destinationA,
+    travelMode: 'DRIVING',
+  }, callback);
+
+function callback(response, status) {
+  console.log(response)
+}
