@@ -17,11 +17,6 @@ body {
     margin: 0px 10px;
 }
 
-
-button {
-    color:  rgb(0, 253, 200);
-}
-
 .list-group{
     width:100%;
     padding: 20px;
@@ -35,6 +30,11 @@ button {
 
 .row {
     margin: 0px;
+}
+
+.date-headlines {
+    display: flex;
+    justify-content: space-between;
 }
 
 .schedule-box {
