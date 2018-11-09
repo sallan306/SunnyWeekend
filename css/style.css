@@ -25,6 +25,15 @@ button {
     padding: 20px;
 }
 
+.list-group-item {
+    background: rgba(255, 255, 255, 0.804);
+}
+
+a {
+    background: white;
+    padding: 5px;
+}
+
 .btn.btn-primary{
     float:right;
     background-color:#00fdc8;
