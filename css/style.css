@@ -13,6 +13,8 @@ body {
 .jumbotron {
     background: rgba(255, 255, 255, 0.804);
     text-align: center;
+    width: 100%;
+    margin: 0px 10px;
 }
 
 
@@ -31,6 +33,13 @@ button {
     margin: 10px;
 }
 
+.row {
+    margin: 0px;
+}
+
+.schedule-box {
+    margin: 0px 10px;
+}
 
 .btn.btn-primary{
     float:right;

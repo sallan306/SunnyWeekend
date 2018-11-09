@@ -11,34 +11,37 @@
    </head>
    <body>
       <div class = "SW-container">
-         <div class="jumbotron">
-            <h1 class="display-4">Sunny Weekend</h1>
-            <p class="lead">Let us plan your spontaneous weekend getaway. </p>
-            <hr class="my-4">
-            <form>
-               <div class="form-group">
-                  <label for="exampleInputEmail1">Email address</label>
-                  <input type="email" class="form-control" id="user-email" aria-describedby="emailHelp" placeholder="Enter email">
-                  <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-               </div>
-               <div class="form-group">
-                  <label for="formControlRange">Budget</label><br>
-                  <button type="button" class="btn btn-success SWradio" id = "dollar-1">$</button>
-                  <button type="button" class="btn btn-success SWradio" id = "dollar-2">$$</button>
-                  <button type="button" class="btn btn-success SWradio" id = "dollar-3">$$$</button>
-                  <button type="button" class="btn btn-success SWradio" id = "dollar-4">$$$$</button>
-               </div>
-               <div class="form-group">
-                  <label for="formControlRange">Location</label>
-                  <input type="" class="form-control" id="user-location" placeholder="Enter Location">
-               </div>
-               <!-- <div class="form-group form-check">
-                  <input type="checkbox" class="form-check-input" id="pet-friendly-btn">
-                  <label class="form-check-label" for="exampleCheck1">Pet-Friendly</label>
-                  </div> -->
-               <button type="submit" class="btn btn-primary" id ="submit-btn" >Find My Sunny Weekend!</button>
-            </form>
-         </div>
+        <div class = "row">
+            <div class="jumbotron">
+                <h1 class="display-4">Sunny Weekend</h1>
+                <p class="lead">Let us plan your spontaneous weekend getaway. </p>
+                <hr class="my-4">
+                <form>
+                   <div class="form-group">
+                      <label for="exampleInputEmail1">Email address</label>
+                      <input type="email" class="form-control" id="user-email" aria-describedby="emailHelp" placeholder="Enter email">
+                      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                   </div>
+                   <div class="form-group">
+                      <label for="formControlRange">Budget</label><br>
+                      <button type="button" class="btn btn-success SWradio" id = "dollar-1">$</button>
+                      <button type="button" class="btn btn-success SWradio" id = "dollar-2">$$</button>
+                      <button type="button" class="btn btn-success SWradio" id = "dollar-3">$$$</button>
+                      <button type="button" class="btn btn-success SWradio" id = "dollar-4">$$$$</button>
+                   </div>
+                   <div class="form-group">
+                      <label for="formControlRange">Location</label>
+                      <input type="" class="form-control" id="user-location" placeholder="Enter Location">
+                   </div>
+                   <!-- <div class="form-group form-check">
+                      <input type="checkbox" class="form-check-input" id="pet-friendly-btn">
+                      <label class="form-check-label" for="exampleCheck1">Pet-Friendly</label>
+                      </div> -->
+                   <button type="submit" class="btn btn-primary" id ="submit-btn" >Find My Sunny Weekend!</button>
+                </form>
+             </div>
+        </div>
+         
          <!-- These cards will be hidden until needed -->
          <!-- This card holds all the city and attraction information -->
          <div class = "row" id = "trip-information">
@@ -73,7 +76,7 @@
             </div>
          </div>
 
-      <div class = "row" id = "itinerary-container-friday">
+      <div class = "row schedule-box" id = "itinerary-container-friday">
          <!-- Schedule stuff goes here! -->
          <ul class="list-group">
             <li class="list-group-item date-headlines">
@@ -92,7 +95,7 @@
             </li>
          </ul>
       </div>
-      <div class = "row" id = "itinerary-container-saturday">
+      <div class = "row schedule-box" id = "itinerary-container-saturday">
          <!-- Schedule stuff goes here! -->
          <ul class="list-group">
             <li class="list-group-item date-headlines">
@@ -131,7 +134,7 @@
             </li>
          </ul>
       </div>
-      <div class = "row" id = "itinerary-container-sunday">
+      <div class = "row schedule-box" id = "itinerary-container-sunday">
          <!-- Schedule stuff goes here! -->
          <ul class="list-group">
             <li class="list-group-item date-headlines">
