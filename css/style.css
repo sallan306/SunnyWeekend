@@ -11,21 +11,43 @@ body {
 }
 
 .jumbotron {
-    background: rgba(204, 204, 204, 0.7);
+    background: rgba(255, 255, 255, 0.804);
     text-align: center;
+    width: 100%;
+    margin: 0px 10px;
 }
-
-
-
 
 .list-group{
     width:100%;
     padding: 20px;
+    background: rgba(255, 255, 255, 0.804);
+}
+
+.list-group-item {
+    background: white;
+    margin: 10px;
+}
+
+.row {
+    margin: 0px;
+}
+
+.date-headlines {
+    display: flex;
+    justify-content: space-between;
+}
+
+.schedule-box {
+    margin: 0px 10px;
 }
 
 .btn.btn-primary{
     float:right;
+    background-color:#00fdc8;
+    color: black;
+    border-color: #00fdc8;
 }
 .card {
-    background: rgba(204, 204, 204, 0.7);
+    background: rgba(255, 255, 255, 0.804);
+    margin: 10px;
 }
