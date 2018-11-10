@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p>see console to see dates</p>
+
+
+
+<script type="text/javascript" src="https://rawgit.com/moment/moment/2.2.1/min/moment.min.js"></script>
+<script>                       
+
+var today = +moment().format("d")
+var daysUntilFriday = 0;
+if(today === 5){
+  daysUntilFriday = 0;
+} else if(today === 6){
+  daysUntilFriday = 6 
+} else {
+  daysUntilFriday = 5 - today;
+}
+var daysUntilFollowingSunday = daysUntilFriday + 2;
+
+var startDate = moment().add(daysUntilFriday, "d");
+var endDate = moment().add(daysUntilFollowingSunday, "d");
+
+console.log(startDate.format("YYYYMMDD"))
+console.log(endDate.format("YYYYMMDD"))
+</script>
+
+</body>
+</html>
