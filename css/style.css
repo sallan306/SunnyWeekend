@@ -62,13 +62,19 @@ body {
 }
 
 /* This is the reset button everywhere! */
-.btn.btn-primary{
+.btn.btn-primary {
     float:right;
     background-color:#00fdc8;
     color: black;
     border-color: #00fdc8;
 }
 
+.btn.btn-primary:hover {
+    background-color: gold;
+    border-color: gold;
+}
+
+/* Mobile Responsiveness */
 @media only screen and (max-width: 600px) {
     .trip-information {
       /* On small screens, we are no longer using row direction but column */
