@@ -5,11 +5,18 @@ body {
     justify-content: space-between;
 }
 
+/* All of our content is in here */
 .SW-container {
     max-width: 80%;
     margin: auto;
 }
 
+/* container class; bootstrap;  */
+.row {
+    margin: 0px;
+}
+
+/* Holds the initial user input; bootstrap */
 .jumbotron {
     background: rgba(255, 255, 255, 0.804);
     text-align: center;
@@ -17,37 +24,73 @@ body {
     margin: 0px 10px;
 }
 
+/* Container; Holds the cards with city, attaction, and weather */
+.trip-information{
+    display: flex;
+    justify-content: space-between;
+}
+
+/* class for all the cards; bootstrap */
+.card {
+    background: rgba(255, 255, 255, 0.804);
+    margin: 10px;
+}
+
+/* Itinerary container; bootstrap */
 .list-group{
     width:100%;
     padding: 20px;
     background: rgba(255, 255, 255, 0.804);
 }
 
-.list-group-item {
-    background: white;
-    margin: 10px;
-}
-
-.row {
-    margin: 0px;
-}
-
-.date-headlines {
-    display: flex;
-    justify-content: space-between;
-}
-
+/* container; holds day information and events/restaurants for that day */
 .schedule-box {
     margin: 0px 10px;
 }
 
+/* in each list group; holds date information; holds event information; bootstrap */
+.list-group-item {
+    background: white;
+    /* margin: 10px; */
+}
+
+/* container; holds the day of the week and the calendar date */
+.date-headlines {
+    display: flex;
+    justify-content: space-between;
+    flex-flow: row wrap;
+}
+
+/* This is the reset button everywhere! */
 .btn.btn-primary{
     float:right;
     background-color:#00fdc8;
     color: black;
     border-color: #00fdc8;
 }
-.card {
-    background: rgba(255, 255, 255, 0.804);
-    margin: 10px;
+
+@media only screen and (max-width: 600px) {
+    .trip-information {
+      /* On small screens, we are no longer using row direction but column */
+      flex-direction: column;
+      justify-content: center;
+      width: 100%;
+    }
+    .card {
+        justify-self: stretch;
+        margin: auto;
+        margin: 10px;
+        min-width: 100%;
+    }
+
+    .SW-container {
+        min-width: 100%;
+        margin: auto;
+        justify-content: center;
+    }
+
+    .list-group-item {
+        margin: 0;
+    }
+
 }
