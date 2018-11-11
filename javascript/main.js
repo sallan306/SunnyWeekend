@@ -50,40 +50,15 @@
   "West Valley City", "Westminster", "Wichita", "Wilmington", "Winston", "Winter Haven", "Worcester", "Yakima", "Yonkers", 
   "York", "Youngstown"];
 
-var defaultCityObj = {
-    "cod":"200",
-    "message":0.0032,
-    "city":{
-        "id":1851632,"name":"Shuzenji",
-    "coord":{"lon":138.933334,"lat":34.966671},
-    "country":"JP"},
-    "cnt":10,
-    "list":[
-        {
-            "dt":1406080800,
-            "temp":{
-                "day":297.77,
-                "min":293.52,
-                "max":297.77,
-                "night":293.52,
-                "eve":297.77,
-                "morn":297.77
-            },
-            "pressure":925.04,
-            "humidity":76,
-            "weather":[{"id":803,"main":"Clouds","description":"broken clouds","icon":"04d"}],
-        }
-    ]
-}
 
 
-var APIKey = "7ad754d749d824ab409299daca9bebea";
+var weatherAPI = "7ad754d749d824ab409299daca9bebea";
 var randomCity = Math.floor(Math.random(cityArray.length)*100);
 var cityURL = cityArray[randomCity]+",3166-2"
 var queryURL = "https://api.openweathermap.org/data/2.5/weather?" +
   "q="+ cityURL +
   "&units=imperial" + 
-  "&appid=" + APIKey;
+  "&appid=" + weatherAPI;
 var isClear = false;
 //var cityInterval = setInterval(rerollCity, 500);
 var userAddress = '';
@@ -91,6 +66,27 @@ var userEmail = '';
 var userBudget = 0;
 var sunnyCity = '';
 var petFriendly = false;
+var todaysDayOfWeek = moment().isoWeekday()
+var nextFriday = "";
+var service = '';
+
+function findNextFriday() {
+    var nextDayOfWeek = todaysDayOfWeek;
+        for (var i=1;i<8;i++) {
+            
+            if (nextDayOfWeek === 5) {
+                nextFriday = moment().add(i,"days").format("MM/DD/YYYY");
+                //console.log("Next Friday's date is: "+nextFriday)
+            }
+            else {
+                //console.log("not friday, today is: "+nextDayOfWeek)
+                nextDayOfWeek = moment().add(i,"days").isoWeekday()
+            }
+        }
+}
+findNextFriday();
+
+
 
 $.ajax({
   url: queryURL,
@@ -99,12 +95,12 @@ $.ajax({
   
   .then(function(response) {
 
-    console.log(response)
+    //console.log(response)
     if (response.weather[0].description === "clear sky") {
         
         isClear = true;
         sunnyCity = randomCity;
-        clearInterval(cityInterval)
+        //clearInterval(cityInterval)
         
     }
     else {
@@ -112,9 +108,7 @@ $.ajax({
     }
 
 }).catch(function(err) {
-    // if(err.status === 420) {
-    //  use the generic Austin obj you made above as response.weather[0]
-    // }
+    console.log("weather API error catch")
 });
 
 
@@ -147,7 +141,7 @@ function rerollCity() {
         queryURL = "https://api.openweathermap.org/data/2.5/weather?" +
         "q="+ cityURL +
         "&units=imperial" + 
-        "&appid=" + APIKey;
+        "&appid=" + weatherAPI;
 
         $.ajax({
             url: queryURL,
@@ -156,47 +150,40 @@ function rerollCity() {
         .then(function(response) {
             if (response.weather[0].description === "clear sky") {
                 isClear = true;
-                clearInterval(cityInterval);
+                //clearInterval(cityInterval);
                 console.log("rerollcity function: clear sky")
                 sunnyCity = randomCity;
+                getDistance(origin, sunnyCity)
             }
             else {
                 console.log("rerollcity function: "+response.weather[0].description);
-                clearInterval(cityInterval)
+                //clearInterval(cityInterval)
             }
         })
     }
 }
+function initMap() {
 
-function cityDistance() {
-    var googleAPI = "AIzaSyDrYhqyBH2hkafHTgA89V5lqBVXzXesLfE"
-    var mapsURL = 'https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial' +
-    "&origins=Vancouver+BC|Seattle" +
-    "&destinations=San+Francisco|Victoria+BC" +
-    "&key="+ googleAPI
-
-    $.ajax({
-        url: mapsURL,
-        method: "GET"
-    })
-    .then(function(response) {
-        console.log(response)
-    })
+    service = new google.maps.DistanceMatrixService();
+    //getDistance(origin,destination);
 
 }
-// cityDistance();
 
-var origin2 = 'Greenwich, England';
-var destinationA = 'Stockholm, Sweden';
-var service = new google.maps.DistanceMatrixService();
 
-service.getDistanceMatrix(
-  {
-    origins: origin2,
-    destinations: destinationA,
-    travelMode: 'DRIVING',
-  }, callback);
+function getDistance(start,end){
+    service.getDistanceMatrix(
+        {
+            origins: [start],
+            destinations: [end],
+            travelMode: google.maps.TravelMode.DRIVING,
+            unitSystem: google.maps.UnitSystem.IMPERIAL,
+            avoidHighways: false,
+            avoidTolls: false
+          }, callback);
 
-function callback(response, status) {
-  console.log(response)
+    function callback(response, status) {
+        console.log(response.rows[0].elements[0].distance["text"]);
+    }
 }
+
+
