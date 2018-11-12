@@ -107,10 +107,14 @@ function getDates() {
         daysUntilFriday = 5 - today;
     }
     var daysUntilFollowingSunday = daysUntilFriday + 2;
+    var daysUntilFollowingSaturday = daysUntilFriday + 1;
     var startDate = moment().add(daysUntilFriday, "d");
+    var middleDate = moment().add(daysUntilFollowingSaturday, "d");
     var endDate = moment().add(daysUntilFollowingSunday, "d");
     friday = startDate.format("MMMM Do YYYY")
     $("#fri-date").text(friday);
+    saturday = middleDate.format("MMMM Do YYYY");
+    $("#sat-date").text(saturday);
     sunday = endDate.format("MMMM Do YYYY");
     $("#sun-date").text(sunday);
 };
