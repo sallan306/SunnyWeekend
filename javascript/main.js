@@ -1,4 +1,3 @@
-
   var cityArray = [ "Aberdeen", "Abilene", "Akron", "Albany", "Albuquerque", "Alexandria", "Allentown", 
   "Amarillo", "Anaheim", "Anchorage", "Ann Arbor", "Antioch", "Apple Valley", "Appleton", 
   "Arlington", "Arvada", "Asheville", "Athens", "Atlanta", "Atlantic City", "Augusta", 
@@ -140,4 +139,32 @@ function rerollCity() {
         })
     }
 }
+//following var(s) providing staring point by providing the current date and assigning a value to friday
+var today = +moment().format("d")
+var friday = 0;
+//following if/else statement determines the next avalible weekend
+if(today === 5){
+  friday = 0;
+} else if(today === 6){
+  friday = 6 
+} else {
+  friday = 5 - today;
+}
+// following var(s) help convert the determined days for Sunny Weekend into readable date
+var sunday = friday + 2;
+var saturday = friday + 1;
+var startDate = moment().add(friday, "d");
+var satDate = moment().add(saturday, "d");
+var endDate = moment().add(sunday, "d");
+//folling var(s) will be used as input of desired date for Yelp API
+var formatBeginDate = startDate.format("YYYYMMDD");
+var formatEndDate = endDate.format("YYYYMMDD")
+//following var(s) will be used on the front end to provide easy to read format of the planned sunny weekend
+var frontBeginDate = startDate.format("Do MMMM YYYY")
+var frontSatDate = satDate.format("Do MMMM YYYY")
+var frontEndDate = endDate.format("Do MMMM YYYY")
+//Following posts desired days to HTML for the user to read.
+$("#fri-date").html(frontBeginDate);
+$("#sat-date").html(frontSatDate);
+$("#sun-date").html(frontEndDate);
 
