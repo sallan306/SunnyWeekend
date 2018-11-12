@@ -168,7 +168,15 @@ $(".btn-reroll-food").on('click', function () {
     getFood();
 });
 
+function soSorry() {
+    $("#trip-information").empty();
+    var sorryMessage = $("<p>");
+    sorryMessage.text("We're sorry! Weather information is not reliable this far out. Please check in with us again on Tuesday. Thank you!")
+    sorryMessage.addClass("sorry-message");
+    $("#trip-information").append(sorryMessage);
+}
 
+soSorry();
 
 // console.log(queryURL)
 // var cityInterval = setInterval(rerollCity, 500);

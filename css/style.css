@@ -53,6 +53,12 @@ body {
     margin: auto;
 }
 
+.sorry-message {
+    background: rgba(255, 255, 255, 0.804);
+    margin: 10px;
+    text-align: center;
+}
+
 /* class for all the cards; bootstrap */
 .card {
     background: rgba(255, 255, 255, 0.804);
