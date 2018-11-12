@@ -70,14 +70,19 @@
             <!-- This holds the weather and distance information -->
             <div class="card" style="width: 18rem;" id = "logistics-card">
                <!-- In theory, here's where the weather graphic can go -->
-               <img class="card-img-top" id = "weather-info-pretty" src="images/placeholder.png" alt="Card image cap">
+               <div id = "weather-info-pretty">
+                <img class="card-img-top" id = "sun-image" src="images/yellow-sun.png" alt="sun">
+                <h1 id = "temperature">65</h1>
+                <h1 id = "temperature-F"> °F</h1>
+               </div>
+ 
                <div class="card-body">
                   <p class="card-text" id = "weather-info">Clear sunny skies all weekend! High: 72  Low: 52</p>
                   <p class="card-text" id ="travel-info">You can drive here in 6 hours or fly here and arrive by 4pm Friday</p>
                </div>
             </div>
          </div>
-         <div class ="row" id = "plan-btn-container">
+         <div class ="row card" id = "plan-btn-container">
            <button class = "btn btn-primary" id = "get-itinerary-btn">Plan My Sunny Weekend!</button>
          </div>
 

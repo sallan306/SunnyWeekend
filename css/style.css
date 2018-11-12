@@ -55,12 +55,23 @@ body {
     margin: 10px;
 }
 
+#weather-info-pretty {
+    display: flex;
+    background: white;
+}
+
+#sun-image {
+    width: 150px;
+    height: 150px;
+}
+
+/* Holds the button for "plan my schedule" */
 #plan-btn-container {
     background: rgba(255, 255, 255, 0.804);
-    margin: 10px;
     justify-content: center;
     width: 100%;
     padding: 10px;
+   
 }
 
 /* Itinerary container; bootstrap */
