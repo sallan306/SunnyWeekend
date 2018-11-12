@@ -93,6 +93,10 @@ function getMainAct() {
 // }
 }
 
+function getWeatherInfo() {
+    //print out projected high's and lows or saturday
+}
+
 function getDates() {
     //code for finding the calendar dates of nearest weekend goes here.
     //Print to #fri-date #sat-date #sun-date
@@ -139,12 +143,14 @@ function getItinerary() {
     //Can organize code differently, but still needs to be in functions.
 }
 
+
 $("#submit-btn").on('click', function () {
     do {
         getCity();
     } while (isClear === false);
     $("#city-name").text(randomCity);
     getMainAct();
+    getWeatherInfo();
 })
 
 $("#reset-city").on('click', function () {
@@ -161,6 +167,8 @@ $("#get-itinerary-btn").on('click', function () {
 $(".btn-reroll-food").on('click', function () {
     getFood();
 });
+
+
 
 // console.log(queryURL)
 // var cityInterval = setInterval(rerollCity, 500);
