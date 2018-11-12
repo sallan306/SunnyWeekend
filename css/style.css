@@ -36,6 +36,14 @@ body {
     margin: 10px;
 }
 
+#plan-btn-container {
+    background: rgba(255, 255, 255, 0.804);
+    margin: 10px;
+    justify-content: center;
+    width: 100%;
+    padding: 10px;
+}
+
 /* Itinerary container; bootstrap */
 .list-group{
     width:100%;
@@ -88,13 +96,11 @@ body {
         margin: 10px;
         min-width: 100%;
     }
-
     .SW-container {
         min-width: 100%;
         margin: auto;
         justify-content: center;
     }
-
     .list-group-item {
         margin: 0;
     }
