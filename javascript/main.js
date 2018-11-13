@@ -127,7 +127,7 @@ function getDates() {
 getDates();
 
 function getFood(id) {
-    var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?location="+ cityArray[0] + "&categories=restaurants,All" 
+    var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?location="+ cityArray[22] + "&categories=restaurants,All" 
                     //^^^ Pretend this portion of the myurl is called apiURL ^^^
         $.ajax({
         url: myurl,
@@ -164,7 +164,7 @@ $("#btn-reroll-food-4").on("click", function(event){
 
 function getBrunch(id){
 
-    var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?location="+ cityArray[0] + "&categories=brunch,All" 
+    var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?location="+ cityArray[22] + "&categories=brunch,All" 
                     //^^^ Pretend this portion of the myurl is called apiURL ^^^
         $.ajax({
         url: myurl,
@@ -187,7 +187,6 @@ function getBrunch(id){
             $("#" + id).append(rand.rating);
             console.log(rand.image_url);
 
-
         }
     });
 
@@ -197,12 +196,16 @@ $("#btn-reroll-food-2").on("click", function(event){
     getBrunch("sat-brunch-sum");
 });
 
+$("#btn-reroll-food-3").on("click", function(event){
+    getBrunch("sat-lun-sum");
+});
+
 $("#btn-reroll-food-5").on("click", function(event){
     getBrunch("sun-brunch-sum");
 });
 
-function getBreakfast(id) {
-    var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?location="+ cityArray[0] + "&categories=breakfast,All" 
+function getAttraction(id) {
+    var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?location="+ cityArray[22] + "&categories=localflavor,All" //find a new category 
     //^^^ Pretend this portion of the myurl is called apiURL ^^^
     $.ajax({
     url: myurl,
@@ -212,24 +215,47 @@ function getBreakfast(id) {
     method: 'GET',
     dataType: 'json',
     success: function(response){
-    var emptyArray = [];
-    for(var i = 0; i < response.businesses.length; i++){
-    emptyArray.push(response.businesses[i]);
-    }//push 20 results into array 
-    var rand = emptyArray[Math.floor(Math.random() * emptyArray.length)]; //get random park
+        
+            var emptyArray = [];
+            for(var i = 0; i < response.businesses.length; i++){
+            emptyArray.push(response.businesses[i]);
+            }//push 20 results into array 
+            var rand = emptyArray[Math.floor(Math.random() * emptyArray.length)]; //get random park
 
-    console.log(emptyArray);
-    console.log(rand);
-    console.log(rand.name); //get name of random park
-    $("#" + id).html(rand.name);
-    $("#" + id).append(rand.rating);
-    console.log(rand.image_url);
+            if(rand.rating > 4){
 
+                console.log(emptyArray);
+                console.log(rand);
+                console.log(rand.name); //get name of random park
+                $("#" + id).html(rand.name);
+                $("#" + id).append(rand.rating);
+                console.log(rand.image_url);
+            }
 
-}
-});
+        }
+    });
         
 }
+
+$("#btn-reroll-act-1").on("click", function(event){
+    getAttraction("fri-nightlife-sum");
+});
+
+$("#btn-reroll-act-2").on("click", function(event){
+    getAttraction("sat-mor-act-sum");
+});
+
+$("#btn-reroll-act-3").on("click", function(event){
+    getAttraction("sat-aft-act-sum");
+});
+
+$("#btn-reroll-act-4").on("click", function(event){
+    getAttraction("sat-nightlife-sum");
+});
+
+$("#btn-reroll-act-5").on("click", function(event){
+    getAttraction("sun-act-sum");
+});
 
 function getActivity() {
     //code for calling API and printing results to correct p tags goes here
@@ -266,11 +292,6 @@ $("#get-itinerary-btn").on('click', function () {
     getItinerary();
 });
 
-// $(".btn-reroll-food").on('click', function () {
-//     console.log($(this).parent().attr("data-id"));
-//     var id = $(this).parent().attr("data-id")
-//     getFood(id);
-// });
 
 function soSorry() {
     $("#trip-information").empty();
