@@ -84,8 +84,9 @@ function getMainAct() {
             mainAct = response.businesses[0];
             $("#main-attraction-name").text(mainAct.name);
             $("#main-attraction-rating").text("Rating: " + mainAct.rating);
-            var image = 
-        };
+            $("#attraction-link").attr("href", mainAct.url);
+            $("#main-attraction-image").attr("src", mainAct.image_url);
+        }
 
     });
 
