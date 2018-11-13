@@ -67,16 +67,6 @@ body {
 }
 
 
-#weather-info-pretty {
-    display: flex;
-    background: white;
-}
-
-#sun-image {
-    width: 150px;
-    height: 150px;
-}
-
 /* Holds the button for "plan my schedule" */
 #plan-btn-container {
     background: rgba(255, 255, 255, 0.804);
