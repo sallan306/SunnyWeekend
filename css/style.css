@@ -2,14 +2,24 @@ body {
     background-image: url(../images/simon-rae-732820-unsplash.jpg);
     background-size: cover;
     display: flex;
-    justify-content: space-between;
+    position: relative;
+    height: 100%;
+    padding-bottom: 100px;
 }
 
+/* All of our content is in here */
 .SW-container {
     max-width: 80%;
+    height: 100%;
     margin: auto;
 }
 
+/* container class; bootstrap;  */
+.row {
+    margin: 0px;
+}
+
+/* Holds the initial user input; bootstrap */
 .jumbotron {
     background: rgba(255, 255, 255, 0.804);
     text-align: center;
@@ -17,37 +27,133 @@ body {
     margin: 0px 10px;
 }
 
+/* LOADING SCREEN CSS ANIMATION HERE! */
+/* Commented out for now because it's kind of annoying to look at after a while. */
+/* .loading-sun {
+    margin: auto;
+    margin-top: 15px;
+    border-top: 16px solid gold;
+    border-right: 16px solid yellow;
+    border-bottom: 16px solid gold;
+    border-left: 16px solid yellow;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+}
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+} */
+
+/* Container; Holds the cards with city, attaction, and weather */
+.trip-information{
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+}
+
+.sorry-message {
+    background: rgba(255, 255, 255, 0.804);
+    margin: 10px;
+    text-align: center;
+    padding: 40px;
+}
+
+/* class for all the cards; bootstrap */
+.card {
+    background: rgba(255, 255, 255, 0.804);
+    margin: 10px;
+}
+
+
+#weather-info-pretty {
+    display: flex;
+    background: white;
+}
+
+#sun-image {
+    width: 150px;
+    height: 150px;
+}
+
+/* Holds the button for "plan my schedule" */
+#plan-btn-container {
+    background: rgba(255, 255, 255, 0.804);
+    justify-content: center;
+    width: 100%;
+    padding: 10px;
+   
+}
+
+/* Itinerary container; bootstrap */
 .list-group{
     width:100%;
     padding: 20px;
     background: rgba(255, 255, 255, 0.804);
 }
 
-.list-group-item {
-    background: white;
-    margin: 10px;
-}
-
-.row {
-    margin: 0px;
-}
-
-.date-headlines {
-    display: flex;
-    justify-content: space-between;
-}
-
+/* container; holds day information and events/restaurants for that day */
 .schedule-box {
     margin: 0px 10px;
 }
 
-.btn.btn-primary{
+/* in each list group; holds date information; holds event information; bootstrap */
+.list-group-item {
+    background: white;
+    /* margin: 10px; */
+}
+
+/* container; holds the day of the week and the calendar date */
+.date-headlines {
+    display: flex;
+    justify-content: space-between;
+    flex-flow: row wrap;
+}
+
+/* This is the reset button everywhere! */
+.btn.btn-primary {
     float:right;
     background-color:#00fdc8;
     color: black;
     border-color: #00fdc8;
 }
-.card {
+
+.btn.btn-primary:hover {
+    background-color: gold;
+    border-color: gold;
+}
+
+#footer {
+    width: 100%;
+    height: 40px;
+    position: absolute;
+    bottom: 0;
     background: rgba(255, 255, 255, 0.804);
-    margin: 10px;
+    justify-content: center;
+}
+
+/* Mobile Responsiveness */
+@media only screen and (max-width: 600px) {
+    .trip-information {
+      /* On small screens, we are no longer using row direction but column */
+      flex-direction: column;
+      justify-content: center;
+      width: 100%;
+    }
+    .card {
+        justify-self: stretch;
+        margin: auto;
+        margin: 10px;
+        min-width: 100%;
+    }
+    .SW-container {
+        min-width: 100%;
+        margin: auto;
+        justify-content: center;
+    }
+    .list-group-item {
+        margin: 0;
+    }
+
 }
