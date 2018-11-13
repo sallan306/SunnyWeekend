@@ -163,7 +163,7 @@ $("#btn-reroll-food-4").on("click", function(event){
 
 function getBrunch(id){
 
-    var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?location="+ cityArray[22] + "&categories=brunch,All" 
+    var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?location="+ cityArray[22] + "&categories=breakfast_brunch,All" 
                     //^^^ Pretend this portion of the myurl is called apiURL ^^^
         $.ajax({
         url: myurl,
