@@ -145,8 +145,7 @@ function getFood(id) {
             console.log(emptyArray);
             console.log(rand);
             console.log(rand.name); //get name of random park
-            $("#" + id).html(rand.name);
-            $("#" + id).append(rand.rating);
+            $("#" + id).html(rand.name + "<br> " + rand.location.address1 + ", " + rand.location.city + ", " + rand.location.state + ", " + rand.location.zip_code + " <br> Rating: " + rand.rating + "/5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Price: " +rand.price+ "<br> " + rand.display_phone );
             console.log(rand.image_url);
 
 
@@ -183,8 +182,8 @@ function getBrunch(id){
             console.log(emptyArray);
             console.log(rand);
             console.log(rand.name); //get name of random park
-            $("#" + id).html(rand.name);
-            $("#" + id).append(rand.rating);
+            $("#" + id).html(rand.name + "<br> " + rand.location.address1 + ", " + rand.location.city + ", " + rand.location.state + ", " + rand.location.zip_code + " <br> " +rand.display_phone+" <br> Rating: " + rand.rating + "/5 <br> ");
+            //$("#" + id).append(rand.rating);
             console.log(rand.image_url);
 
         }
@@ -227,8 +226,7 @@ function getAttraction(id) {
                 console.log(emptyArray);
                 console.log(rand);
                 console.log(rand.name); //get name of random park
-                $("#" + id).html(rand.name);
-                $("#" + id).append(rand.rating);
+                $("#" + id).html(rand.name + "<br> " + rand.location.address1 + ", " + rand.location.city + ", " + rand.location.state + ", " + rand.location.zip_code + " <br> " +rand.display_phone+" <br> Rating: " + rand.rating + "/5 <br> ");
                 console.log(rand.image_url);
             }
 
