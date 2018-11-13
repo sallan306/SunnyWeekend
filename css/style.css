@@ -82,7 +82,12 @@ body {
     background: rgba(255, 255, 255, 0.804);
     justify-content: center;
     padding: 10px;
-   
+    margin: auto;
+    margin: 20px;
+}
+
+#get-itinerary-btn {
+    width: 100%;
 }
 
 /* Itinerary container; bootstrap */
