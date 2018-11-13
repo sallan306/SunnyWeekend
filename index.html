@@ -1,53 +1,18 @@
 <!doctype html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Sunny Weekend</title>
-    <link rel="stylesheet" type="text/css" href=css/reset.css>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href=css/style.css>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>
-    <script src=javascript/main.js></script> 
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDrYhqyBH2hkafHTgA89V5lqBVXzXesLfE&callback=initMap"    type="text/javascript"></script>
-</head>
-<body>
-    <div class = "SW-container">
-            <div class="jumbotron">
-                    <h1 class="display-4">Fair Weather Traveler</h1>
-                    <!-- We can put a bootstrap form in here -->
-                    <p class="lead">Let us plan your spontaneous weekend getaway. </p>
-                    <hr class="my-4">
-                    <form>
-                        <div class="form-group">
-                          <label for="exampleInputEmail1">Email address</label>
-                          <input type="email" class="form-control" id="user-email" aria-describedby="emailHelp" placeholder="Enter email">
-                          <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                        </div>
-                        <div class="form-group">
-                            <label for="formControlRange">Budget</label>
-                          <input type="" class="form-control" id="user-budget" placeholder="Enter Budget">
-                            <!-- <input type="range"  class="form-control-range" id="budget-range"> -->
-                          </div>
-                        <div class="form-group form-check">
-                          <input type="checkbox" class="form-check-input" id="pet-friendly-btn">
-                          <label class="form-check-label" for="exampleCheck1">Pet-Friendly</label>
-                        </div>
-                        <button type="submit" class="btn btn-primary" id ="submit-btn" >Find My Sunny Weekend!</button>
-                      </form>
    <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta http-equiv="X-UA-Compatible" content="ie=edge">
       <title>Sunny Weekend</title>
-      <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
       <link rel="stylesheet" type="text/css" href=css/reset.css>
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
       <link rel="stylesheet" type="text/css" href=css/style.css>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>
+      <script src=javascript/main.js></script> 
+      <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDrYhqyBH2hkafHTgA89V5lqBVXzXesLfE&callback=initMap"    type="text/javascript"></script>
    </head>
    <body>
       <div class = "SW-container">
@@ -95,6 +60,7 @@
                      <p class="card-text" id = "city-summary"> This historical city is bustling with excitement. It's know for its shows and culture.</p>
                      <a href="#" class="card-link" id = "city-search-link">NYC Google Search</a>
                      <button class="btn btn-primary" id ="reset-city" >Try Again</button>
+>>>>>>> 6651d2bc79c6bad42b1df2fa279a08136f603622
                   </div>
                </div>
             </div>
