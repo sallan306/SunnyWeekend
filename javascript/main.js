@@ -1,52 +1,3 @@
-<<<<<<< HEAD
-var cityList = ["seattle", "chicago", "boston"]
-
-//Yelp Client ID: XIQEXfUSa0ncbMMRPO4L0w
-//Yelp API Key: 7gSCDmwYjt-iVamuC7Lo2YQ07Zit43lHiOeSj9mklTtTBjGeKMEDBbOP_jTg-pC52g1mXCEOluBGkXbjOYKroPEoxwnm5rnJT2BAR_R5uHHhmUtiDc4RdYab027kW3Yx
-var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?location="+ cityList[0] + "&categories=parks,All" 
-            //^^^ Pretend this portion of the myurl is called apiURL ^^^
-$.ajax({
-   url: myurl,
-   headers: {
-    'Authorization':'Bearer 7gSCDmwYjt-iVamuC7Lo2YQ07Zit43lHiOeSj9mklTtTBjGeKMEDBbOP_jTg-pC52g1mXCEOluBGkXbjOYKroPEoxwnm5rnJT2BAR_R5uHHhmUtiDc4RdYab027kW3Yx',
-},
-   method: 'GET',
-   dataType: 'json',
-   success: function(response){
-       console.log(response)
-       console.log(response.businesses[0].name);
-       console.log(response.businesses[0].image_url);
-       console.log(response.businesses[0].display_phone);
-       console.log(response.businesses[0].rating);
-       console.log(response.businesses[0].location.address1);
-       console.log(response.businesses[0].location.city);
-       console.log(response.businesses[0].location.state);
-       console.log(response.businesses[0].location.zip_code);
-       console.log(response.businesses[0].url);
-    }
-    
-     });  
-//Meals 
-    //Breakfast:
-        // apiURL + cityList[i] + "&categories=breakfast_brunch,All" 
-    //Lunch, Dinner:
-        // apiURL + cityList[i] + "&categories=restaurants,All"  
-//Friday Night Activity:
-    //The city's local bookstores, record stores, videogame, movie, and video stores, et.
-        // apiURL + cityList[i] + "&categories=media,All" 
-//Saturday Morning Attraction:
-     //favorite local attractions: 
-        //apiURL + cityList[i] + "&categories=localflavor,All" 
-//Saturday Main Attraction: 
-     //support PARKS N REC YALL
-        //apiURL + cityList[i] + "&categories=parks,All" 
-//Saturday Nightlife: 
-     // more favorite local attractions
-        //apiURL + cityList[i] + "&categories=localflavor,All" 
-//Sunday Morning Attraction: 
-     //continued local flavor attractions
-        //apiURL + cityList[i] + "&categories=localflavor,All" 
-=======
 //Need to go through array of cities. Killeen is in this list :P
 var cityArray = ["Aberdeen", "Abilene", "Akron", "Albany", "Albuquerque", "Alexandria", "Allentown",
     "Amarillo", "Anaheim", "Anchorage", "Ann Arbor", "Antioch", "Apple Valley", "Appleton",
@@ -137,7 +88,6 @@ function getMainAct() {
         };
 
     });
->>>>>>> middleManBranch
 
 }
 getMainAct();
