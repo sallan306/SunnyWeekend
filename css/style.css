@@ -81,7 +81,6 @@ body {
 #plan-btn-container {
     background: rgba(255, 255, 255, 0.804);
     justify-content: center;
-    width: 100%;
     padding: 10px;
    
 }
@@ -134,10 +133,10 @@ body {
 }
 
 /* Mobile Responsiveness */
-@media only screen and (max-width: 600px) {
+/* @media only screen and (max-width: 600px) {
     .trip-information {
       /* On small screens, we are no longer using row direction but column */
-      flex-direction: column;
+      /* flex-direction: column;
       justify-content: center;
       width: 100%;
     }
@@ -156,4 +155,4 @@ body {
         margin: 0;
     }
 
-}
+} */ 

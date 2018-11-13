@@ -13,7 +13,7 @@
    <body>
       <div class = "SW-container">
         <div class = "row">
-            <div class="jumbotron">
+            <div class="col-md-12 jumbotron">
                 <h1 class="display-4">Sunny Weekend</h1>
                 <p class="lead">Let us plan your spontaneous weekend getaway. </p>
                 <hr class="my-4">
@@ -48,130 +48,140 @@
          <div class ="loading-sun"></div>
          <div class = "row" id = "trip-information">
             <!-- This holds all the info for the individual cities -->
-            <div class="card" id = "city-card" style="width: 18rem;">
-               <div class="card-body">
-                  <h5 class="card-title" id = "city-name">New York City</h5>
-                  <h6 class="card-subtitle mb-2 text-muted" id = "city-state">New York</h6>
-                  <p class="card-text" id = "city-summary"> This historical city is bustling with excitement. It's know for its shows and culture.</p>
-                  <a href="#" class="card-link" id = "city-search-link">NYC Google Search</a>
-                  <button class="btn btn-primary" id ="reset-city" >Try Again</button>
+            <div class ="col-md-4">
+               <div class="card" id = "city-card">
+                  <div class="card-body">
+                     <h5 class="card-title" id = "city-name">New York City</h5>
+                     <h6 class="card-subtitle mb-2 text-muted" id = "city-state">New York</h6>
+                     <p class="card-text" id = "city-summary"> This historical city is bustling with excitement. It's know for its shows and culture.</p>
+                     <a href="#" class="card-link" id = "city-search-link">NYC Google Search</a>
+                     <button class="btn btn-primary" id ="reset-city" >Try Again</button>
+                  </div>
                </div>
             </div>
+            
             <!-- This holds info for primary attraction -->
-            <div class="card" id = "attraction card" style="width: 18rem;">
-              <img class="card-img-top" id = "main-attraction-image" src="https://placehold.it/250x200" alt="Card image cap">
-              <div class="card-body">
-                <h5 class="card-title" id ="main-attraction-name">Card title</h5>
-                <p class="card-text" id ="main-attraction-rating">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                <a href="#" class="card-link" id="attraction-link" target = "blank">More Info!</a>
-                <button class="btn btn-primary" id ="reset-attraction-main" >Try Again</button>
-              </div>
+            <div class = "col-md-4">
+               <div class="card" id = "attraction card">
+                  <img class="card-img-top" id = "main-attraction-image" src="https://placehold.it/250x200" alt="Card image cap">
+                  <div class="card-body">
+                    <h5 class="card-title" id ="main-attraction-name">Card title</h5>
+                    <p class="card-text" id ="main-attraction-rating">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <a href="#" class="card-link" id="attraction-link" target = "blank">More Info!</a>
+                    <button class="btn btn-primary" id ="reset-attraction-main" >Try Again</button>
+                  </div>
+                </div>
             </div>
-            <!-- <div class="card" id = "attraction-card" style="width: 18rem;">
-              <img class="card-img-top" id = "main-attraction-image">
-               <div class="card-body">
-                  <h5 class="card-title" id="main-attraction-name" >Central Park</h5>
-                  <h6 class="card-subtitle mb-2 text-muted" id="main-attraction-rating">Park</h6>
-                  <p class="card-text" id="main-attraction-summary">This park is a must see in autumn!</p>
-                  <a href="#" class="card-link" id="attraction-link">Central Park Link!</a>
-                  <button class="btn btn-primary" id ="reset-attraction-main" >Try Again</button>
-               </div>
-            </div> -->
+            
+
             <!-- This holds the weather and distance information -->
-            <div class="card" style="width: 18rem;" id = "logistics-card">
-               <!-- In theory, here's where the weather graphic can go -->
-               <div id = "weather-info-pretty">
-                <img class="card-img-top" id = "sun-image" src="images/yellow-sun.png" alt="sun">
-                <h1 id = "temperature">65</h1>
-                <h1 id = "temperature-F"> °F</h1>
-               </div>
- 
-               <div class="card-body">
-                  <p class="card-text" id = "weather-info">Clear sunny skies all weekend! High: 72  Low: 52</p>
-                  <p class="card-text" id ="travel-info">You can drive here in 6 hours or fly here and arrive by 4pm Friday</p>
+            <div class ="col-md-4">
+
+            
+               <div class="card" id = "logistics-card">
+                  <!-- In theory, here's where the weather graphic can go -->
+                  <div id = "weather-info-pretty">
+                  <img class="card-img-top" id = "sun-image" src="images/yellow-sun.png" alt="sun">
+                  <h1 id = "temperature">65</h1>
+                  <h1 id = "temperature-F"> °F</h1>
+                  </div>
+   
+                  <div class="card-body">
+                     <p class="card-text" id = "weather-info">Clear sunny skies all weekend! High: 72  Low: 52</p>
+                     <p class="card-text" id ="travel-info">You can drive here in 6 hours or fly here and arrive by 4pm Friday</p>
+                  </div>
                </div>
             </div>
          </div>
          <div class ="row card" id = "plan-btn-container">
+            <div class = "col-md-12">            
            <button class = "btn btn-primary" id = "get-itinerary-btn">Plan My Sunny Weekend!</button>
+         </div>
          </div>
 
       <div class = "row schedule-box" id = "itinerary-container-friday">
          <!-- Schedule stuff goes here! -->
-         <ul class="list-group">
-            <li class="list-group-item date-headlines">
-               <h1>Friday</h1>
-               <h1 class = "date" id="fri-date"></h1>
-            </li>
-            <li class="list-group-item">
-               <a id = "fri-dinner" href="#">Restaurant</a>
-               <input class="btn btn-primary btn-reroll-food" id = "btn-reroll-food-1" type="reset" value="Try Again?">
-               <p id = "fri-dinner-sum">Here's a quick sentence about the resturant stolen from Yelp!</p>
-            </li>
-            <li class="list-group-item">
-               <a id = "fri-nightlife" href="#">Night Event</a>
-               <input class="btn btn-primary btn-reroll-act" id = "btn-reroll-act-1"type="reset" value="Try Again?">
-               <p id = "fri-nightlife-sum">Here's a quick sentence about the evening activity stolen from Yelp!</p>
-            </li>
-         </ul>
+         <div class = "col-md-12">
+               <ul class="list-group">
+                     <li class="list-group-item date-headlines">
+                        <h1>Friday</h1>
+                        <h1 class = "date" id="fri-date"></h1>
+                     </li>
+                     <li class="list-group-item">
+                        <a id = "fri-dinner" href="#">Restaurant</a>
+                        <input class="btn btn-primary btn-reroll-food" id = "btn-reroll-food-1" type="reset" value="Try Again?">
+                        <p id = "fri-dinner-sum">Here's a quick sentence about the resturant stolen from Yelp!</p>
+                     </li>
+                     <li class="list-group-item">
+                        <a id = "fri-nightlife" href="#">Night Event</a>
+                        <input class="btn btn-primary btn-reroll-act" id = "btn-reroll-act-1"type="reset" value="Try Again?">
+                        <p id = "fri-nightlife-sum">Here's a quick sentence about the evening activity stolen from Yelp!</p>
+                     </li>
+                  </ul>
+         </div>
       </div>
+
       <div class = "row schedule-box" id = "itinerary-container-saturday">
+         <div class = "col-md-12">
+               <ul class="list-group">
+                     <li class="list-group-item date-headlines">
+                        <h1>Saturday</h1>
+                        <h1 class = "date" id = "sat-date"></h1>
+                     </li>
+                     <li class="list-group-item">
+                        <a id = "sat-brunch" href="#">Brunch</a>
+                        <input class="btn btn-primary btn-reroll-food" id = "btn-reroll-food-2" type="reset" value="Try Again?">
+                        <p id = "sat-brunch-sum">Here's a quick sentence about this brunch place!</p>
+                     </li>
+                     <li class="list-group-item">
+                        <a id ="sat-morning-act" href="#">Morning Attraction</a>
+                        <input class="btn btn-primary btn-reroll-act" id = "btn-reroll-act-2" type="reset" value="Try Again?">
+                        <p id = "sat-mor-act-sum">Here's a quick sentence about this cool tourist place!</p>
+                     </li>
+                     <li class="list-group-item">
+                        <a id = "sat-lun" href="#">Lunch Restaurant</a>
+                        <input class="btn btn-primary btn-reroll-food" id = "btn-reroll-food-3" type="reset" value="Try Again?">
+                        <p id ="sat-lun-sum">Here's a quick sentence about this lunch place!</p>
+                     </li>
+                     <li class="list-group-item">
+                        <a id = "sat-aft-act" href="#">Main Attraction</a>
+                        <input class="btn btn-primary btn-reroll" id = "btn-reroll-act-3" type="reset" value="Try Again?">
+                        <p id = "sat-aft-act-sum">Here's a quick sentence about this tourist place!</p>
+                     </li>
+                     <li class="list-group-item">
+                        <a id = "sat-dinner" href="#">Dinner Restaurant</a>
+                        <input class="btn btn-primary btn-reroll-food" id = "btn-reroll-food-4" type="reset" value="Try Again?">
+                        <p id ="sat-dinner-sum">Here's a quick sentence about this dinner place!</p>
+                     </li>
+                     <li class="list-group-item">
+                        <a id = "sat-nightlife" href="#">Saturday Nightlife</a>
+                        <input class="btn btn-primary btn-reroll-act" id = "btn-reroll-act-4" type="reset" value="Try Again?">
+                        <p id = "sat-nightlife-sum">Here's a quick sentence about this evening's activities!</p>
+                     </li>
+                  </ul>
+         </div>
          <!-- Schedule stuff goes here! -->
-         <ul class="list-group">
-            <li class="list-group-item date-headlines">
-               <h1>Saturday</h1>
-               <h1 class = "date" id = "sat-date"></h1>
-            </li>
-            <li class="list-group-item">
-               <a id = "sat-brunch" href="#">Brunch</a>
-               <input class="btn btn-primary btn-reroll-food" id = "btn-reroll-food-2" type="reset" value="Try Again?">
-               <p id = "sat-brunch-sum">Here's a quick sentence about this brunch place!</p>
-            </li>
-            <li class="list-group-item">
-               <a id ="sat-morning-act" href="#">Morning Attraction</a>
-               <input class="btn btn-primary btn-reroll-act" id = "btn-reroll-act-2" type="reset" value="Try Again?">
-               <p id = "sat-mor-act-sum">Here's a quick sentence about this cool tourist place!</p>
-            </li>
-            <li class="list-group-item">
-               <a id = "sat-lun" href="#">Lunch Restaurant</a>
-               <input class="btn btn-primary btn-reroll-food" id = "btn-reroll-food-3" type="reset" value="Try Again?">
-               <p id ="sat-lun-sum">Here's a quick sentence about this lunch place!</p>
-            </li>
-            <li class="list-group-item">
-               <a id = "sat-aft-act" href="#">Main Attraction</a>
-               <input class="btn btn-primary btn-reroll" id = "btn-reroll-act-3" type="reset" value="Try Again?">
-               <p id = "sat-aft-act-sum">Here's a quick sentence about this tourist place!</p>
-            </li>
-            <li class="list-group-item">
-               <a id = "sat-dinner" href="#">Dinner Restaurant</a>
-               <input class="btn btn-primary btn-reroll-food" id = "btn-reroll-food-4" type="reset" value="Try Again?">
-               <p id ="sat-dinner-sum">Here's a quick sentence about this dinner place!</p>
-            </li>
-            <li class="list-group-item">
-               <a id = "sat-nightlife" href="#">Saturday Nightlife</a>
-               <input class="btn btn-primary btn-reroll-act" id = "btn-reroll-act-4" type="reset" value="Try Again?">
-               <p id = "sat-nightlife-sum">Here's a quick sentence about this evening's activities!</p>
-            </li>
-         </ul>
+        
       </div>
       <div class = "row schedule-box" id = "itinerary-container-sunday">
-         <!-- Schedule stuff goes here! -->
-         <ul class="list-group">
-            <li class="list-group-item date-headlines">
-               <h1>Sunday</h1>
-               <h1 class = "date" id = "sun-date"></h1>
-            </li>
-            <li class="list-group-item">
-               <a id = "sun-brunch" href="#">Brunch Restaurant</a>
-               <input class="btn btn-primary btn-reroll-food" id = "btn-reroll-food-5" type="reset" value="Try Again?">
-               <p id = "sun-brunch-sum">Here's a quick sentence about this brunch place!</p>
-            </li>
-            <li class="list-group-item">
-               <a id = "sun-activity" href="#">Morning activity</a>
-               <input class="btn btn-primary btn-reroll-act" id = "btn-reroll-act-5" type="reset" value="Try Again?">
-               <p id = "sun-brunch-sum">Here's a quick sentence about this tourist place!</p>
-            </li>
-         </ul>
+         <div class = "col-md-12">
+            <ul class="list-group">
+               <li class="list-group-item date-headlines">
+                  <h1>Sunday</h1>
+                  <h1 class = "date" id = "sun-date"></h1>
+               </li>
+               <li class="list-group-item">
+                  <a id = "sun-brunch" href="#">Brunch Restaurant</a>
+                  <input class="btn btn-primary btn-reroll-food" id = "btn-reroll-food-5" type="reset" value="Try Again?">
+                  <p id = "sun-brunch-sum">Here's a quick sentence about this brunch place!</p>
+               </li>
+               <li class="list-group-item">
+                  <a id = "sun-activity" href="#">Morning activity</a>
+                  <input class="btn btn-primary btn-reroll-act" id = "btn-reroll-act-5" type="reset" value="Try Again?">
+                  <p id = "sun-brunch-sum">Here's a quick sentence about this tourist place!</p>
+               </li>
+            </ul>
+         </div>
       </div>
     </div>
     <br><br><br><br><br>
