@@ -184,6 +184,13 @@ function soSorry() {
     $("#trip-information").append(sorryMessage);
 }
 
+function errorMessage() {
+    $("#trip-information").empty();
+    var sorryMessage = $("<p>");
+    sorryMessage.text("We're sorry! There's a bug in our system. We will fix it as soon as possible. Thank you for understanding!")
+    sorryMessage.addClass("sorry-message");
+    $("#trip-information").append(sorryMessage);
+}
 
 // console.log(queryURL)
 // var cityInterval = setInterval(rerollCity, 500);
