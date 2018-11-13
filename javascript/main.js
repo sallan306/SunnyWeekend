@@ -3,16 +3,16 @@
   "Amarillo", "Anaheim", "Anchorage", "Ann Arbor", "Antioch", "Apple Valley", "Appleton", 
   "Arlington", "Arvada", "Asheville", "Athens", "Atlanta", "Atlantic City", "Augusta", 
   "Aurora", "Austin", "Bakersfield", "Baltimore", "Barnstable", "Baton Rouge", "Beaumont", 
-  "Bel Air", "Bellevue", "Berkeley", "Bethlehem", "Billings", "Birmingham", "Bloomington", 
+  "Bel Air", "Bellevue", "Berkeley", "Bethlehem", "Billings", "Birmingham, AL", "Bloomington", 
   "Boise", "Boise City", "Bonita Springs", "Boston", "Boulder", "Bradenton", "Bremerton", 
   "Bridgeport", "Brighton", "Brownsville", "Bryan", "Buffalo", "Burbank", "Burlington", 
   "Cambridge", "Canton", "Cape Coral", "Carrollton", "Cary", "Cathedral City", "Cedar Rapids", 
   "Champaign", "Chandler", "Charleston", "Charlotte", "Chattanooga", "Chesapeake", "Chicago", 
   "Chula Vista", "Cincinnati", "Clarke County", "Clarksville", "Clearwater", "Cleveland", 
-  "College Station", "Colorado Springs", "Columbia", "Columbus", "Concord", "Coral Springs", 
+  "College Station", "Colorado Springs", "Columbia", "Columbus, OH", "Concord", "Coral Springs", 
   "Corona", "Corpus Christi", "Costa Mesa", "Dallas", "Daly City", "Danbury", "Davenport", 
   "Davidson County", "Dayton", "Daytona Beach", "Deltona", "Denton", "Denver", "Des Moines", 
-  "Detroit", "Downey", "Duluth", "Durham", "El Monte", "El Paso", "Elizabeth", "Elk Grove", 
+  "Detroit", "Downey", "Duluth", "Durham", "El Monte", "El Paso", "Elk Grove", 
   "Elkhart", "Erie", "Escondido", "Eugene", "Evansville", "Fairfield", "Fargo", "Fayetteville", 
   "Fitchburg", "Flint", "Fontana", "Fort Collins", "Fort Lauderdale", "Fort Smith", "Fort Walton Beach", 
   "Fort Wayne", "Fort Worth", "Frederick", "Fremont", "Fresno", "Fullerton", "Gainesville", 
@@ -50,128 +50,171 @@
   "West Valley City", "Westminster", "Wichita", "Wilmington", "Winston", "Winter Haven", "Worcester", "Yakima", "Yonkers", 
   "York", "Youngstown"];
 
+//weather API key and google maps variables
+var weatherAPIKEY = "M0XNInYQ74ASIqHhWyNeftfHUrjfvzKg",
+googleService = "",
+
+//UI and user input variables
+userAddress = '',
+userEmail = '',
+userBudget = 0,
+petFriendly = false,
+
+//weatherAPI variables
+isSunny = false,
+originCity = "Austin",
+sunnyCity = "Boston",
+cloudyCity = "",
+cityID = '',
+
+//moment variables
+todaysDayOfWeek = moment().isoWeekday(),
+nextFriday = "",
+daysToFriday = 0;
 
 
-var weatherAPI = "7ad754d749d824ab409299daca9bebea";
-var randomCity = Math.floor(Math.random(cityArray.length)*100);
-var cityURL = cityArray[randomCity]+",3166-2"
-var queryURL = "https://api.openweathermap.org/data/2.5/weather?" +
-  "q="+ cityURL +
-  "&units=imperial" + 
-  "&appid=" + weatherAPI;
-var isClear = false;
-//var cityInterval = setInterval(rerollCity, 500);
-var userAddress = '';
-var userEmail = '';
-var userBudget = 0;
-var sunnyCity = '';
-var petFriendly = false;
-var todaysDayOfWeek = moment().isoWeekday()
-var nextFriday = "";
-var service = '';
+findNextFriday();  
+callAjax();
+
+
+function initMap() {
+    GoogleService = new google.maps.DistanceMatrixService();
+
+}
 
 function findNextFriday() {
     var nextDayOfWeek = todaysDayOfWeek;
-        for (var i=1;i<8;i++) {
+    for (var i=1;i<8;i++) {
             
             if (nextDayOfWeek === 5) {
                 nextFriday = moment().add(i,"days").format("MM/DD/YYYY");
-                //console.log("Next Friday's date is: "+nextFriday)
+                console.log("days to friday: "+daysToFriday)
             }
             else {
-                //console.log("not friday, today is: "+nextDayOfWeek)
-                nextDayOfWeek = moment().add(i,"days").isoWeekday()
+                nextDayOfWeek = moment().add(i,"days").isoWeekday();
+                daysToFriday +=1;
             }
         }
 }
-findNextFriday();
 
-
-
-$.ajax({
-  url: queryURL,
-  method: "GET"
-})
-  
-  .then(function(response) {
-
-    //console.log(response)
-    if (response.weather[0].description === "clear sky") {
+// function callAjax() {
+//     var count = 0;
+//     function rerollCityID() {
+//         if (count === 0) {
+    
+//             var randomCityIndex = Math.floor(Math.random(cityArray.length)*100);
+//             var randomCity = cityArray[randomCityIndex]
+//             weatherAPIKEY = "M0XNInYQ74ASIqHhWyNeftfHUrjfvzKg";
+//             var queryURL = "http://dataservice.accuweather.com/locations/v1/cities/autocomplete?"+
+//             "apikey=" + weatherAPIKEY +
+//             "&q="+ randomCity;
+//         }
+//         else if (count === 1) {
+//             queryURL = "http://dataservice.accuweather.com/forecasts/v1/daily/5day/"+ 
+//             329450 +
+//             "?apikey=" + weatherAPIKEY +
+//             "&language=en-us";
+//             console.log(queryURL);
         
-        isClear = true;
-        sunnyCity = randomCity;
-        //clearInterval(cityInterval)
-        
-    }
-    else {
-        console.log(response.weather[0].description)
-    }
+//         }
+    
+//         $.ajax({
+//             url: queryURL,
+//             method: "GET",
+//             success: function(data, textStatus, jqXHR) {
+//                 if (count === 0) {
+//                 console.log(data);
+//                 console.log(data[0].Key);
+//                 console.log(data[0].AdministrativeArea.ID);
+//                 console.log(data[0].LocalizedName);
+//                 cityID = data[0].Key;
+//                 }
+//                 if (count === 1) {
+//                     console.log(data)
+//                 }
+//             },
+//             error: function(jqXHR, textStatus, errorThrown) {
+//                 // When AJAX call has failed
+//                 console.log('AJAX call failed.');
+//                 console.log(textStatus + ': ' + errorThrown);
+//             },
+    
+//         })
+    
+//     }
+//     if (count == 0) {
+//         count++;
+//         rerollCityID();
+//     }
+//     else if (count == 1) {
+//         rerollCityID();
+//         count = 0;
+//     }
 
-}).catch(function(err) {
-    console.log("weather API error catch")
-});
+// }
 
-
-$("#submit-btn").on("click", function() {
-
-   userAddress = $(".user-location").val().trim();
-   userEmail = $(".user-email").val().trim();
-   petFriendly = $(".pet-friendly-btn").val();
-   
-    if ($(".dollar-1").val() === true) {
-        userBudget = "$";
-    }
-    else if ($(".dollar-2").val() === true) {
-        userBudget = "$$";
-    }
-    else if ($(".dollar-3").val() === true) {
-        userBudget = "$$$";
-    }
-    else if ($(".dollar-4").val() === true) {
-        userBudget = "$$$$";
-    }
-})
-
-
-function rerollCity() {
-    if (isClear === false) {
-
-        randomCity = Math.floor(Math.random(cityArray.length)*100);
-        cityURL = cityArray[randomCity]+",3166-2"
-        queryURL = "https://api.openweathermap.org/data/2.5/weather?" +
-        "q="+ cityURL +
-        "&units=imperial" + 
-        "&appid=" + weatherAPI;
+function rerollCityID() {
+        var randomCityIndex = Math.floor(Math.random(cityArray.length)*100);
+        var randomCity = cityArray[randomCityIndex]
+        weatherAPIKEY = "M0XNInYQ74ASIqHhWyNeftfHUrjfvzKg";
+        var queryURL = "http://dataservice.accuweather.com/locations/v1/cities/autocomplete?"+
+        "apikey=" + weatherAPIKEY +
+        "&q="+ randomCity;
 
         $.ajax({
             url: queryURL,
-            method: "GET"
+            method: "GET",
+            success: function(data) {
+                console.log(data[0].LocalizedName +", "+ data[0].AdministrativeArea.ID +" ID Number: " + data[0].Key);
+                cityID = data[0].Key;
+                setTimeout(getSunnyCity, 1000)
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                // When AJAX call has failed
+                console.log('AJAX call failed.');
+                console.log(textStatus + ': ' + errorThrown);
+            },
         })
-        .then(function(response) {
-            if (response.weather[0].description === "clear sky") {
-                isClear = true;
-                //clearInterval(cityInterval);
-                console.log("rerollcity function: clear sky")
-                sunnyCity = randomCity;
-                getDistance(origin, sunnyCity)
-            }
-            else {
-                console.log("rerollcity function: "+response.weather[0].description);
-                //clearInterval(cityInterval)
-            }
-        })
+}
+
+function getSunnyCity() {
+    queryURL = "http://dataservice.accuweather.com/forecasts/v1/daily/5day/"+ 
+    329450 +
+    "?apikey=" + weatherAPIKEY +
+    "&language=en-us";
+    console.log(queryURL);
+
+    $.ajax({
+        url: queryURL,
+        method: "GET",
+        success: function(data, textStatus, jqXHR) {
+            console.log(data)
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            // When AJAX call has failed
+            console.log('AJAX call failed.');
+            console.log(textStatus + ': ' + errorThrown);
+            console.log(queryURL)
+        },
+    })
+}
+
+function callAjax() {
+    var count = 0;
+    if (count == 0) {
+        count++;
+        rerollCityID();
+        console.log("step 1")
+    }
+    else if (count == 1) {
+        getSunnyCity();
+        count = 0;
+        console.log("step 2")
     }
 }
-function initMap() {
-
-    service = new google.maps.DistanceMatrixService();
-    //getDistance(origin,destination);
-
-}
-
 
 function getDistance(start,end){
-    service.getDistanceMatrix(
+    GoogleService.getDistanceMatrix(
         {
             origins: [start],
             destinations: [end],
@@ -182,8 +225,26 @@ function getDistance(start,end){
           }, callback);
 
     function callback(response, status) {
+        console.log(response)
         console.log(response.rows[0].elements[0].distance["text"]);
     }
 }
 
-
+$("#submit-btn").on("click", function() {
+    userAddress = $(".user-location").val().trim();
+    userEmail = $(".user-email").val().trim();
+    petFriendly = $(".pet-friendly-btn").val();
+    
+     if ($(".dollar-1").val() === true) {
+         userBudget = "$";
+     }
+     else if ($(".dollar-2").val() === true) {
+         userBudget = "$$";
+     }
+     else if ($(".dollar-3").val() === true) {
+         userBudget = "$$$";
+     }
+     else if ($(".dollar-4").val() === true) {
+         userBudget = "$$$$";
+     }
+ })
