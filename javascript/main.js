@@ -51,7 +51,7 @@
   "York", "Youngstown"];
 
 //weather API key and google maps variables
-var weatherAPIKEY = "M0XNInYQ74ASIqHhWyNeftfHUrjfvzKg",
+var weatherAPIKEY = "aiWmhP4Z6BLSJr0dqd2BGsGg6vqzh4yt",
 googleService = "",
 
 //UI and user input variables
@@ -64,8 +64,7 @@ petFriendly = false,
 isSunny = false,
 originCity = "Austin",
 sunnyCity = "Boston",
-cloudyCity = "",
-cityID = '',
+cityID = '349818';
 
 //moment variables
 todaysDayOfWeek = moment().isoWeekday(),
@@ -74,7 +73,21 @@ daysToFriday = 0;
 
 
 findNextFriday();  
-callAjax();
+// var APIInterval = setInterval(callAjax,200)
+
+// function callAjax() {
+//     // for (var i=0;i<10;i++{)
+
+//         if (isSunny === true) {
+//             console.log("all done, sunny found")
+//             clearInterval(APIInterval)
+//         }
+//         else {
+//             yahooAPI();
+//         }
+//     // }
+// }
+yahooAPI()
 
 
 function initMap() {
@@ -88,7 +101,7 @@ function findNextFriday() {
             
             if (nextDayOfWeek === 5) {
                 nextFriday = moment().add(i,"days").format("MM/DD/YYYY");
-                console.log("days to friday: "+daysToFriday)
+                //console.log("days to friday: "+daysToFriday)//----------change this line to $("#whatever your container is").text(nextFriday) to return fridays date.----------------//
             }
             else {
                 nextDayOfWeek = moment().add(i,"days").isoWeekday();
@@ -97,120 +110,65 @@ function findNextFriday() {
         }
 }
 
-// function callAjax() {
-//     var count = 0;
-//     function rerollCityID() {
-//         if (count === 0) {
-    
-//             var randomCityIndex = Math.floor(Math.random(cityArray.length)*100);
-//             var randomCity = cityArray[randomCityIndex]
-//             weatherAPIKEY = "M0XNInYQ74ASIqHhWyNeftfHUrjfvzKg";
-//             var queryURL = "http://dataservice.accuweather.com/locations/v1/cities/autocomplete?"+
-//             "apikey=" + weatherAPIKEY +
-//             "&q="+ randomCity;
-//         }
-//         else if (count === 1) {
-//             queryURL = "http://dataservice.accuweather.com/forecasts/v1/daily/5day/"+ 
-//             329450 +
-//             "?apikey=" + weatherAPIKEY +
-//             "&language=en-us";
-//             console.log(queryURL);
-        
-//         }
-    
-//         $.ajax({
-//             url: queryURL,
-//             method: "GET",
-//             success: function(data, textStatus, jqXHR) {
-//                 if (count === 0) {
-//                 console.log(data);
-//                 console.log(data[0].Key);
-//                 console.log(data[0].AdministrativeArea.ID);
-//                 console.log(data[0].LocalizedName);
-//                 cityID = data[0].Key;
-//                 }
-//                 if (count === 1) {
-//                     console.log(data)
-//                 }
-//             },
-//             error: function(jqXHR, textStatus, errorThrown) {
-//                 // When AJAX call has failed
-//                 console.log('AJAX call failed.');
-//                 console.log(textStatus + ': ' + errorThrown);
-//             },
-    
-//         })
-    
-//     }
-//     if (count == 0) {
-//         count++;
-//         rerollCityID();
-//     }
-//     else if (count == 1) {
-//         rerollCityID();
-//         count = 0;
-//     }
 
-// }
-
-function rerollCityID() {
+function yahooAPI() {
         var randomCityIndex = Math.floor(Math.random(cityArray.length)*100);
         var randomCity = cityArray[randomCityIndex]
-        weatherAPIKEY = "M0XNInYQ74ASIqHhWyNeftfHUrjfvzKg";
-        var queryURL = "http://dataservice.accuweather.com/locations/v1/cities/autocomplete?"+
-        "apikey=" + weatherAPIKEY +
-        "&q="+ randomCity;
+        var yahooURL = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22"+randomCity+"%2C%20usa%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys"
+                
+        if (isSunny === true) {
+            console.log("all done, sunny found")
+        }
+        else {
+                    $.ajax({
+                        url: yahooURL,
+                        method: "GET",
+                        type: "PUT",
+                        dataType: 'jsonp',
+                        async: false,
+                        cache:false
+                        success: function() { 
+                            //console.log("yahoo ajax: Success"); 
+                        },
+                        error: function() { 
+                            console.log('yahoo ajax: Failed!'); 
+                        }
+                    })
+                    .done(function(data) {
+                    // console.log(data);
 
-        $.ajax({
-            url: queryURL,
-            method: "GET",
-            success: function(data) {
-                console.log(data[0].LocalizedName +", "+ data[0].AdministrativeArea.ID +" ID Number: " + data[0].Key);
-                cityID = data[0].Key;
-                setTimeout(getSunnyCity, 1000)
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                // When AJAX call has failed
-                console.log('AJAX call failed.');
-                console.log(textStatus + ': ' + errorThrown);
-            },
-        })
-}
+                        var SaturdayWeather = data.query.results.channel.item.forecast[daysToFriday+1].text
+                        var SaturdayDate = data.query.results.channel.item.forecast[daysToFriday+1].date
+                        var SundayWeather = data.query.results.channel.item.forecast[daysToFriday+2].text
+                        var SundayDate = data.query.results.channel.item.forecast[daysToFriday+2].date
 
-function getSunnyCity() {
-    queryURL = "http://dataservice.accuweather.com/forecasts/v1/daily/5day/"+ 
-    329450 +
-    "?apikey=" + weatherAPIKEY +
-    "&language=en-us";
-    console.log(queryURL);
+                        //console.log(" Saturday: "+SaturdayWeather+
+                        //            " Sunday: " +SundayWeather)
+                        //console.log("current weather: "+ currentWeather)
+                        if (SaturdayWeather.includes("Sunny") === true && SundayWeather.includes("Sunny") === true) {
+                            //onsole.log(data.query.results.channel)
 
-    $.ajax({
-        url: queryURL,
-        method: "GET",
-        success: function(data, textStatus, jqXHR) {
-            console.log(data)
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            // When AJAX call has failed
-            console.log('AJAX call failed.');
-            console.log(textStatus + ': ' + errorThrown);
-            console.log(queryURL)
-        },
-    })
-}
+                            randomCity = data.query.results.channel.item.title
+                            randomCity = randomCity.replace("Conditions for ","")
+                            randomCity = randomCity.slice(0,randomCity.indexOf(", US at"))
 
-function callAjax() {
-    var count = 0;
-    if (count == 0) {
-        count++;
-        rerollCityID();
-        console.log("step 1")
-    }
-    else if (count == 1) {
-        getSunnyCity();
-        count = 0;
-        console.log("step 2")
-    }
+                            isSunny = true;
+                            sunnyCity = randomCity;
+                            console.log("Weather for "+sunnyCity+" looks to be "+ SaturdayWeather + " on Saturday, "+SaturdayDate)
+                            console.log("Weather for "+sunnyCity+" looks to be "+ SundayWeather + " on Sunday, "+SundayDate)
+                        }
+                        else {
+                            //console.log("not sunny all weekend");              
+                            cityArray.pop(randomCityIndex);
+                            getDistance(originCity,sunnyCity);
+                            console.log("NOTSUNNY Weather for "+randomCity+" looks to be "+ SaturdayWeather + " on Saturday, "+SaturdayDate)
+                            console.log("NOTSUNNY Weather for "+randomCity+" looks to be "+ SundayWeather + " on Sunday, "+SundayDate)
+                            yahooAPI();
+                            
+
+                        }
+                    })
+                }
 }
 
 function getDistance(start,end){
@@ -225,8 +183,8 @@ function getDistance(start,end){
           }, callback);
 
     function callback(response, status) {
-        console.log(response)
-        console.log(response.rows[0].elements[0].distance["text"]);
+       // console.log(response)
+       // console.log(response.rows[0].elements[0].distance["text"]);
     }
 }
 
