@@ -55,43 +55,44 @@ var isClear = false;
 var randomCity;
 
 var friday = "";
-var saturday ="";
+var saturday = "";
 var sunday = "";
 
-//ELENA: Scott, I consolidated this part of your code and then commented it out since we are going with a different API.
-//Let me know if it's ok to delete it (or you can also just delete it yourself);
+var mainAct;
 
-// function getCity() {
-//     var APIKey = "7ad754d749d824ab409299daca9bebea";
-//     randomCity = Math.floor(Math.random(cityArray.length) * 100);
-//     var cityURL = cityArray[randomCity] + ",3166-2"
-//     var queryURL = "https://api.openweathermap.org/data/2.5/weather?" +
-//         "q=" + cityURL +
-//         "&units=imperial" +
-//         "&appid=" + APIKey;
-//     $.ajax({
-//         url: queryURL,
-//         method: "GET"
-//     }).then(function (response) {
-//         console.log(response)
-//         if (response.weather[0].description === "clear sky") {
-//             isClear = true;
-//         } else {
-//             console.log(response.weather[0].description)
-//             isClear = false;
-//         }
-//     }).catch(function (err) {
-//         // if(err.status === 420) {
-//         //  use the generic Austin obj you made above as response.weather[0]
-//         // }
-//     });
-// }
 
 function getMainAct() {
-//     //yelp calls go here for the main tourist attraction.
-//     //Print to #main-attraction-name  #main-attraction-summary
-// }
+    //     //yelp calls go here for the main tourist attraction.
+    //     //Print to #main-attraction-name  #main-attraction-summary
+    var cityList = "seattle";
+    var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?location=" + cityList + "&categories=parks,All"
+
+    $.ajax({
+        url: myurl,
+        headers: {
+            'Authorization': 'Bearer 7gSCDmwYjt-iVamuC7Lo2YQ07Zit43lHiOeSj9mklTtTBjGeKMEDBbOP_jTg-pC52g1mXCEOluBGkXbjOYKroPEoxwnm5rnJT2BAR_R5uHHhmUtiDc4RdYab027kW3Yx',
+        },
+        method: 'GET',
+        dataType: 'json',
+        success: function (response) {
+            console.log(response)
+            console.log(response.businesses[0].name);
+            console.log(response.businesses[0].image_url);
+            console.log(response.businesses[0].rating);
+            console.log(response.businesses[0].url);
+
+            mainAct = response.businesses[0];
+            $("#main-attraction-name").text(mainAct.name);
+            $("#main-attraction-rating").text("Rating: " + mainAct.rating);
+            var image = 
+        };
+
+    });
+
 }
+getMainAct();
+
+
 
 function getWeatherInfo() {
     //print out projected high's and lows or saturday
@@ -127,6 +128,12 @@ getDates();
 function getFood() {
     //code for calling API and printing results to correct p tags goes here
 
+}
+
+function getBreakfast() {
+        //Breakfast:
+        // apiURL + cityList + "&categories=breakfast_brunch,All" 
+        
 }
 
 function getActivity() {
@@ -176,7 +183,6 @@ function soSorry() {
     $("#trip-information").append(sorryMessage);
 }
 
-soSorry();
 
 // console.log(queryURL)
 // var cityInterval = setInterval(rerollCity, 500);

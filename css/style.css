@@ -57,6 +57,7 @@ body {
     background: rgba(255, 255, 255, 0.804);
     margin: 10px;
     text-align: center;
+    padding: 40px;
 }
 
 /* class for all the cards; bootstrap */
@@ -64,6 +65,7 @@ body {
     background: rgba(255, 255, 255, 0.804);
     margin: 10px;
 }
+
 
 #weather-info-pretty {
     display: flex;
