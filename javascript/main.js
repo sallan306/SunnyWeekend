@@ -85,70 +85,67 @@ var database = firebase.database();
 
 var currentTime = moment().format("YYYYMMDD");
 var dateToCompare = '';
-database.ref("time").on("value", function(snapshot) {
-    dateToCompare = snapshot.val().fireDate;
-    console.log("dateToCompare set to fireDate")
-})
-var cityArray = [];
-comparedates();
+// database.ref("time").on("value", function(snapshot) {
+//     dateToCompare = snapshot.val().fireDate;
+//     console.log("dateToCompare set to fireDate")
+// })
+var cityArray = cityConstant;
+// comparedates();
     
     
     
-function comparedates() {
-   console.log("current time: " + currentTime + "date to compare: " + dateToCompare) 
-    if (parseInt(currentTime.slice(0,4)) > parseInt(dateToCompare.slice(0,4))) {
-        database.ref("cities").set({
-            fireCities: cityConstant,
-        });
-        cityArray = cityConstant;
-        console.log("city array reset")
-    }
-    else if (parseInt(currentTime.slice(0,4)) === parseInt(dateToCompare.slice(0,4))) {
-        if (parseInt(currentTime.slice(4,6)) > parseInt(dateToCompare.slice(4,6))) {
-            database.ref("cities").set({
-                fireCities: cityConstant,
-            });
-            cityArray = cityConstant;
-            console.log("city array reset")
-        }
-        else if (parseInt(currentTime.slice(4,6)) === parseInt(dateToCompare.slice(4,6))) {
-            if (parseInt(currentTime.slice(6,8)) > parseInt(dateToCompare.slice(6,8))) {
-                database.ref("cities").set({
-                    fireCities: cityConstant,
-                });
-                cityArray = cityConstant;
-                console.log("city array reset")
-            }
-            else {
-                database.ref("cities").on("value", function(snapshot) {
-                    cityArray = snapshot.val().fireCities;
-                    console.log("cities synced with firebase!")
-                })
-            }
-        }
-    }
-    else if (dateToCompare === 0) {
-        database.ref("time").set({
-            fireDate: currentTime,
-        });
-        database.ref("cities").set({
-            fireCities: cityConstant
+// function comparedates() {
+//    console.log("current time: " + currentTime + "date to compare: " + dateToCompare) 
+//     if (parseInt(currentTime.slice(0,4)) > parseInt(dateToCompare.slice(0,4))) {
+//         database.ref("cities").set({
+//             fireCities: cityConstant,
+//         });
+//         cityArray = cityConstant;
+//         console.log("city array reset")
+//     }
+//     else if (parseInt(currentTime.slice(0,4)) === parseInt(dateToCompare.slice(0,4))) {
+//         if (parseInt(currentTime.slice(4,6)) > parseInt(dateToCompare.slice(4,6))) {
+//             database.ref("cities").set({
+//                 fireCities: cityConstant,
+//             });
+//             cityArray = cityConstant;
+//             console.log("city array reset")
+//         }
+//         else if (parseInt(currentTime.slice(4,6)) === parseInt(dateToCompare.slice(4,6))) {
+//             if (parseInt(currentTime.slice(6,8)) > parseInt(dateToCompare.slice(6,8))) {
+//                 database.ref("cities").set({
+//                     fireCities: cityConstant,
+//                 });
+//                 cityArray = cityConstant;
+//                 console.log("city array reset")
+//             }
+//             else {
+//                 database.ref("cities").on("value", function(snapshot) {
+//                     cityArray = snapshot.val().fireCities;
+//                     console.log("cities synced with firebase!")
+//                 })
+//             }
+//         }
+//     }
+//     else if (dateToCompare === 0) {
+//         database.ref("time").set({
+//             fireDate: currentTime,
+//         });
+//         database.ref("cities").set({
+//             fireCities: cityConstant
             
-        });
+//         });
 
-        cityArray = cityConstant;
-        console.log("fireDate updated from 0, cities reset")
+//         cityArray = cityConstant;
+//         console.log("fireDate updated from 0, cities reset")
 
-    } else {
-        database.ref("cities").on("value", function(snapshot) {
-            cityArray = snapshot.val().fireCities;
-            console.log("cityArray updated to fireCities")
-        })
-    }
-}
-    
-findNextFriday();
-findSunnyCity();
+//     } else {
+//         database.ref("cities").on("value", function(snapshot) {
+//             cityArray = snapshot.val().fireCities;
+//             console.log("cityArray updated to fireCities")
+//         })
+//     }
+// }
 
 function initMap() {
 
@@ -156,20 +153,6 @@ function initMap() {
 
 }
 
-function findNextFriday() {
-    var nextDayOfWeek = todaysDayOfWeek;
-    for (var i=1;i<8;i++) {
-            
-            if (nextDayOfWeek === 5) {
-                nextFriday = moment().add(i,"days").format("MM/DD/YYYY");
-                //console.log("days to friday: "+daysToFriday)//----------change this line to $("#whatever your container is").text(nextFriday) to return fridays date.----------------//
-            }
-            else {
-                nextDayOfWeek = moment().add(i,"days").isoWeekday();
-                daysToFriday +=1;
-            }
-        }
-}
 
 function findSunnyCity() {
         var randomCityIndex = Math.floor(Math.random(cityArray.length)*100);
@@ -266,4 +249,143 @@ $("#submit-btn").on("click", function() {
      else if ($(".dollar-4").val() === true) {
          userBudget = "$$$$";
      }
+     findSunnyCity();
  })
+
+function getWeatherInfo() {
+    //print out projected high's and lows for saturday
+}
+
+function getDates() {
+    //code for finding the calendar dates of nearest weekend goes here.
+    //Print to #fri-date #sat-date #sun-date
+    //WE STILL NEED SATURDAY'S DATE!
+    var today = +moment().format("d")
+    var daysUntilFriday = 0;
+    if (today === 5) {
+        daysUntilFriday = 0;
+    } else if (today === 6) {
+        daysUntilFriday = 6
+    } else {
+        daysUntilFriday = 5 - today;
+    }
+    var daysUntilFollowingSunday = daysUntilFriday + 2;
+    var daysUntilFollowingSaturday = daysUntilFriday + 1;
+    var startDate = moment().add(daysUntilFriday, "d");
+    var middleDate = moment().add(daysUntilFollowingSaturday, "d");
+    var endDate = moment().add(daysUntilFollowingSunday, "d");
+    friday = startDate.format("MMMM Do YYYY")
+    $("#fri-date").text(friday);
+    saturday = middleDate.format("MMMM Do YYYY");
+    $("#sat-date").text(saturday);
+    sunday = endDate.format("MMMM Do YYYY");
+    $("#sun-date").text(sunday);
+};
+getDates();
+// function findNextFriday() {
+//     var nextDayOfWeek = todaysDayOfWeek;  ////////////code for finding the next friday, if above code doesnt work.
+//     for (var i=1;i<8;i++) {
+            
+//             if (nextDayOfWeek === 5) {
+//                 nextFriday = moment().add(i,"days").format("MM/DD/YYYY");
+//                 //console.log("days to friday: "+daysToFriday)//----------change this line to $("#whatever your container is").text(nextFriday) to return fridays date.----------------//
+//             }
+//             else {
+//                 nextDayOfWeek = moment().add(i,"days").isoWeekday();
+//                 daysToFriday +=1;
+//             }
+//         }
+// }
+
+function getFood() {
+    //code for calling API and printing results to correct p tags goes here
+
+}
+
+function getBreakfast() {
+        //Breakfast:
+        // apiURL + cityList + "&categories=breakfast_brunch,All" 
+        
+}
+
+function getActivity() {
+    //code for calling API and printing results to correct p tags goes here
+}
+
+function getItinerary() {
+    // getFood();
+    // $("#fri-dinner").text(response[0].Restaurant);
+    // getActivity();
+    // $("#fri-act").text(response[0].Activity);
+    //ETC. Would need to actually use correct format for response.
+
+    //Can organize code differently, but still needs to be in functions.
+}
+
+
+$("#submit-btn").on('click', function () {
+    do {
+        getCity();
+    } while (isClear === false);
+    $("#city-name").text(randomCity);
+    getMainAct();
+    getWeatherInfo();
+})
+
+$("#reset-city").on('click', function () {
+    do {
+        getCity();
+    } while (isClear === false);
+    $("#city-name").text(randomCity);
+})
+
+$("#get-itinerary-btn").on('click', function () {
+    getItinerary();
+});
+
+$(".btn-reroll-food").on('click', function () {
+    getFood();
+});
+
+function soSorry() {
+    $("#trip-information").empty();
+    var sorryMessage = $("<p>");
+    sorryMessage.text("We're sorry! Weather information is not reliable this far out. Please check in with us again on Tuesday. Thank you!")
+    sorryMessage.addClass("sorry-message");
+    $("#trip-information").append(sorryMessage);
+}
+
+function errorMessage() {
+    $("#trip-information").empty();
+    var sorryMessage = $("<p>");
+    sorryMessage.text("We're sorry! There's a bug in our system. We will fix it as soon as possible. Thank you for understanding!")
+    sorryMessage.addClass("sorry-message");
+    $("#trip-information").append(sorryMessage);
+}
+
+// console.log(queryURL)
+// var cityInterval = setInterval(rerollCity, 500);
+// // function rerollCity() {
+// //     if (isClear === false) {
+// //         randomCity = Math.floor(Math.random(cityArray.length) * 100);
+// //         cityURL = cityArray[randomCity] + ",3166-2"
+// //         queryURL = "https://api.openweathermap.org/data/2.5/weather?" +
+// //             "q=" + cityURL +
+// //             "&units=imperial" +
+// //             "&appid=" + APIKey;
+// //         $.ajax({
+// //             url: queryURL,
+// //             method: "GET"
+// //         })
+// //             .then(function (response) {
+// //                 if (response.weather[0].description === "clear sky") {
+// //                     isClear = true;
+// //                     clearInterval(cityInterval);
+// //                     console.log("rerollcity function: clear sky")
+// //                 }
+// //                 else {
+// //                     console.log("rerollcity function: " + response.weather[0].description);
+// //                     clearInterval(cityInterval)
+// //                 }
+// //             })
+// //     }
