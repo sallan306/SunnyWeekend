@@ -67,23 +67,17 @@ body {
 }
 
 
-#weather-info-pretty {
-    display: flex;
-    background: white;
-}
-
-#sun-image {
-    width: 150px;
-    height: 150px;
-}
-
 /* Holds the button for "plan my schedule" */
 #plan-btn-container {
     background: rgba(255, 255, 255, 0.804);
     justify-content: center;
-    width: 100%;
     padding: 10px;
-   
+    margin: auto;
+    margin: 20px;
+}
+
+#get-itinerary-btn {
+    width: 100%;
 }
 
 /* Itinerary container; bootstrap */
@@ -101,7 +95,12 @@ body {
 /* in each list group; holds date information; holds event information; bootstrap */
 .list-group-item {
     background: white;
-    /* margin: 10px; */
+}
+
+.img-thumbnail {
+    width: 100px;
+    float: left;
+    margin-right: 10px;
 }
 
 /* container; holds the day of the week and the calendar date */
@@ -131,29 +130,4 @@ body {
     bottom: 0;
     background: rgba(255, 255, 255, 0.804);
     justify-content: center;
-}
-
-/* Mobile Responsiveness */
-@media only screen and (max-width: 600px) {
-    .trip-information {
-      /* On small screens, we are no longer using row direction but column */
-      flex-direction: column;
-      justify-content: center;
-      width: 100%;
-    }
-    .card {
-        justify-self: stretch;
-        margin: auto;
-        margin: 10px;
-        min-width: 100%;
-    }
-    .SW-container {
-        min-width: 100%;
-        margin: auto;
-        justify-content: center;
-    }
-    .list-group-item {
-        margin: 0;
-    }
-
 }
