@@ -85,8 +85,8 @@ function getMainAct() {
             mainAct = response.businesses[0];
             $("#main-attraction-name").text(mainAct.name);
             $("#main-attraction-rating").text("Rating: " + mainAct.rating);
-            var image = 
-        };
+            //var image = 
+        }
 
     });
 
@@ -126,14 +126,108 @@ function getDates() {
 };
 getDates();
 
-function getFood() {
-    //code for calling API and printing results to correct p tags goes here
+function getFood(id) {
+    var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?location="+ cityArray[0] + "&categories=restaurants,All" 
+                    //^^^ Pretend this portion of the myurl is called apiURL ^^^
+        $.ajax({
+        url: myurl,
+        headers: {
+            'Authorization':'Bearer 7gSCDmwYjt-iVamuC7Lo2YQ07Zit43lHiOeSj9mklTtTBjGeKMEDBbOP_jTg-pC52g1mXCEOluBGkXbjOYKroPEoxwnm5rnJT2BAR_R5uHHhmUtiDc4RdYab027kW3Yx',
+        },
+        method: 'GET',
+        dataType: 'json',
+        success: function(response){
+            var emptyArray = [];
+            for(var i = 0; i < response.businesses.length; i++){
+                emptyArray.push(response.businesses[i]);
+            }//push 20 results into array 
+            var rand = emptyArray[Math.floor(Math.random() * emptyArray.length)]; //get random park
+            console.log(emptyArray);
+            console.log(rand);
+            console.log(rand.name); //get name of random park
+            $("#" + id).html(rand.name);
+            $("#" + id).append(rand.rating);
+            console.log(rand.image_url);
+
+
+        }
+    });
+}
+
+$("#btn-reroll-food-1").on("click", function(event){
+    getFood("fri-dinner-sum");
+});
+
+$("#btn-reroll-food-4").on("click", function(event){
+    getFood("sat-dinner-sum");
+});
+
+function getBrunch(id){
+
+    var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?location="+ cityArray[0] + "&categories=brunch,All" 
+                    //^^^ Pretend this portion of the myurl is called apiURL ^^^
+        $.ajax({
+        url: myurl,
+        headers: {
+            'Authorization':'Bearer 7gSCDmwYjt-iVamuC7Lo2YQ07Zit43lHiOeSj9mklTtTBjGeKMEDBbOP_jTg-pC52g1mXCEOluBGkXbjOYKroPEoxwnm5rnJT2BAR_R5uHHhmUtiDc4RdYab027kW3Yx',
+        },
+        method: 'GET',
+        dataType: 'json',
+        success: function(response){
+            var emptyArray = [];
+            for(var i = 0; i < response.businesses.length; i++){
+                emptyArray.push(response.businesses[i]);
+            }//push 20 results into array 
+            var rand = emptyArray[Math.floor(Math.random() * emptyArray.length)]; //get random park
+            
+            console.log(emptyArray);
+            console.log(rand);
+            console.log(rand.name); //get name of random park
+            $("#" + id).html(rand.name);
+            $("#" + id).append(rand.rating);
+            console.log(rand.image_url);
+
+
+        }
+    });
 
 }
 
-function getBreakfast() {
-        //Breakfast:
-        // apiURL + cityList + "&categories=breakfast_brunch,All" 
+$("#btn-reroll-food-2").on("click", function(event){
+    getBrunch("sat-brunch-sum");
+});
+
+$("#btn-reroll-food-5").on("click", function(event){
+    getBrunch("sun-brunch-sum");
+});
+
+function getBreakfast(id) {
+    var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?location="+ cityArray[0] + "&categories=breakfast,All" 
+    //^^^ Pretend this portion of the myurl is called apiURL ^^^
+    $.ajax({
+    url: myurl,
+    headers: {
+    'Authorization':'Bearer 7gSCDmwYjt-iVamuC7Lo2YQ07Zit43lHiOeSj9mklTtTBjGeKMEDBbOP_jTg-pC52g1mXCEOluBGkXbjOYKroPEoxwnm5rnJT2BAR_R5uHHhmUtiDc4RdYab027kW3Yx',
+    },
+    method: 'GET',
+    dataType: 'json',
+    success: function(response){
+    var emptyArray = [];
+    for(var i = 0; i < response.businesses.length; i++){
+    emptyArray.push(response.businesses[i]);
+    }//push 20 results into array 
+    var rand = emptyArray[Math.floor(Math.random() * emptyArray.length)]; //get random park
+
+    console.log(emptyArray);
+    console.log(rand);
+    console.log(rand.name); //get name of random park
+    $("#" + id).html(rand.name);
+    $("#" + id).append(rand.rating);
+    console.log(rand.image_url);
+
+
+}
+});
         
 }
 
@@ -172,9 +266,11 @@ $("#get-itinerary-btn").on('click', function () {
     getItinerary();
 });
 
-$(".btn-reroll-food").on('click', function () {
-    getFood();
-});
+// $(".btn-reroll-food").on('click', function () {
+//     console.log($(this).parent().attr("data-id"));
+//     var id = $(this).parent().attr("data-id")
+//     getFood(id);
+// });
 
 function soSorry() {
     $("#trip-information").empty();
