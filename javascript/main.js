@@ -163,11 +163,7 @@ function getMainAct() {
             $("#sat-aft-act").html("<a href = ' " + mainAct.url + " '>" + mainAct.name + "</a>");
             $("#sat-aft-act-sum").html("<br> " + mainAct.location.address1 + ", " + mainAct.location.city + ", " + mainAct.location.state + ", " + mainAct.location.zip_code + " <br> Rating: " + mainAct.rating + "/5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Price: " + mainAct.price+ "<br> " + mainAct.display_phone );
         }
-<<<<<<< HEAD
     });
-=======
-    })
->>>>>>> ebcae83ed44e99aa2fc112e94b6dc3a06076599a
 }
     
 function findSunnyCity() {
