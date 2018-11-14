@@ -22,18 +22,11 @@
                 <h1 class="display-4">Sunny Weekend</h1>
                 <p class="lead">Let us plan your spontaneous weekend getaway. </p>
                 <hr class="my-4">
-                <form>
+                <form data-parsley-validate>
                    <div class="form-group">
                       <label for="exampleInputEmail1">Email address</label>
                       <input type="email" class="form-control" id="user-email" aria-describedby="emailHelp" placeholder="Enter email">
                       <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                   </div>
-                   <div class="form-group">
-                      <label for="formControlRange">Budget</label><br>
-                      <button type="button" class="btn btn-success SWradio" id = "dollar-1">$</button>
-                      <button type="button" class="btn btn-success SWradio" id = "dollar-2">$$</button>
-                      <button type="button" class="btn btn-success SWradio" id = "dollar-3">$$$</button>
-                      <button type="button" class="btn btn-success SWradio" id = "dollar-4">$$$$</button>
                    </div>
                    <div class="form-group">
                       <label for="formControlRange">Location</label>
@@ -202,5 +195,6 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src=javascript/main.js></script> 
+    <script src="parsley.min.js"></script>
   </body>
 </html>
