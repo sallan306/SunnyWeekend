@@ -163,7 +163,7 @@ function getFood(id) {
             console.log(emptyArray);
             console.log(rand);
             console.log(rand.name); //get name of random park
-            $("#" + id).html("<a href = ' " + rand.url + " '>" + rand.name + "</a> <br> " + rand.location.address1 + ", " + rand.location.city + ", " + rand.location.state + ", " + rand.location.zip_code + " <br> Rating: " + rand.rating + "/5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Price: " +rand.price+ "<br> " + rand.display_phone );
+            $("#" + id).html("<img src = '" + rand.image_url + "' a;t = '" + rand.name + "' class = 'yelp-pic'> <a href = ' " + rand.url + " '>" + rand.name + "</a> <br> " + rand.location.address1 + ", " + rand.location.city + ", " + rand.location.state + ", " + rand.location.zip_code + " <br> Rating: " + rand.rating + "/5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Price: " +rand.price+ "<br> " + rand.display_phone );
             console.log(rand.image_url);
 
 
@@ -202,7 +202,7 @@ function getBrunch(id){
             console.log(emptyArray);
             console.log(rand);
             console.log(rand.name); //get name of random park
-            $("#" + id).html("<a href = ' " + rand.url + " '>" + rand.name + "</a> <br> " + rand.location.address1 + ", " + rand.location.city + ", " + rand.location.state + ", " + rand.location.zip_code + " <br> Rating: " + rand.rating + "/5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Price: " +rand.price+ "<br> " + rand.display_phone );
+            $("#" + id).html("<img src = '" + rand.image_url + "' a;t = '" + rand.name + "' class = 'yelp-pic'> <a href = ' " + rand.url + " '>" + rand.name + "</a> <br> " + rand.location.address1 + ", " + rand.location.city + ", " + rand.location.state + ", " + rand.location.zip_code + " <br> Rating: " + rand.rating + "/5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Price: " +rand.price+ "<br> " + rand.display_phone );
             console.log(rand.image_url);
 
         }
@@ -244,8 +244,10 @@ function getAttraction(id) {
         console.log(rand);
         console.log(rand.name); //get name of random park
         
-        $("#" + id).html("<a href = ' " + rand.url + " '>" + rand.name + "</a> <br> " + rand.location.address1 + ", " + rand.location.city + ", " + rand.location.state + ", " + rand.location.zip_code + " <br> Rating: " + rand.rating + "/5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Price: " +rand.price+ "<br> " + rand.display_phone );
+        $("#" + id).html("<img src = '" + rand.image_url + "' a;t = '" + rand.name + "' class = 'yelp-pic'> <a href = ' " + rand.url + " '>" + rand.name + "</a> <br> " + rand.location.address1 + ", " + rand.location.city + ", " + rand.location.state + ", " + rand.location.zip_code + " <br> Rating: " + rand.rating + "/5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Price: " +rand.price+ "<br> " + rand.display_phone );
         console.log(rand.image_url);
+
+        console.log(id);
 
 
         }
@@ -253,9 +255,10 @@ function getAttraction(id) {
         
 }
 
+
+
 $("#btn-reroll-act-1").on("click", function(event){
     getAttraction("fri-nightlife-sum");
-
 });
 
 $("#btn-reroll-act-2").on("click", function(event){
@@ -294,6 +297,8 @@ $("#submit-btn").on('click', function () {
     $("#city-name").text(randomCity);
     getMainAct();
     getWeatherInfo();
+    $("#trip-information").show();
+
 })
 
 $("#reset-city").on('click', function () {
@@ -318,6 +323,14 @@ function errorMessage() {
     sorryMessage.addClass("sorry-message");
     $("#trip-information").append(sorryMessage);
 }
+
+//$("#")
+$("#trip-information").hide();
+$("#plan-btn-container").hide();
+$("#itinerary-container-friday").hide();
+$("#itinerary-container-saturday").hide();
+$("#itinerary-container-sunday").hide();
+
 
 // console.log(queryURL)
 // var cityInterval = setInterval(rerollCity, 500);
