@@ -157,10 +157,10 @@ function getMainAct() {
         dataType: 'json',
         success: function (response) {
             //console.log(response)
-            console.log(response.businesses[0].name);
-            console.log(response.businesses[0].image_url);
-            console.log(response.businesses[0].rating);
-            console.log(response.businesses[0].url);
+            // console.log(response.businesses[0].name);
+            // console.log(response.businesses[0].image_url);
+            // console.log(response.businesses[0].rating);
+            // console.log(response.businesses[0].url);
 
             mainAct = response.businesses[0];
             $("#main-attraction-name").text(mainAct.name);
@@ -199,8 +199,8 @@ function findSunnyCity() {
                         }
                     })
                     .done(function(data) {
-                        console.log(data)
-                        console.log(cityArray.length)
+                        // console.log(data)
+                        // console.log(cityArray.length)
                         var SaturdayWeather = data.query.results.channel.item.forecast[daysToFriday+1].text
                         var SaturdayDate = data.query.results.channel.item.forecast[daysToFriday+1].date
                         var SundayWeather = data.query.results.channel.item.forecast[daysToFriday+2].text
@@ -216,16 +216,19 @@ function findSunnyCity() {
                             isSunny = true;
                             sunnyCity = randomCity;
                             getDistance(userAddress,sunnyCity);
-                            console.log("Weather for "+sunnyCity+" looks to be "+ SaturdayWeather + " on Saturday, "+SaturdayDate)
-                            console.log("Weather for "+sunnyCity+" looks to be "+ SundayWeather + " on Sunday, "+SundayDate)
+                            // console.log("Weather for "+sunnyCity+" looks to be "+ SaturdayWeather + " on Saturday, "+SaturdayDate)
+                            // console.log("Weather for "+sunnyCity+" looks to be "+ SundayWeather + " on Sunday, "+SundayDate)
+                            console.log("sunny city is now: "+sunnyCity)
                             sunnyHigh = data.query.results.channel.item.forecast[daysToFriday+1].high
                             sunnyLow =  data.query.results.channel.item.forecast[daysToFriday+1].low
                             $("#saturday-high").text("High: "+sunnyHigh)
                             $("#saturday-low").text("Low: "+sunnyLow)
                             getMainAct();
+
+             
                         }
                         else {
-                            console.log("not sunny all weekend, "+randomCity+" has been removed");
+                            //console.log("not sunny all weekend, "+randomCity+" has been removed");
                                           
                             cityArray.pop(randomCityIndex);
                             cityRef.set({
@@ -257,6 +260,8 @@ function getDistance(start,end){
     function callback(response, status) {
        numberOfMiles = response.rows[0].elements[0].distance["text"];
        console.log(response.rows[0].elements[0].distance["text"])
+       $("#city-distance").text(numberOfMiles+" away")
+       $("#city-name").text(sunnyCity)
     }
 }
 
