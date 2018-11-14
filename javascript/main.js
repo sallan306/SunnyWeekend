@@ -89,6 +89,14 @@ var database = firebase.database(),
     timeRef = firebase.database().ref("time/"),
     cityRef = firebase.database().ref("city/");
 
+//getDates variables
+var friday = "",
+    saturday = "",
+    sunday = "";
+
+//yelp variables
+    mainAct = "";
+    
 //Initialize googleMaps Service
 function initMap() {
 
@@ -99,12 +107,13 @@ function initMap() {
 // --------------------------------------------------------------called functions-------------------------------------------------------//
 getDates();
 compareDates();
+getFood();
 
 //---------------------------------------------------------------declared functions----------------------------------------------------//
 //compare today's date to the firebase date to see if it is a day after
 function compareDates() {
 
-    if (todaysDate.isafter(fireDate)) {
+    if (moment(todaysDate).isAfter(moment(fireDate))) {
         timeRef.set({
             fireDate: todaysDate
         });
@@ -124,16 +133,45 @@ function compareDates() {
     };
 }
 
-
 //calls the yahoo weather API to run a loop to find all the sunny cities in the US from our list. Checks to see if both Saturday and Sunday is sunny.
 
+function getMainAct() {
+    //     //yelp calls go here for the main tourist attraction.
+    //     //Print to #main-attraction-name  #main-attraction-summary
+    var cityList = "seattle";
+    var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?location=" + cityList + "&categories=parks,All"
+
+    $.ajax({
+        url: myurl,
+        headers: {
+            'Authorization': 'Bearer 7gSCDmwYjt-iVamuC7Lo2YQ07Zit43lHiOeSj9mklTtTBjGeKMEDBbOP_jTg-pC52g1mXCEOluBGkXbjOYKroPEoxwnm5rnJT2BAR_R5uHHhmUtiDc4RdYab027kW3Yx',
+        },
+        method: 'GET',
+        dataType: 'json',
+        success: function (response) {
+            console.log(response)
+            console.log(response.businesses[0].name);
+            console.log(response.businesses[0].image_url);
+            console.log(response.businesses[0].rating);
+            console.log(response.businesses[0].url);
+
+            mainAct = response.businesses[0];
+            $("#main-attraction-name").text(mainAct.name);
+            $("#main-attraction-rating").text("Rating: " + mainAct.rating);
+            $("#attraction-link").attr("href", mainAct.url);
+            $("#main-attraction-image").attr("src", mainAct.image_url);
+
+        }
+    })
+}
+    
 function findSunnyCity() {
-        var randomCityIndex = Math.floor(Math.random(cityArray.length)*100);
-        var randomCity = cityArray[randomCityIndex]
-        var yahooURL = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22"+randomCity+"%2C%20usa%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys"
-                
-        if (isSunny === true) {
-            console.log("all done, sunny found")
+    var randomCityIndex = Math.floor(Math.random(cityArray.length)*100);
+    var randomCity = cityArray[randomCityIndex]
+    var yahooURL = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22"+randomCity+"%2C%20usa%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys"
+            
+    if (isSunny === true) {
+        console.log("all done, sunny found")
         }
         else {
                     $.ajax({
@@ -169,6 +207,7 @@ function findSunnyCity() {
                             isSunny = true;
                             sunnyCity = randomCity;
                             getDistance(originCity,sunnyCity);
+                            
                             console.log("Weather for "+sunnyCity+" looks to be "+ SaturdayWeather + " on Saturday, "+SaturdayDate)
                             console.log("Weather for "+sunnyCity+" looks to be "+ SundayWeather + " on Sunday, "+SundayDate)
                         }
@@ -182,8 +221,6 @@ function findSunnyCity() {
                             console.log("NOTSUNNY Weather for "+randomCity+" looks to be "+ SaturdayWeather + " on Saturday, "+SaturdayDate)
                             console.log("NOTSUNNY Weather for "+randomCity+" looks to be "+ SundayWeather + " on Sunday, "+SundayDate)
                             findSunnyCity();
-                            
-
                         }
                     })
                 }
@@ -209,25 +246,7 @@ function getDistance(start,end){
     }
 }
 
-$("#submit-btn").on("click", function() {
-    userAddress = $(".user-location").val().trim();
-    userEmail = $(".user-email").val().trim();
-    petFriendly = $(".pet-friendly-btn").val();
-    
-     if ($(".dollar-1").val() === true) {
-         userBudget = "$";
-     }
-     else if ($(".dollar-2").val() === true) {
-         userBudget = "$$";
-     }
-     else if ($(".dollar-3").val() === true) {
-         userBudget = "$$$";
-     }
-     else if ($(".dollar-4").val() === true) {
-         userBudget = "$$$$";
-     }
-     findSunnyCity();
- })
+
 
 function getWeatherInfo() {
     //print out projected high's and lows for saturday
@@ -259,57 +278,101 @@ function getDates() {
     $("#sun-date").text(sunday);
 };
 
+function getFood(id) {
+    var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?location="+ sunnyCity + "&categories=restaurants,All" 
+                    //^^^ Pretend this portion of the myurl is called apiURL ^^^
+        $.ajax({
+        url: myurl,
+        headers: {
+            'Authorization':'Bearer 7gSCDmwYjt-iVamuC7Lo2YQ07Zit43lHiOeSj9mklTtTBjGeKMEDBbOP_jTg-pC52g1mXCEOluBGkXbjOYKroPEoxwnm5rnJT2BAR_R5uHHhmUtiDc4RdYab027kW3Yx',
+        },
+        method: 'GET',
+        dataType: 'json',
+        success: function(response){
+            var emptyArray = [];
+            for(var i = 0; i < response.businesses.length; i++){
+                emptyArray.push(response.businesses[i]);
+            }//push 20 results into array 
+            var rand = emptyArray[Math.floor(Math.random() * emptyArray.length)]; //get random park
+            console.log(emptyArray);
+            console.log(rand);
+            console.log(rand.name); //get name of random park
+            $("#" + id).html("<a href = ' " + rand.url + " '>" + rand.name + "</a> <br> " + rand.location.address1 + ", " + rand.location.city + ", " + rand.location.state + ", " + rand.location.zip_code + " <br> Rating: " + rand.rating + "/5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Price: " +rand.price+ "<br> " + rand.display_phone );
+            console.log(rand.image_url);
 
-function getFood() {
-    //code for calling API and printing results to correct p tags goes here
 
+        }
+    });
 }
 
-function getBreakfast() {
-        //Breakfast:
-        // apiURL + cityList + "&categories=breakfast_brunch,All" 
+function getBrunch(id){
+    var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?location="+ cityArray[22] + "&categories=breakfast_brunch,All" 
+                    //^^^ Pretend this portion of the myurl is called apiURL ^^^
+        $.ajax({
+        url: myurl,
+        headers: {
+            'Authorization':'Bearer 7gSCDmwYjt-iVamuC7Lo2YQ07Zit43lHiOeSj9mklTtTBjGeKMEDBbOP_jTg-pC52g1mXCEOluBGkXbjOYKroPEoxwnm5rnJT2BAR_R5uHHhmUtiDc4RdYab027kW3Yx',
+        },
+        method: 'GET',
+        dataType: 'json',
+        success: function(response){
+            var emptyArray = [];
+            for(var i = 0; i < response.businesses.length; i++){
+                emptyArray.push(response.businesses[i]);
+            }//push 20 results into array 
+            var rand = emptyArray[Math.floor(Math.random() * emptyArray.length)]; //get random park
+            
+            console.log(emptyArray);
+            console.log(rand);
+            console.log(rand.name); //get name of random park
+            $("#" + id).html("<a href = ' " + rand.url + " '>" + rand.name + "</a> <br> " + rand.location.address1 + ", " + rand.location.city + ", " + rand.location.state + ", " + rand.location.zip_code + " <br> Rating: " + rand.rating + "/5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Price: " +rand.price+ "<br> " + rand.display_phone );
+            console.log(rand.image_url);
+
+        }
+    });
+
+}
+function getAttraction(id) {
+    var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?location="+ cityArray[22] + "&categories=localflavor,All" //find a new category 
+    //^^^ Pretend this portion of the myurl is called apiURL ^^^
+    $.ajax({
+    url: myurl,
+    headers: {
+    'Authorization':'Bearer 7gSCDmwYjt-iVamuC7Lo2YQ07Zit43lHiOeSj9mklTtTBjGeKMEDBbOP_jTg-pC52g1mXCEOluBGkXbjOYKroPEoxwnm5rnJT2BAR_R5uHHhmUtiDc4RdYab027kW3Yx',
+    },
+    method: 'GET',
+    dataType: 'json',
+    success: function(response){
+        
+        var emptyArray = [];
+        for(var i = 0; i < response.businesses.length; i++){
+        emptyArray.push(response.businesses[i]);
+        }//push 20 results into array 
+        var rand = emptyArray[Math.floor(Math.random() * emptyArray.length)]; //get random park
+
+        console.log(emptyArray);
+        console.log(rand);
+        console.log(rand.name); //get name of random park
+        
+        $("#" + id).html("<a href = ' " + rand.url + " '>" + rand.name + "</a> <br> " + rand.location.address1 + ", " + rand.location.city + ", " + rand.location.state + ", " + rand.location.zip_code + " <br> Rating: " + rand.rating + "/5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Price: " +rand.price+ "<br> " + rand.display_phone );
+        console.log(rand.image_url);
+
+
+        }
+    });
         
 }
 
 function getActivity() {
     //code for calling API and printing results to correct p tags goes here
 }
-
 function getItinerary() {
-    // getFood();
-    // $("#fri-dinner").text(response[0].Restaurant);
-    // getActivity();
-    // $("#fri-act").text(response[0].Activity);
-    //ETC. Would need to actually use correct format for response.
-
-    //Can organize code differently, but still needs to be in functions.
+    getFood("fri-dinner-sum");
+    getBrunch("sat-brunch-sum");
+    getFood("sat-lun-sum");
+    getFood("sat-dinner-sum");
+    getFood("sun-brunch-sum");
 }
-
-
-$("#submit-btn").on('click', function () {
-    do {
-        getCity();
-    } while (isClear === false);
-    $("#city-name").text(randomCity);
-    getMainAct();
-    getWeatherInfo();
-})
-
-$("#reset-city").on('click', function () {
-    do {
-        getCity();
-    } while (isClear === false);
-    $("#city-name").text(randomCity);
-})
-
-$("#get-itinerary-btn").on('click', function () {
-    getItinerary();
-});
-
-$(".btn-reroll-food").on('click', function () {
-    getFood();
-});
-
 function soSorry() {
     $("#trip-information").empty();
     var sorryMessage = $("<p>");
@@ -325,3 +388,82 @@ function errorMessage() {
     sorryMessage.addClass("sorry-message");
     $("#trip-information").append(sorryMessage);
 }
+
+//--------------------------------------------------------------------------------buttonclick events-------------------------------------------------------------//
+
+
+$("#submit-btn").on("click", function(event) {
+    event.preventDefault()
+    userAddress = $(".user-location").val().trim();
+    userEmail = $(".user-email").val().trim();
+    
+    findSunnyCity();
+ })
+
+ 
+$("#reset-city").on('click', function () {
+    event.preventDefault()
+    userAddress = $(".user-location").val().trim();
+    userEmail = $(".user-email").val().trim();
+    
+    findSunnyCity();
+})
+$(".form-group").submit(function (event) {
+    event.preventDefault()
+})
+
+$("#get-itinerary-btn").on("click", function(event){ //prints out entire itinerary 
+
+    //main activity needs to be printed out on main attraction on saturday 
+    getFood("fri-dinner-sum");
+    getFood("sat-dinner-sum");
+    getBrunch("sat-brunch-sum");
+    getBrunch("sat-lun-sum");
+    getBrunch("sun-brunch-sum");
+    getAttraction("fri-nightlife-sum");
+    getAttraction("sat-mor-act-sum");
+    getAttraction("sat-aft-act-sum");
+    getAttraction("sat-nightlife-sum");
+    getAttraction("sun-act-sum");
+
+});
+
+$("#btn-reroll-food-1").on("click", function(event){
+    getFood("fri-dinner-sum");
+});
+
+$("#btn-reroll-food-4").on("click", function(event){
+    getFood("sat-dinner-sum");
+});
+$("#btn-reroll-food-2").on("click", function(event){
+    getBrunch("sat-brunch-sum");
+});
+
+$("#btn-reroll-food-3").on("click", function(event){
+    getBrunch("sat-lun-sum");
+});
+
+$("#btn-reroll-food-5").on("click", function(event){
+    getBrunch("sun-brunch-sum");
+});
+
+$("#btn-reroll-act-1").on("click", function(event){
+    getAttraction("fri-nightlife-sum");
+});
+
+$("#btn-reroll-act-2").on("click", function(event){
+    getAttraction("sat-mor-act-sum");
+});
+
+$("#btn-reroll-act-3").on("click", function(event){
+    getAttraction("sat-aft-act-sum");
+});
+
+$("#btn-reroll-act-4").on("click", function(event){
+    getAttraction("sat-nightlife-sum");
+});
+
+$("#btn-reroll-act-5").on("click", function(event){
+    getAttraction("sun-act-sum");
+});
+
