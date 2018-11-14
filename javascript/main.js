@@ -65,8 +65,8 @@ var weatherAPIKEY = "aiWmhP4Z6BLSJr0dqd2BGsGg6vqzh4yt",
     isSunny = false,
     sunnyCity = "Boston,MA",
     numberOfMiles = '',
-    sunnyHighs = '',
-    sunnyLows = '',
+    sunnyHigh = '',
+    sunnyLow = '',
     randomCity = '',
     randomCityIndex = 0,
 
@@ -128,6 +128,7 @@ function compareDates() {
             cityArray = snapshot.val().fireCities
         })
     }
+
     else {
         cityArray = cityConstant;
         cityRef.set({
@@ -204,8 +205,7 @@ function findSunnyCity() {
                         var SaturdayDate = data.query.results.channel.item.forecast[daysToFriday+1].date
                         var SundayWeather = data.query.results.channel.item.forecast[daysToFriday+2].text
                         var SundayDate = data.query.results.channel.item.forecast[daysToFriday+2].date
-                        sunnyHighs = data.query.results.channel.item.forecast[daysToFriday+2].text
-                        sunnyLows =  data.query.results.channel.item.forecast[daysToFriday+2].text
+
 
                         if (SaturdayWeather.includes("Sunny") === true && SundayWeather.includes("Sunny") === true) {
                             //console.log(data.query.results.channel)
@@ -218,6 +218,11 @@ function findSunnyCity() {
                             getDistance(userAddress,sunnyCity);
                             console.log("Weather for "+sunnyCity+" looks to be "+ SaturdayWeather + " on Saturday, "+SaturdayDate)
                             console.log("Weather for "+sunnyCity+" looks to be "+ SundayWeather + " on Sunday, "+SundayDate)
+                            sunnyHigh = data.query.results.channel.item.forecast[daysToFriday+1].high
+                            sunnyLow =  data.query.results.channel.item.forecast[daysToFriday+1].low
+                            $("#saturday-high").text("High: "+sunnyHigh)
+                            $("#saturday-low").text("Low: "+sunnyLow)
+                            getMainAct();
                         }
                         else {
                             console.log("not sunny all weekend, "+randomCity+" has been removed");
@@ -317,11 +322,11 @@ function getFood(id) {
                 emptyArray.push(response.businesses[i]);
             }//push 20 results into array 
             var rand = emptyArray[Math.floor(Math.random() * emptyArray.length)]; //get random park
-            console.log(emptyArray);
-            console.log(rand);
-            console.log(rand.name); //get name of random park
+            // console.log(emptyArray);
+            // console.log(rand);
+            // console.log(rand.name); //get name of random park
             $("#" + id).html("<img src = '" + rand.image_url + "' a;t = '" + rand.name + "' class = 'yelp-pic'> <a href = ' " + rand.url + " '>" + rand.name + "</a> <br> " + rand.location.address1 + ", " + rand.location.city + ", " + rand.location.state + ", " + rand.location.zip_code + " <br> Rating: " + rand.rating + "/5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Price: " +rand.price+ "<br> " + rand.display_phone );
-            console.log(rand.image_url);
+            // console.log(rand.image_url);
 
 
         }
@@ -345,11 +350,11 @@ function getBrunch(id){
             }//push 20 results into array 
             var rand = emptyArray[Math.floor(Math.random() * emptyArray.length)]; //get random park
             
-            console.log(emptyArray);
-            console.log(rand);
-            console.log(rand.name); //get name of random park
+            // console.log(emptyArray);
+            // console.log(rand);
+            // console.log(rand.name); //get name of random park
             $("#" + id).html("<img src = '" + rand.image_url + "' a;t = '" + rand.name + "' class = 'yelp-pic'> <a href = ' " + rand.url + " '>" + rand.name + "</a> <br> " + rand.location.address1 + ", " + rand.location.city + ", " + rand.location.state + ", " + rand.location.zip_code + " <br> Rating: " + rand.rating + "/5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Price: " +rand.price+ "<br> " + rand.display_phone );
-            console.log(rand.image_url);
+            // console.log(rand.image_url);
 
         }
     });
@@ -374,12 +379,12 @@ function getAttraction(id) {
         }//push 20 results into array 
         var rand = emptyArray[Math.floor(Math.random() * emptyArray.length)]; //get random park
 
-        console.log(emptyArray);
-        console.log(rand);
-        console.log(rand.name); //get name of random park
+        // console.log(emptyArray);
+        // console.log(rand);
+        // console.log(rand.name); //get name of random park
         
         $("#" + id).html("<img src = '" + rand.image_url + "' a;t = '" + rand.name + "' class = 'yelp-pic'> <a href = ' " + rand.url + " '>" + rand.name + "</a> <br> " + rand.location.address1 + ", " + rand.location.city + ", " + rand.location.state + ", " + rand.location.zip_code + " <br> Rating: " + rand.rating + "/5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Price: " +rand.price+ "<br> " + rand.display_phone );
-        console.log(rand.image_url);
+        // console.log(rand.image_url);
         }
     });
         
@@ -413,51 +418,35 @@ function errorMessage() {
 
 
 
-$("#trip-information").hide();
-$("#plan-btn-container").hide();
-$("#itinerary-container-friday").hide();
-$("#itinerary-container-saturday").hide();
-$("#itinerary-container-sunday").hide();
-
-
-// console.log(queryURL)
-// var cityInterval = setInterval(rerollCity, 500);
-// // function rerollCity() {
-// //     if (isClear === false) {
-// //         randomCity = Math.floor(Math.random(cityArray.length) * 100);
-// //         cityURL = cityArray[randomCity] + ",3166-2"
-// //         queryURL = "https://api.openweathermap.org/data/2.5/weather?" +
-// //             "q=" + cityURL +
-// //             "&units=imperial" +
-// //             "&appid=" + APIKey;
-// //         $.ajax({
-// //             url: queryURL,
-// //             method: "GET"
-// //         })
-// //             .then(function (response) {
-// //                 if (response.weather[0].description === "clear sky") {
-// //                     isClear = true;
-// //                     clearInterval(cityInterval);
-// //                     console.log("rerollcity function: clear sky")
-// //                 }
-// //                 else {
-// //                     console.log("rerollcity function: " + response.weather[0].description);
-// //                     clearInterval(cityInterval)
-// //                 }
-// //             })
-// //     }
+// $("#trip-information").hide();
+// $("#plan-btn-container").hide();
+// $("#itinerary-container-friday").hide();
+// $("#itinerary-container-saturday").hide();
+// $("#itinerary-container-sunday").hide();
 
 //--------------------------------------------------------------------------------buttonclick events-------------------------------------------------------------//
 
 $(document).ready(function() {
 
+    $("#trip-information").hide();
+    $("#plan-btn-container").hide();
+    $("#itinerary-container-friday").hide();
+    $("#itinerary-container-saturday").hide();
+    $("#itinerary-container-sunday").hide();
+
     $("#submit-btn").on("click", function(event) {  
         event.preventDefault();
         console.log("button clicked");
+
+        
         //userAddress = $(".user-location").val().trim();
-       // userEmail = $(".user-email").val().trim();
+        // userEmail = $(".user-email").val().trim();
         //console.log("user Address: "+userAddress)
         //console.log("user Email: "+userEmail)
+        
+        $("#trip-information").show();
+        $("#plan-btn-container").show();
+        
         isSunny = false;
         findSunnyCity();
      })
@@ -476,6 +465,10 @@ $(document).ready(function() {
     
     $("#get-itinerary-btn").on("click", function(event){ //prints out entire itinerary 
         //main activity needs to be printed out on main attraction on saturday 
+        $("#itinerary-container-friday").show();
+        $("#itinerary-container-saturday").show();
+        $("#itinerary-container-sunday").show();
+
         getFood("fri-dinner-sum");
         getFood("sat-dinner-sum");
         getBrunch("sat-brunch-sum");
