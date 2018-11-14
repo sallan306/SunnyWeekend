@@ -60,6 +60,10 @@ body {
     margin: 10px;
 }
 
+.card-img-top {
+    background-size: contain; 
+}
+
 
 /* Holds the button for "plan my schedule" */
 #plan-btn-container {
