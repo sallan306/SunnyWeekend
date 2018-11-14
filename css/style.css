@@ -8,7 +8,7 @@ body {
 
 /* All of our content is in here */
 .SW-container {
-    max-width: 80%;
+    width: 80%;
     height: 100%;
     margin: auto;
 }
@@ -111,11 +111,6 @@ body {
     background: white;
 }
 
-/* .img-thumbnail {
-    width: 100px;
-    float: left;
-    margin-right: 10px;
-} */
 
 /* container; holds the day of the week and the calendar date */
 .date-headlines {
