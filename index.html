@@ -6,10 +6,14 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta http-equiv="X-UA-Compatible" content="ie=edge">
       <title>Sunny Weekend</title>
-      <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon" />
       <link rel="stylesheet" type="text/css" href=css/reset.css>
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
       <link rel="stylesheet" type="text/css" href=css/style.css>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/5.5.8/firebase.js"></script>
+      <script src=javascript/main.js></script> 
+      <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDrYhqyBH2hkafHTgA89V5lqBVXzXesLfE&callback=initMap"    type="text/javascript"></script>
    </head>
    <body>
       <div class = "SW-container">
@@ -24,13 +28,13 @@
                       <input type="email" class="form-control" id="user-email" aria-describedby="emailHelp" placeholder="Enter email">
                       <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                    </div>
-                   <!-- <div class="form-group">
+                   <div class="form-group">
                       <label for="formControlRange">Budget</label><br>
                       <button type="button" class="btn btn-success SWradio" id = "dollar-1">$</button>
                       <button type="button" class="btn btn-success SWradio" id = "dollar-2">$$</button>
                       <button type="button" class="btn btn-success SWradio" id = "dollar-3">$$$</button>
                       <button type="button" class="btn btn-success SWradio" id = "dollar-4">$$$$</button>
-                   </div> -->
+                   </div>
                    <div class="form-group">
                       <label for="formControlRange">Location</label>
                       <input type="" class="form-control" id="user-location" placeholder="Enter Location">
@@ -39,8 +43,8 @@
                       <input type="checkbox" class="form-check-input" id="pet-friendly-btn">
                       <label class="form-check-label" for="exampleCheck1">Pet-Friendly</label>
                       </div> -->
-                   <button type="submit" class="btn btn-primary" id ="submit-btn" >Find My Sunny Weekend!</button>
-                </form>
+                      <button type="submit" class="btn btn-primary" id ="submit-btn" >Find My Sunny Weekend!</button>
+                     </form>
              </div>
         </div>
          
@@ -183,7 +187,7 @@
                   <img src="https://placehold.it/250x200" alt="..." class="img-thumbnail" id = "sun-activity-image">
                   <a id = "sun-activity" href="#">Morning activity</a>
                   <input class="btn btn-primary btn-reroll-act" id = "btn-reroll-act-5" type="reset" value="Try Again?">
-                  <p id = "sun-act-sum">Here's a quick sentence about this tourist place!</p>
+                  <p id = "sun-brunch-sum">Here's a quick sentence about this tourist place!</p>
                </li>
             </ul>
          </div>
@@ -194,7 +198,6 @@
       <span class="navbar-brand mb-0 h1">Have a Sunny Weekend!</span>
     </nav>
     <script type="text/javascript" src="https://rawgit.com/moment/moment/2.2.1/min/moment.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
