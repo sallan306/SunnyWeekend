@@ -241,9 +241,10 @@ function getAttraction(id) {
         console.log(emptyArray);
         console.log(rand);
         console.log(rand.name); //get name of random park
+        
         $("#" + id).html("<a href = ' " + rand.url + " '>" + rand.name + "</a> <br> " + rand.location.address1 + ", " + rand.location.city + ", " + rand.location.state + ", " + rand.location.zip_code + " <br> Rating: " + rand.rating + "/5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Price: " +rand.price+ "<br> " + rand.display_phone );
         console.log(rand.image_url);
-            
+
 
         }
     });
@@ -252,6 +253,7 @@ function getAttraction(id) {
 
 $("#btn-reroll-act-1").on("click", function(event){
     getAttraction("fri-nightlife-sum");
+
 });
 
 $("#btn-reroll-act-2").on("click", function(event){
