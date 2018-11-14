@@ -529,11 +529,4 @@ $(document).ready(function() {
         getAttraction("sun-act-sum");
     });
     
-<<<<<<< HEAD
 })
-=======
-    
-
-
-});
->>>>>>> 5cfe7c0ed46de23770ad5bbbf8cf9b9b7feec827
