@@ -49,6 +49,8 @@ var cityConstant = [ "Aberdeen", "Abilene", "Akron", "Albany", "Albuquerque", "A
 "West Valley City", "Westminster", "Wichita", "Wilmington", "Winston", "Winter Haven", "Worcester", "Yakima", "Yonkers", 
 "York", "Youngstown"];
 
+var cityArray = cityConstant;
+
 //weather API key and google maps variables
 var weatherAPIKEY = "aiWmhP4Z6BLSJr0dqd2BGsGg6vqzh4yt",
     googleService = "",
@@ -70,7 +72,7 @@ var weatherAPIKEY = "aiWmhP4Z6BLSJr0dqd2BGsGg6vqzh4yt",
 //moment variables
     todaysDayOfWeek = moment().isoWeekday(),
     todaysDate = moment().format("YYYYMMDD"),
-    fireDate = '';
+    localFireDate = '';
     nextFriday = "",
     daysToFriday = 0;
 
@@ -88,6 +90,12 @@ firebase.initializeApp(config);
 var database = firebase.database(),
     timeRef = firebase.database().ref("time/"),
     cityRef = firebase.database().ref("city/");
+
+timeRef.on('value',function(snapshot){
+    localFireDate = snapshot.val().fireDate
+    console.log(localFireDate)
+})  
+
 
 //getDates variables
 var friday = "",
@@ -107,30 +115,19 @@ function initMap() {
 // --------------------------------------------------------------called functions-------------------------------------------------------//
 getDates();
 compareDates();
-getFood();
-
 //---------------------------------------------------------------declared functions----------------------------------------------------//
 //compare today's date to the firebase date to see if it is a day after
 function compareDates() {
+    console.log(todaysDate)
+    console.log(localFireDate)
 
-    if (moment(todaysDate).isAfter(moment(fireDate))) {
-        timeRef.set({
-            fireDate: todaysDate
-        });
-        cityRef.set({
-            fireCities: cityConstant
-          });
-          console.log("cities reset")
+    if (todaysDate === localFireDate) {
+        cityRef.on('value',function(snapshot){
+            //cityArray = snapshot.val().fireDate
+            console.log(snapshot)
+        })
+
     }
-    else if (fireDate === 'null' || fireDate === 'undefined' || fireDate == 0 || fireDate === ''){
-        timeRef.set({
-            fireDate: todaysDate
-        });
-        cityRef.set({
-            fireCities: cityConstant
-          });
-        console.log("firedate returned null, undefined, or 0, cities reset")
-    };
 }
 
 //calls the yahoo weather API to run a loop to find all the sunny cities in the US from our list. Checks to see if both Saturday and Sunday is sunny.
@@ -138,8 +135,7 @@ function compareDates() {
 function getMainAct() {
     //     //yelp calls go here for the main tourist attraction.
     //     //Print to #main-attraction-name  #main-attraction-summary
-    var cityList = "seattle";
-    var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?location=" + cityList + "&categories=parks,All"
+    var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?location=" + sunnyCity + "&categories=parks,All"
 
     $.ajax({
         url: myurl,
@@ -149,7 +145,7 @@ function getMainAct() {
         method: 'GET',
         dataType: 'json',
         success: function (response) {
-            console.log(response)
+            //console.log(response)
             console.log(response.businesses[0].name);
             console.log(response.businesses[0].image_url);
             console.log(response.businesses[0].rating);
@@ -190,7 +186,7 @@ function findSunnyCity() {
                     })
                     .done(function(data) {
                         console.log(data)
-                        console.log(cityArray)
+                        console.log(cityArray.length)
                         var SaturdayWeather = data.query.results.channel.item.forecast[daysToFriday+1].text
                         var SaturdayDate = data.query.results.channel.item.forecast[daysToFriday+1].date
                         var SundayWeather = data.query.results.channel.item.forecast[daysToFriday+2].text
@@ -306,7 +302,7 @@ function getFood(id) {
 }
 
 function getBrunch(id){
-    var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?location="+ cityArray[22] + "&categories=breakfast_brunch,All" 
+    var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?location="+ sunnyCity + "&categories=breakfast_brunch,All" 
                     //^^^ Pretend this portion of the myurl is called apiURL ^^^
         $.ajax({
         url: myurl,
@@ -332,8 +328,9 @@ function getBrunch(id){
     });
 
 }
+
 function getAttraction(id) {
-    var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?location="+ cityArray[22] + "&categories=localflavor,All" //find a new category 
+    var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?location="+ sunnyCity + "&categories=localflavor,All" //find a new category 
     //^^^ Pretend this portion of the myurl is called apiURL ^^^
     $.ajax({
     url: myurl,
@@ -396,7 +393,8 @@ $("#submit-btn").on("click", function(event) {
     event.preventDefault()
     userAddress = $(".user-location").val().trim();
     userEmail = $(".user-email").val().trim();
-    
+    cityArray.pop(sunnyCity)
+    isSunny = false;
     findSunnyCity();
  })
 
@@ -405,7 +403,8 @@ $("#reset-city").on('click', function () {
     event.preventDefault()
     userAddress = $(".user-location").val().trim();
     userEmail = $(".user-email").val().trim();
-    
+    cityArray.pop(sunnyCity)
+    isSunny = false;
     findSunnyCity();
 })
 $(".form-group").submit(function (event) {
