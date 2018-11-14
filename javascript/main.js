@@ -171,6 +171,8 @@ function getFood(id) {
     });
 }
 
+getFood();
+
 $("#btn-reroll-food-1").on("click", function(event){
     getFood("fri-dinner-sum");
 });
@@ -271,6 +273,18 @@ $("#btn-reroll-act-4").on("click", function(event){
 $("#btn-reroll-act-5").on("click", function(event){
     getAttraction("sun-act-sum");
 });
+
+function getActivity() {
+    //code for calling API and printing results to correct p tags goes here
+}
+
+function getItinerary() {
+    getFood("fri-dinner-sum");
+    getBrunch("sat-brunch-sum");
+    getFood("sat-lun-sum");
+    getFood("sat-dinner-sum");
+    getFood("sun-brunch-sum");
+}
 
 
 $("#submit-btn").on('click', function () {
