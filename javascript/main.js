@@ -154,6 +154,8 @@ function getFood(id) {
     });
 }
 
+getFood();
+
 $("#btn-reroll-food-1").on("click", function(event){
     getFood("fri-dinner-sum");
 });
@@ -261,13 +263,11 @@ function getActivity() {
 }
 
 function getItinerary() {
-    // getFood();
-    // $("#fri-dinner").text(response[0].Restaurant);
-    // getActivity();
-    // $("#fri-act").text(response[0].Activity);
-    //ETC. Would need to actually use correct format for response.
-
-    //Can organize code differently, but still needs to be in functions.
+    getFood("fri-dinner-sum");
+    getBrunch("sat-brunch-sum");
+    getFood("sat-lun-sum");
+    getFood("sat-dinner-sum");
+    getFood("sun-brunch-sum");
 }
 
 
