@@ -87,6 +87,9 @@ function getMainAct() {
             $("#main-attraction-rating").text("Rating: " + mainAct.rating);
             $("#attraction-link").attr("href", mainAct.url);
             $("#main-attraction-image").attr("src", mainAct.image_url);
+
+            $("#sat-aft-act").html("<a href = ' " + mainAct.url + " '>" + mainAct.name + "</a>");
+            $("#sat-aft-act-sum").html("<br> " + mainAct.location.address1 + ", " + mainAct.location.city + ", " + mainAct.location.state + ", " + mainAct.location.zip_code + " <br> Rating: " + mainAct.rating + "/5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Price: " + mainAct.price+ "<br> " + mainAct.display_phone );
         }
 
     });
@@ -127,6 +130,22 @@ function getDates() {
 };
 getDates();
 
+$("#get-itinerary-btn").on("click", function(event){ //prints out entire itinerary 
+
+    //main activity needs to be printed out on main attraction on saturday 
+    getFood("fri-dinner-sum");
+    getFood("sat-dinner-sum");
+    getBrunch("sat-brunch-sum");
+    getBrunch("sat-lun-sum");
+    getBrunch("sun-brunch-sum");
+    getAttraction("fri-nightlife-sum");
+    getAttraction("sat-mor-act-sum");
+    getAttraction("sat-nightlife-sum");
+    getAttraction("sun-act-sum");
+
+});
+
+
 function getFood(id) {
     var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?location="+ cityArray[22] + "&categories=restaurants,All" 
                     //^^^ Pretend this portion of the myurl is called apiURL ^^^
@@ -146,7 +165,7 @@ function getFood(id) {
             console.log(emptyArray);
             console.log(rand);
             console.log(rand.name); //get name of random park
-            $("#" + id).html(rand.name + "<br> " + rand.location.address1 + ", " + rand.location.city + ", " + rand.location.state + ", " + rand.location.zip_code + " <br> Rating: " + rand.rating + "/5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Price: " +rand.price+ "<br> " + rand.display_phone );
+            $("#" + id).html("<a href = ' " + rand.url + " '>" + rand.name + "</a> <br> " + rand.location.address1 + ", " + rand.location.city + ", " + rand.location.state + ", " + rand.location.zip_code + " <br> Rating: " + rand.rating + "/5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Price: " +rand.price+ "<br> " + rand.display_phone );
             console.log(rand.image_url);
 
 
@@ -185,8 +204,7 @@ function getBrunch(id){
             console.log(emptyArray);
             console.log(rand);
             console.log(rand.name); //get name of random park
-            $("#" + id).html(rand.name + "<br> " + rand.location.address1 + ", " + rand.location.city + ", " + rand.location.state + ", " + rand.location.zip_code + " <br> " +rand.display_phone+" <br> Rating: " + rand.rating + "/5 <br> ");
-            //$("#" + id).append(rand.rating);
+            $("#" + id).html("<a href = ' " + rand.url + " '>" + rand.name + "</a> <br> " + rand.location.address1 + ", " + rand.location.city + ", " + rand.location.state + ", " + rand.location.zip_code + " <br> Rating: " + rand.rating + "/5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Price: " +rand.price+ "<br> " + rand.display_phone );
             console.log(rand.image_url);
 
         }
@@ -218,20 +236,19 @@ function getAttraction(id) {
     dataType: 'json',
     success: function(response){
         
-            var emptyArray = [];
-            for(var i = 0; i < response.businesses.length; i++){
-            emptyArray.push(response.businesses[i]);
-            }//push 20 results into array 
-            var rand = emptyArray[Math.floor(Math.random() * emptyArray.length)]; //get random park
+        var emptyArray = [];
+        for(var i = 0; i < response.businesses.length; i++){
+        emptyArray.push(response.businesses[i]);
+        }//push 20 results into array 
+        var rand = emptyArray[Math.floor(Math.random() * emptyArray.length)]; //get random park
 
-            if(rand.rating > 4){
+        console.log(emptyArray);
+        console.log(rand);
+        console.log(rand.name); //get name of random park
+        
+        $("#" + id).html("<a href = ' " + rand.url + " '>" + rand.name + "</a> <br> " + rand.location.address1 + ", " + rand.location.city + ", " + rand.location.state + ", " + rand.location.zip_code + " <br> Rating: " + rand.rating + "/5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Price: " +rand.price+ "<br> " + rand.display_phone );
+        console.log(rand.image_url);
 
-                console.log(emptyArray);
-                console.log(rand);
-                console.log(rand.name); //get name of random park
-                $("#" + id).html(rand.name + "<br> " + rand.location.address1 + ", " + rand.location.city + ", " + rand.location.state + ", " + rand.location.zip_code + " <br> " +rand.display_phone+" <br> Rating: " + rand.rating + "/5 <br> ");
-                console.log(rand.image_url);
-            }
 
         }
     });
@@ -240,6 +257,7 @@ function getAttraction(id) {
 
 $("#btn-reroll-act-1").on("click", function(event){
     getAttraction("fri-nightlife-sum");
+
 });
 
 $("#btn-reroll-act-2").on("click", function(event){
@@ -286,11 +304,6 @@ $("#reset-city").on('click', function () {
     } while (isClear === false);
     $("#city-name").text(randomCity);
 })
-
-$("#get-itinerary-btn").on('click', function () {
-    getItinerary();
-});
-
 
 function soSorry() {
     $("#trip-information").empty();
