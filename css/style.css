@@ -47,12 +47,6 @@ body {
     100% { transform: rotate(360deg); }
 } */
 
-/* Container; Holds the cards with city, attaction, and weather
-.trip-information{
-    display: flex;
-    justify-content: space-between;
-    margin: auto;
-}
 
 .sorry-message {
     background: rgba(255, 255, 255, 0.804);
