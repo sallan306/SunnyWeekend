@@ -406,11 +406,7 @@ function errorMessage() {
 
 
 
-$("#trip-information").hide();
-$("#plan-btn-container").hide();
-$("#itinerary-container-friday").hide();
-$("#itinerary-container-saturday").hide();
-$("#itinerary-container-sunday").hide();
+
 
 
 // console.log(queryURL)
@@ -444,14 +440,26 @@ $("#itinerary-container-sunday").hide();
 
 $(document).ready(function() {
 
+    $("#trip-information").hide();
+$("#plan-btn-container").hide();
+$("#itinerary-container-friday").hide();
+        $("#itinerary-container-saturday").hide();
+        $("#itinerary-container-sunday").hide();
+
+
+
     $("#submit-btn").on("click", function(event) {  
         event.preventDefault();
         console.log("button clicked");
         userAddress = $(".user-location").val();
         userEmail = $(".user-email").val();
-        cityArray.pop(sunnyCity)
+        // cityArray.pop(sunnyCity);
         isSunny = false;
         findSunnyCity();
+        $("#trip-information").show();
+        $("#plan-btn-container").show();
+
+
      })
     
      
@@ -459,7 +467,7 @@ $(document).ready(function() {
         console.log("button clicked")
         userAddress = $(".user-location").val();
         userEmail = $(".user-email").val();
-        cityArray.pop(sunnyCity)
+        // cityArray.pop(sunnyCity);
         isSunny = false;
         findSunnyCity();
     })
@@ -467,7 +475,11 @@ $(document).ready(function() {
         event.preventDefault()
     })
     
-    $("#get-itinerary-btn").on("click", function(event){ //prints out entire itinerary 
+    $("#get-itinerary-btn").on("click", function(event){ 
+        $("#itinerary-container-friday").show();
+        $("#itinerary-container-saturday").show();
+        $("#itinerary-container-sunday").show();
+        //prints out entire itinerary 
         //main activity needs to be printed out on main attraction on saturday 
         getFood("fri-dinner-sum");
         getFood("sat-dinner-sum");
