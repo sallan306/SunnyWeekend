@@ -87,6 +87,9 @@ function getMainAct() {
             $("#main-attraction-rating").text("Rating: " + mainAct.rating);
             $("#attraction-link").attr("href", mainAct.url);
             $("#main-attraction-image").attr("src", mainAct.image_url);
+
+            $("#sat-aft-act").html("<a href = ' " + mainAct.url + " '>" + mainAct.name + "</a>");
+            $("#sat-aft-act-sum").html("<br> " + mainAct.location.address1 + ", " + mainAct.location.city + ", " + mainAct.location.state + ", " + mainAct.location.zip_code + " <br> Rating: " + mainAct.rating + "/5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Price: " + mainAct.price+ "<br> " + mainAct.display_phone );
         }
 
     });
@@ -137,7 +140,6 @@ $("#get-itinerary-btn").on("click", function(event){ //prints out entire itinera
     getBrunch("sun-brunch-sum");
     getAttraction("fri-nightlife-sum");
     getAttraction("sat-mor-act-sum");
-    getAttraction("sat-aft-act-sum");
     getAttraction("sat-nightlife-sum");
     getAttraction("sun-act-sum");
 
