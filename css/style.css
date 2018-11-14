@@ -28,7 +28,7 @@ body {
 }
 
 /* LOADING SCREEN CSS ANIMATION HERE! */
-/* Commented out for now because it's kind of annoying to look at after a while. */
+/* Commented out for now because it's kind of annoying to look at after a while. */ */
 /* .loading-sun {
     margin: auto;
     margin-top: 15px;
@@ -46,7 +46,7 @@ body {
     100% { transform: rotate(360deg); }
 } */
 
-/* Container; Holds the cards with city, attaction, and weather */
+/* Container; Holds the cards with city, attaction, and weather
 .trip-information{
     display: flex;
     justify-content: space-between;
