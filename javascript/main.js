@@ -56,18 +56,19 @@ var weatherAPIKEY = "aiWmhP4Z6BLSJr0dqd2BGsGg6vqzh4yt",
     googleService = "",
 
 //UI and user input variables
-    userAddress = '',
+    userAddress = 'Austin,TX',
     userEmail = '',
     userBudget = 0,
     petFriendly = false,
 
 //weatherAPI + Google variables
     isSunny = false,
-    originCity = "Austin",
-    sunnyCity = "Boston",
+    sunnyCity = "Boston,MA",
     numberOfMiles = '',
     sunnyHighs = '',
     sunnyLows = '',
+    randomCity = '',
+    randomCityIndex = 0,
 
 //moment variables
     todaysDayOfWeek = moment().isoWeekday(),
@@ -124,11 +125,17 @@ function getFire() {
 function compareDates() {
     if (todaysDate === localFireDate) {
         cityRef.on('value',function(snapshot){
-            cityArray = snapshot.val().fireDate
+            cityArray = snapshot.val().fireCities
         })
     }
     else {
         cityArray = cityConstant;
+        cityRef.set({
+            fireCities: cityArray
+          });
+          timeRef.set({
+            fireDate: todaysDate
+          });
         console.log("cities reset")
     }
 }
@@ -168,8 +175,8 @@ function getMainAct() {
     
 function findSunnyCity() {
     //uses yahoo maps API to spit out the closest sunny city, remove a cloudy city from the array, and update firebase with the new array as well.
-    var randomCityIndex = Math.floor(Math.random(cityArray.length)*100);
-    var randomCity = cityArray[randomCityIndex]
+    randomCityIndex = Math.floor(Math.random()*cityArray.length);
+    randomCity = cityArray[randomCityIndex]
     var yahooURL = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22"+randomCity+"%2C%20usa%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys"
             
     if (isSunny === true) {
@@ -184,7 +191,7 @@ function findSunnyCity() {
                         async: false,
                         cache:false,
                         success: function() { 
-                            console.log("yahoo ajax: Success"); 
+                            //console.log("yahoo ajax: Success"); 
                         },
                         error: function() { 
                             console.log('yahoo ajax: Failed!'); 
@@ -201,27 +208,27 @@ function findSunnyCity() {
                         sunnyLows =  data.query.results.channel.item.forecast[daysToFriday+2].text
 
                         if (SaturdayWeather.includes("Sunny") === true && SundayWeather.includes("Sunny") === true) {
-                            //onsole.log(data.query.results.channel)
+                            //console.log(data.query.results.channel)
 
                             randomCity = data.query.results.channel.item.title
                             randomCity = randomCity.replace("Conditions for ","")
                             randomCity = randomCity.slice(0,randomCity.indexOf(", US at"))
                             isSunny = true;
                             sunnyCity = randomCity;
-                            getDistance(originCity,sunnyCity);
-                            
+                            getDistance(userAddress,sunnyCity);
                             console.log("Weather for "+sunnyCity+" looks to be "+ SaturdayWeather + " on Saturday, "+SaturdayDate)
                             console.log("Weather for "+sunnyCity+" looks to be "+ SundayWeather + " on Sunday, "+SundayDate)
                         }
                         else {
-                            //console.log("not sunny all weekend");              
+                            console.log("not sunny all weekend, "+randomCity+" has been removed");
+                                          
                             cityArray.pop(randomCityIndex);
                             cityRef.set({
                                 fireCities: cityArray
                               });
-                              console.log("database updated");
-                            console.log("NOTSUNNY Weather for "+randomCity+" looks to be "+ SaturdayWeather + " on Saturday, "+SaturdayDate)
-                            console.log("NOTSUNNY Weather for "+randomCity+" looks to be "+ SundayWeather + " on Sunday, "+SundayDate)
+                             // console.log("database updated");
+                            //console.log("NOTSUNNY Weather for "+randomCity+" looks to be "+ SaturdayWeather + " on Saturday, "+SaturdayDate)
+                            //console.log("NOTSUNNY Weather for "+randomCity+" looks to be "+ SundayWeather + " on Sunday, "+SundayDate)
                             findSunnyCity();
                         }
                     })
@@ -411,9 +418,10 @@ $(document).ready(function() {
     $("#submit-btn").on("click", function(event) {  
         event.preventDefault();
         console.log("button clicked");
-        userAddress = $(".user-location").val();
-        userEmail = $(".user-email").val();
-        cityArray.pop(sunnyCity)
+        //userAddress = $(".user-location").val().trim();
+       // userEmail = $(".user-email").val().trim();
+        //console.log("user Address: "+userAddress)
+        //console.log("user Email: "+userEmail)
         isSunny = false;
         findSunnyCity();
      })
@@ -423,7 +431,6 @@ $(document).ready(function() {
         console.log("button clicked")
         userAddress = $(".user-location").val();
         userEmail = $(".user-email").val();
-        cityArray.pop(sunnyCity)
         isSunny = false;
         findSunnyCity();
     })
@@ -486,7 +493,4 @@ $(document).ready(function() {
         getAttraction("sun-act-sum");
     });
     
-    
-
-
 })
