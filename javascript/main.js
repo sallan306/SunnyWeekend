@@ -170,7 +170,7 @@ function getMainAct() {
             $("#sat-aft-act").html("<a href = ' " + mainAct.url + " '>" + mainAct.name + "</a>");
             $("#sat-aft-act-sum").html("<br> " + mainAct.location.address1 + ", " + mainAct.location.city + ", " + mainAct.location.state + ", " + mainAct.location.zip_code + " <br> Rating: " + mainAct.rating + "/5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Price: " + mainAct.price+ "<br> " + mainAct.display_phone );
         }
-    })
+    });
 }
     
 function findSunnyCity() {
@@ -320,7 +320,7 @@ function getFood(id) {
             console.log(emptyArray);
             console.log(rand);
             console.log(rand.name); //get name of random park
-            $("#" + id).html("<a href = ' " + rand.url + " '>" + rand.name + "</a> <br> " + rand.location.address1 + ", " + rand.location.city + ", " + rand.location.state + ", " + rand.location.zip_code + " <br> Rating: " + rand.rating + "/5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Price: " +rand.price+ "<br> " + rand.display_phone );
+            $("#" + id).html("<img src = '" + rand.image_url + "' a;t = '" + rand.name + "' class = 'yelp-pic'> <a href = ' " + rand.url + " '>" + rand.name + "</a> <br> " + rand.location.address1 + ", " + rand.location.city + ", " + rand.location.state + ", " + rand.location.zip_code + " <br> Rating: " + rand.rating + "/5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Price: " +rand.price+ "<br> " + rand.display_phone );
             console.log(rand.image_url);
 
 
@@ -348,7 +348,7 @@ function getBrunch(id){
             console.log(emptyArray);
             console.log(rand);
             console.log(rand.name); //get name of random park
-            $("#" + id).html("<a href = ' " + rand.url + " '>" + rand.name + "</a> <br> " + rand.location.address1 + ", " + rand.location.city + ", " + rand.location.state + ", " + rand.location.zip_code + " <br> Rating: " + rand.rating + "/5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Price: " +rand.price+ "<br> " + rand.display_phone );
+            $("#" + id).html("<img src = '" + rand.image_url + "' a;t = '" + rand.name + "' class = 'yelp-pic'> <a href = ' " + rand.url + " '>" + rand.name + "</a> <br> " + rand.location.address1 + ", " + rand.location.city + ", " + rand.location.state + ", " + rand.location.zip_code + " <br> Rating: " + rand.rating + "/5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Price: " +rand.price+ "<br> " + rand.display_phone );
             console.log(rand.image_url);
 
         }
@@ -378,7 +378,7 @@ function getAttraction(id) {
         console.log(rand);
         console.log(rand.name); //get name of random park
         
-        $("#" + id).html("<a href = ' " + rand.url + " '>" + rand.name + "</a> <br> " + rand.location.address1 + ", " + rand.location.city + ", " + rand.location.state + ", " + rand.location.zip_code + " <br> Rating: " + rand.rating + "/5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Price: " +rand.price+ "<br> " + rand.display_phone );
+        $("#" + id).html("<img src = '" + rand.image_url + "' a;t = '" + rand.name + "' class = 'yelp-pic'> <a href = ' " + rand.url + " '>" + rand.name + "</a> <br> " + rand.location.address1 + ", " + rand.location.city + ", " + rand.location.state + ", " + rand.location.zip_code + " <br> Rating: " + rand.rating + "/5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Price: " +rand.price+ "<br> " + rand.display_phone );
         console.log(rand.image_url);
         }
     });
@@ -410,6 +410,42 @@ function errorMessage() {
     sorryMessage.addClass("sorry-message");
     $("#trip-information").append(sorryMessage);
 }
+
+
+
+$("#trip-information").hide();
+$("#plan-btn-container").hide();
+$("#itinerary-container-friday").hide();
+$("#itinerary-container-saturday").hide();
+$("#itinerary-container-sunday").hide();
+
+
+// console.log(queryURL)
+// var cityInterval = setInterval(rerollCity, 500);
+// // function rerollCity() {
+// //     if (isClear === false) {
+// //         randomCity = Math.floor(Math.random(cityArray.length) * 100);
+// //         cityURL = cityArray[randomCity] + ",3166-2"
+// //         queryURL = "https://api.openweathermap.org/data/2.5/weather?" +
+// //             "q=" + cityURL +
+// //             "&units=imperial" +
+// //             "&appid=" + APIKey;
+// //         $.ajax({
+// //             url: queryURL,
+// //             method: "GET"
+// //         })
+// //             .then(function (response) {
+// //                 if (response.weather[0].description === "clear sky") {
+// //                     isClear = true;
+// //                     clearInterval(cityInterval);
+// //                     console.log("rerollcity function: clear sky")
+// //                 }
+// //                 else {
+// //                     console.log("rerollcity function: " + response.weather[0].description);
+// //                     clearInterval(cityInterval)
+// //                 }
+// //             })
+// //     }
 
 //--------------------------------------------------------------------------------buttonclick events-------------------------------------------------------------//
 
@@ -493,4 +529,11 @@ $(document).ready(function() {
         getAttraction("sun-act-sum");
     });
     
+<<<<<<< HEAD
 })
+=======
+    
+
+
+});
+>>>>>>> 5cfe7c0ed46de23770ad5bbbf8cf9b9b7feec827
