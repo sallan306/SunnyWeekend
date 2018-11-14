@@ -160,16 +160,11 @@ function getMainAct() {
             $("#main-attraction-rating").text("Rating: " + mainAct.rating);
             $("#attraction-link").attr("href", mainAct.url);
             $("#main-attraction-image").attr("src", mainAct.image_url);
-<<<<<<< HEAD
 
             $("#sat-aft-act").html("<a href = ' " + mainAct.url + " '>" + mainAct.name + "</a>");
             $("#sat-aft-act-sum").html("<br> " + mainAct.location.address1 + ", " + mainAct.location.city + ", " + mainAct.location.state + ", " + mainAct.location.zip_code + " <br> Rating: " + mainAct.rating + "/5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Price: " + mainAct.price+ "<br> " + mainAct.display_phone );
         }
-=======
->>>>>>> caabb413f3de343596b69c5b6473b0cc9b508b01
-
-        }
-    })
+    });
 }
     
 function findSunnyCity() {
@@ -284,7 +279,6 @@ function getDates() {
     sunday = endDate.format("MMMM Do YYYY");
     $("#sun-date").text(sunday);
 };
-<<<<<<< HEAD
 getDates();
 
 $("#get-itinerary-btn").on("click", function(event){ //prints out entire itinerary 
@@ -302,8 +296,6 @@ $("#get-itinerary-btn").on("click", function(event){ //prints out entire itinera
 
 });
 
-=======
->>>>>>> caabb413f3de343596b69c5b6473b0cc9b508b01
 
 function getFood(id) {
     var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?location="+ sunnyCity + "&categories=restaurants,All" 
