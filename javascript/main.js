@@ -160,6 +160,8 @@ function getMainAct() {
             $("#attraction-link").attr("href", mainAct.url);
             $("#main-attraction-image").attr("src", mainAct.image_url);
 
+            $("#sat-aft-act").html("<a href = ' " + mainAct.url + " '>" + mainAct.name + "</a>");
+            $("#sat-aft-act-sum").html("<br> " + mainAct.location.address1 + ", " + mainAct.location.city + ", " + mainAct.location.state + ", " + mainAct.location.zip_code + " <br> Rating: " + mainAct.rating + "/5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Price: " + mainAct.price+ "<br> " + mainAct.display_phone );
         }
     })
 }
@@ -274,6 +276,23 @@ function getDates() {
     sunday = endDate.format("MMMM Do YYYY");
     $("#sun-date").text(sunday);
 };
+getDates();
+
+$("#get-itinerary-btn").on("click", function(event){ //prints out entire itinerary 
+
+    //main activity needs to be printed out on main attraction on saturday 
+    getFood("fri-dinner-sum");
+    getFood("sat-dinner-sum");
+    getBrunch("sat-brunch-sum");
+    getBrunch("sat-lun-sum");
+    getBrunch("sun-brunch-sum");
+    getAttraction("fri-nightlife-sum");
+    getAttraction("sat-mor-act-sum");
+    getAttraction("sat-nightlife-sum");
+    getAttraction("sun-act-sum");
+
+});
+
 
 function getFood(id) {
     var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?location="+ sunnyCity + "&categories=restaurants,All" 
