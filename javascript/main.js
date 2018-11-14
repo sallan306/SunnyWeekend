@@ -49,6 +49,8 @@ var cityConstant = [ "Aberdeen", "Abilene", "Akron", "Albany", "Albuquerque", "A
 "West Valley City", "Westminster", "Wichita", "Wilmington", "Winston", "Winter Haven", "Worcester", "Yakima", "Yonkers", 
 "York", "Youngstown"];
 
+var cityArray = [];
+
 //weather API key and google maps variables
 var weatherAPIKEY = "aiWmhP4Z6BLSJr0dqd2BGsGg6vqzh4yt",
     googleService = "",
@@ -70,7 +72,7 @@ var weatherAPIKEY = "aiWmhP4Z6BLSJr0dqd2BGsGg6vqzh4yt",
 //moment variables
     todaysDayOfWeek = moment().isoWeekday(),
     todaysDate = moment().format("YYYYMMDD"),
-    fireDate = '';
+    localFireDate = '';
     nextFriday = "",
     daysToFriday = 0;
 
@@ -105,32 +107,30 @@ function initMap() {
 }
 
 // --------------------------------------------------------------called functions-------------------------------------------------------//
+
 getDates();
-compareDates();
-getFood();
+getFire();
 
 //---------------------------------------------------------------declared functions----------------------------------------------------//
 //compare today's date to the firebase date to see if it is a day after
-function compareDates() {
 
-    if (moment(todaysDate).isAfter(moment(fireDate))) {
-        timeRef.set({
-            fireDate: todaysDate
-        });
-        cityRef.set({
-            fireCities: cityConstant
-          });
-          console.log("cities reset")
+function getFire() {
+    timeRef.on('value',function(snapshot){
+        localFireDate = snapshot.val().fireDate
+        compareDates();
+    })  
+}
+
+function compareDates() {
+    if (todaysDate === localFireDate) {
+        cityRef.on('value',function(snapshot){
+            cityArray = snapshot.val().fireDate
+        })
     }
-    else if (fireDate === 'null' || fireDate === 'undefined' || fireDate == 0 || fireDate === ''){
-        timeRef.set({
-            fireDate: todaysDate
-        });
-        cityRef.set({
-            fireCities: cityConstant
-          });
-        console.log("firedate returned null, undefined, or 0, cities reset")
-    };
+    else {
+        cityArray = cityConstant;
+        console.log("cities reset")
+    }
 }
 
 //calls the yahoo weather API to run a loop to find all the sunny cities in the US from our list. Checks to see if both Saturday and Sunday is sunny.
@@ -138,8 +138,7 @@ function compareDates() {
 function getMainAct() {
     //     //yelp calls go here for the main tourist attraction.
     //     //Print to #main-attraction-name  #main-attraction-summary
-    var cityList = "seattle";
-    var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?location=" + cityList + "&categories=parks,All"
+    var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?location=" + sunnyCity + "&categories=parks,All"
 
     $.ajax({
         url: myurl,
@@ -149,7 +148,7 @@ function getMainAct() {
         method: 'GET',
         dataType: 'json',
         success: function (response) {
-            console.log(response)
+            //console.log(response)
             console.log(response.businesses[0].name);
             console.log(response.businesses[0].image_url);
             console.log(response.businesses[0].rating);
@@ -161,11 +160,19 @@ function getMainAct() {
             $("#attraction-link").attr("href", mainAct.url);
             $("#main-attraction-image").attr("src", mainAct.image_url);
 
+<<<<<<< HEAD
         }
     })
+=======
+            $("#sat-aft-act").html("<a href = ' " + mainAct.url + " '>" + mainAct.name + "</a>");
+            $("#sat-aft-act-sum").html("<br> " + mainAct.location.address1 + ", " + mainAct.location.city + ", " + mainAct.location.state + ", " + mainAct.location.zip_code + " <br> Rating: " + mainAct.rating + "/5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Price: " + mainAct.price+ "<br> " + mainAct.display_phone );
+        }
+    });
+>>>>>>> middleManBranch
 }
     
 function findSunnyCity() {
+    //uses yahoo maps API to spit out the closest sunny city, remove a cloudy city from the array, and update firebase with the new array as well.
     var randomCityIndex = Math.floor(Math.random(cityArray.length)*100);
     var randomCity = cityArray[randomCityIndex]
     var yahooURL = "https://query.yahooapis.com/v1/public/yql?q=select%20*%20from%20weather.forecast%20where%20woeid%20in%20(select%20woeid%20from%20geo.places(1)%20where%20text%3D%22"+randomCity+"%2C%20usa%22)&format=json&env=store%3A%2F%2Fdatatables.org%2Falltableswithkeys"
@@ -190,7 +197,7 @@ function findSunnyCity() {
                     })
                     .done(function(data) {
                         console.log(data)
-                        console.log(cityArray)
+                        console.log(cityArray.length)
                         var SaturdayWeather = data.query.results.channel.item.forecast[daysToFriday+1].text
                         var SaturdayDate = data.query.results.channel.item.forecast[daysToFriday+1].date
                         var SundayWeather = data.query.results.channel.item.forecast[daysToFriday+2].text
@@ -226,9 +233,10 @@ function findSunnyCity() {
                 }
 }
 
-// google Maps function that takes two locations and checks the distance between them
+
 
 function getDistance(start,end){
+    // google Maps function that takes two locations and checks the distance between them
     GoogleService.getDistanceMatrix(
         {
             origins: [start],
@@ -240,7 +248,6 @@ function getDistance(start,end){
           }, callback);
 
     function callback(response, status) {
-       //console.log(response)
        numberOfMiles = response.rows[0].elements[0].distance["text"];
        console.log(response.rows[0].elements[0].distance["text"])
     }
@@ -253,9 +260,6 @@ function getWeatherInfo() {
 }
 
 function getDates() {
-    //code for finding the calendar dates of nearest weekend goes here.
-    //Print to #fri-date #sat-date #sun-date
-    //WE STILL NEED SATURDAY'S DATE!
     var today = +moment().format("d")
     var daysUntilFriday = 0;
     if (today === 5) {
@@ -277,6 +281,26 @@ function getDates() {
     sunday = endDate.format("MMMM Do YYYY");
     $("#sun-date").text(sunday);
 };
+<<<<<<< HEAD
+=======
+getDates();
+
+$("#get-itinerary-btn").on("click", function(event){ //prints out entire itinerary 
+
+    //main activity needs to be printed out on main attraction on saturday 
+    getFood("fri-dinner-sum");
+    getFood("sat-dinner-sum");
+    getBrunch("sat-brunch-sum");
+    getBrunch("sat-lun-sum");
+    getBrunch("sun-brunch-sum");
+    getAttraction("fri-nightlife-sum");
+    getAttraction("sat-mor-act-sum");
+    getAttraction("sat-nightlife-sum");
+    getAttraction("sun-act-sum");
+
+});
+
+>>>>>>> middleManBranch
 
 function getFood(id) {
     var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?location="+ sunnyCity + "&categories=restaurants,All" 
@@ -306,7 +330,7 @@ function getFood(id) {
 }
 
 function getBrunch(id){
-    var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?location="+ cityArray[22] + "&categories=breakfast_brunch,All" 
+    var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?location="+ sunnyCity + "&categories=breakfast_brunch,All" 
                     //^^^ Pretend this portion of the myurl is called apiURL ^^^
         $.ajax({
         url: myurl,
@@ -332,8 +356,9 @@ function getBrunch(id){
     });
 
 }
+
 function getAttraction(id) {
-    var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?location="+ cityArray[22] + "&categories=localflavor,All" //find a new category 
+    var myurl = "https://cors-anywhere.herokuapp.com/https://api.yelp.com/v3/businesses/search?location="+ sunnyCity + "&categories=localflavor,All" //find a new category 
     //^^^ Pretend this portion of the myurl is called apiURL ^^^
     $.ajax({
     url: myurl,
@@ -356,8 +381,6 @@ function getAttraction(id) {
         
         $("#" + id).html("<a href = ' " + rand.url + " '>" + rand.name + "</a> <br> " + rand.location.address1 + ", " + rand.location.city + ", " + rand.location.state + ", " + rand.location.zip_code + " <br> Rating: " + rand.rating + "/5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Price: " +rand.price+ "<br> " + rand.display_phone );
         console.log(rand.image_url);
-
-
         }
     });
         
@@ -391,79 +414,87 @@ function errorMessage() {
 
 //--------------------------------------------------------------------------------buttonclick events-------------------------------------------------------------//
 
+$(document).ready(function() {
 
-$("#submit-btn").on("click", function(event) {
-    event.preventDefault()
-    userAddress = $(".user-location").val().trim();
-    userEmail = $(".user-email").val().trim();
+    $("#submit-btn").on("click", function(event) {  
+        event.preventDefault();
+        console.log("button clicked");
+        userAddress = $(".user-location").val();
+        userEmail = $(".user-email").val();
+        cityArray.pop(sunnyCity)
+        isSunny = false;
+        findSunnyCity();
+     })
     
-    findSunnyCity();
- })
-
- 
-$("#reset-city").on('click', function () {
-    event.preventDefault()
-    userAddress = $(".user-location").val().trim();
-    userEmail = $(".user-email").val().trim();
+     
+    $("#reset-city").on('click', function () {
+        console.log("button clicked")
+        userAddress = $(".user-location").val();
+        userEmail = $(".user-email").val();
+        cityArray.pop(sunnyCity)
+        isSunny = false;
+        findSunnyCity();
+    })
+    $(".form-group").on('submit', function (event) {
+        event.preventDefault()
+    })
     
-    findSunnyCity();
+    $("#get-itinerary-btn").on("click", function(event){ //prints out entire itinerary 
+        //main activity needs to be printed out on main attraction on saturday 
+        getFood("fri-dinner-sum");
+        getFood("sat-dinner-sum");
+        getBrunch("sat-brunch-sum");
+        getBrunch("sat-lun-sum");
+        getBrunch("sun-brunch-sum");
+        getAttraction("fri-nightlife-sum");
+        getAttraction("sat-mor-act-sum");
+        getAttraction("sat-aft-act-sum");
+        getAttraction("sat-nightlife-sum");
+        getAttraction("sun-act-sum");
+        console.log("button clicked")
+    
+    });
+    
+    $("#btn-reroll-food-1").on("click", function(event){
+        getFood("fri-dinner-sum");
+    });
+    
+    $("#btn-reroll-food-4").on("click", function(event){
+        getFood("sat-dinner-sum");
+    });
+    $("#btn-reroll-food-2").on("click", function(event){
+        getBrunch("sat-brunch-sum");
+    });
+    
+    $("#btn-reroll-food-3").on("click", function(event){
+        getBrunch("sat-lun-sum");
+    });
+    
+    $("#btn-reroll-food-5").on("click", function(event){
+        getBrunch("sun-brunch-sum");
+    });
+    
+    $("#btn-reroll-act-1").on("click", function(event){
+        getAttraction("fri-nightlife-sum");
+    });
+    
+    $("#btn-reroll-act-2").on("click", function(event){
+        getAttraction("sat-mor-act-sum");
+    });
+    
+    $("#btn-reroll-act-3").on("click", function(event){
+        getAttraction("sat-aft-act-sum");
+    });
+    
+    $("#btn-reroll-act-4").on("click", function(event){
+        getAttraction("sat-nightlife-sum");
+    });
+    
+    $("#btn-reroll-act-5").on("click", function(event){
+        getAttraction("sun-act-sum");
+    });
+    
+    
+
+
 })
-$(".form-group").submit(function (event) {
-    event.preventDefault()
-})
-
-$("#get-itinerary-btn").on("click", function(event){ //prints out entire itinerary 
-
-    //main activity needs to be printed out on main attraction on saturday 
-    getFood("fri-dinner-sum");
-    getFood("sat-dinner-sum");
-    getBrunch("sat-brunch-sum");
-    getBrunch("sat-lun-sum");
-    getBrunch("sun-brunch-sum");
-    getAttraction("fri-nightlife-sum");
-    getAttraction("sat-mor-act-sum");
-    getAttraction("sat-aft-act-sum");
-    getAttraction("sat-nightlife-sum");
-    getAttraction("sun-act-sum");
-
-});
-
-$("#btn-reroll-food-1").on("click", function(event){
-    getFood("fri-dinner-sum");
-});
-
-$("#btn-reroll-food-4").on("click", function(event){
-    getFood("sat-dinner-sum");
-});
-$("#btn-reroll-food-2").on("click", function(event){
-    getBrunch("sat-brunch-sum");
-});
-
-$("#btn-reroll-food-3").on("click", function(event){
-    getBrunch("sat-lun-sum");
-});
-
-$("#btn-reroll-food-5").on("click", function(event){
-    getBrunch("sun-brunch-sum");
-});
-
-$("#btn-reroll-act-1").on("click", function(event){
-    getAttraction("fri-nightlife-sum");
-});
-
-$("#btn-reroll-act-2").on("click", function(event){
-    getAttraction("sat-mor-act-sum");
-});
-
-$("#btn-reroll-act-3").on("click", function(event){
-    getAttraction("sat-aft-act-sum");
-});
-
-$("#btn-reroll-act-4").on("click", function(event){
-    getAttraction("sat-nightlife-sum");
-});
-
-$("#btn-reroll-act-5").on("click", function(event){
-    getAttraction("sun-act-sum");
-});
-
