@@ -45,22 +45,22 @@
          <!-- This card holds all the city and attraction information -->
          <div class ="loading-sun"></div>
          <div class = "row" id = "trip-information">
-            <!-- This holds all the info for the individual cities -->
+          <!-- This holds all the info for the individual cities -->
             <div class ="col-md-4">
-               <div class="card" id = "city-card">
+                <div class="card" id = "city-card">
                   <div class="card-body">
-                     <h5 class="card-title" id = "city-name">New York City</h5>
-                     <h6 class="card-subtitle mb-2 text-muted" id = "city-state">New York</h6>
-                     <p class="card-text" id = "city-summary"> This historical city is bustling with excitement. It's know for its shows and culture.</p>
-                     <a href="#" class="card-link" id = "city-search-link">NYC Google Search</a>
-                     <button class="btn btn-primary" id ="reset-city" >Try Again</button>
+                      <h5 class="card-title" id = "city-name">New York City</h5>
+                      <h6 class="card-subtitle mb-2 text-muted" id = "city-state">New York</h6>
+                      <p class="card-text" id = "city-summary"> This historical city is bustling with excitement. It's know for its shows and culture.</p>
+                      <a href="#" class="card-link" id = "city-search-link">NYC Google Search</a>
+                      <button class="btn btn-primary" id ="reset-city" >Try Again</button>
                   </div>
-               </div>
+                </div>
             </div>
             
             <!-- This holds info for primary attraction -->
             <div class = "col-md-4">
-               <div class="card" id = "attraction card">
+                <div class="card" id = "attraction card">
                   <img class="card-img-top" id = "main-attraction-image" src="https://placehold.it/250x200" alt="Card image cap">
                   <div class="card-body">
                     <h5 class="card-title" id ="main-attraction-name">Card title</h5>
@@ -70,26 +70,30 @@
                   </div>
                 </div>
             </div>
+          
             
 
             <!-- This holds the weather and distance information -->
             <div class ="col-md-4">
 
             
-               <div class="card" id = "logistics-card">
+                <div class="card" id = "logistics-card">
                         <img class="card-img-top" id = "sun-image" src="images/yellow-sun.png" alt="sun">
                   <div class="card-body">
-                     <h3 id = "saturday-high">High: </h3>
-                     <h3 id = "saturday-low">Low: </h3>
+                      <h3 id = "saturday-high">High: </h3>
+                      <h3 id = "saturday-low">Low: </h3>
                   </div>
-               </div>
+                </div>
             </div>
          </div>
-         <div class ="row" id = "plan-btn-container">
+          
+          <div class ="row" id = "plan-btn-container">
             <div class = "col-md-12">            
-           <button class = "btn btn-primary" id = "get-itinerary-btn">Plan My Sunny Weekend!</button>
-         </div>
-         </div>
+            <button class = "btn btn-primary" id = "get-itinerary-btn">Plan My Sunny Weekend!</button>
+          </div>
+          </div>
+
+         
 
       <div class = "row schedule-box" id = "itinerary-container-friday">
          <!-- Schedule stuff goes here! -->
@@ -100,14 +104,16 @@
                         <h1 class = "date" id="fri-date"></h1>
                      </li>
                      <li class="list-group-item">
-                        <img src="https://placehold.it/250x200" alt="..." class="img-thumbnail" id = "fri-dinner-image">
-                        <a id = "fri-dinner" href="#">Restaurant</a>
+                        <!-- <img src="https://placehold.it/250x200" alt="..." class="img-thumbnail" id = "fri-dinner-image"> -->
+                        <h5 class = events>Restaurant</h5>
+                        <!-- <a id = "fri-dinner" href="#">Restaurant</a> -->
                         <input class="btn btn-primary btn-reroll-food" id = "btn-reroll-food-1" type="reset" value="Try Again?">
                         <p id = "fri-dinner-sum">Here's a quick sentence about the resturant stolen from Yelp!</p>
                      </li>
                      <li class="list-group-item">
-                        <img src="https://placehold.it/250x200" alt="..." class="img-thumbnail" id = "fri-nightlife-image">
-                        <a id = "fri-nightlife" href="#">Night Event</a>
+                        <!-- <img src="https://placehold.it/250x200" alt="..." class="img-thumbnail" id = "fri-nightlife-image"> -->
+                        <!-- <a id = "fri-nightlife" href="#">Night Event</a> -->
+                        <h5 class = events>Night Event</h5>
                         <input class="btn btn-primary btn-reroll-act" id = "btn-reroll-act-1"type="reset" value="Try Again?">
                         <p id = "fri-nightlife-sum">Here's a quick sentence about the evening activity stolen from Yelp!</p>
                      </li>
@@ -123,38 +129,50 @@
                         <h1 class = "date" id = "sat-date"></h1>
                      </li>
                      <li class="list-group-item">
-                        <img src="https://placehold.it/250x200" alt="..." class="img-thumbnail" id = "sat-brunch-image">
-                        <a id = "sat-brunch" href="#">Brunch</a>
+                        <!-- <img src="https://placehold.it/250x200" alt="..." class="img-thumbnail" id = "sat-brunch-image"> -->
+                        <h5 class = events>Brunch</h5>
+
+                        <!-- <a id = "sat-brunch" href="#">Brunch</a> -->
                         <input class="btn btn-primary btn-reroll-food" id = "btn-reroll-food-2" type="reset" value="Try Again?">
                         <p id = "sat-brunch-sum">Here's a quick sentence about this brunch place!</p>
                      </li>
                      <li class="list-group-item">
-                        <img src="https://placehold.it/250x200" alt="..." class="img-thumbnail" id = "sat-morning-act-image">
-                        <a id ="sat-morning-act" href="#">Morning Attraction</a>
+                        <!-- <img src="https://placehold.it/250x200" alt="..." class="img-thumbnail" id = "sat-morning-act-image"> -->
+                        <h5 class = events>Morning Attraction</h5>
+<!-- 
+                        <a id ="sat-morning-act" href="#">Morning Attraction</a> -->
                         <input class="btn btn-primary btn-reroll-act" id = "btn-reroll-act-2" type="reset" value="Try Again?">
                         <p id = "sat-mor-act-sum">Here's a quick sentence about this cool tourist place!</p>
                      </li>
                      <li class="list-group-item">
-                        <img src="https://placehold.it/250x200" alt="..." class="img-thumbnail" id = "sat-lunch-image">
-                        <a id = "sat-lun" href="#">Lunch Restaurant</a>
+                        <!-- <img src="https://placehold.it/250x200" alt="..." class="img-thumbnail" id = "sat-lunch-image"> -->
+                        <h5 class = events>Lunch Restaurant</h5>
+
+                        <!-- <a id = "sat-lun" href="#">Lunch Restaurant</a> -->
                         <input class="btn btn-primary btn-reroll-food" id = "btn-reroll-food-3" type="reset" value="Try Again?">
                         <p id ="sat-lun-sum">Here's a quick sentence about this lunch place!</p>
                      </li>
                      <li class="list-group-item">
-                        <img src="https://placehold.it/250x200" alt="..." class="img-thumbnail" id = "sat-aft-act-image">
-                        <a id = "sat-aft-act" href="#">Main Attraction</a>
+                        <!-- <img src="https://placehold.it/250x200" alt="..." class="img-thumbnail" id = "sat-aft-act-image"> -->
+                        <h5 class = events>Main Attraction</h5>
+
+                        <!-- <a id = "sat-aft-act" href="#">Main Attraction</a> -->
                         <input class="btn btn-primary btn-reroll" id = "btn-reroll-act-3" type="reset" value="Try Again?">
                         <p id = "sat-aft-act-sum">Here's a quick sentence about this tourist place!</p>
                      </li>
                      <li class="list-group-item">
-                        <img src="https://placehold.it/250x200" alt="..." class="img-thumbnail" id = "sat-dinner-image">
-                        <a id = "sat-dinner" href="#">Dinner Restaurant</a>
+                        <!-- <img src="https://placehold.it/250x200" alt="..." class="img-thumbnail" id = "sat-dinner-image"> -->
+                        <h5 class = events>Dinner Restaurant</h5>
+
+                        <!-- <a id = "sat-dinner" href="#">Dinner Restaurant</a> -->
                         <input class="btn btn-primary btn-reroll-food" id = "btn-reroll-food-4" type="reset" value="Try Again?">
                         <p id ="sat-dinner-sum">Here's a quick sentence about this dinner place!</p>
                      </li>
                      <li class="list-group-item">
-                        <img src="https://placehold.it/250x200" alt="..." class="img-thumbnail" id = "sat-nightlife-image">
-                        <a id = "sat-nightlife" href="#">Saturday Nightlife</a>
+                        <!-- <img src="https://placehold.it/250x200" alt="..." class="img-thumbnail" id = "sat-nightlife-image"> -->
+                        <h5 class = events>Saturday Nightlife</h5>
+
+                        <!-- <a id = "sat-nightlife" href="#">Saturday Nightlife</a> -->
                         <input class="btn btn-primary btn-reroll-act" id = "btn-reroll-act-4" type="reset" value="Try Again?">
                         <p id = "sat-nightlife-sum">Here's a quick sentence about this evening's activities!</p>
                      </li>
@@ -171,14 +189,18 @@
                   <h1 class = "date" id = "sun-date"></h1>
                </li>
                <li class="list-group-item">
-                  <img src="https://placehold.it/250x200" alt="..." class="img-thumbnail" id = "sun-brunch-image">
-                  <a id = "sun-brunch" href="#">Brunch Restaurant</a>
+                  <!-- <img src="https://placehold.it/250x200" alt="..." class="img-thumbnail" id = "sun-brunch-image"> -->
+                  <h5 class = events>Brunch Restaurant</h5>
+
+                  <!-- <a id = "sun-brunch" href="#">Brunch Restaurant</a> -->
                   <input class="btn btn-primary btn-reroll-food" id = "btn-reroll-food-5" type="reset" value="Try Again?">
                   <p id = "sun-brunch-sum">Here's a quick sentence about this brunch place!</p>
                </li>
                <li class="list-group-item">
-                  <img src="https://placehold.it/250x200" alt="..." class="img-thumbnail" id = "sun-activity-image">
-                  <a id = "sun-activity" href="#">Morning activity</a>
+                  <!-- <img src="https://placehold.it/250x200" alt="..." class="img-thumbnail" id = "sun-activity-image"> -->
+                  <h5 class = events>Morning Activity</h5>
+
+                  <!-- <a id = "sun-activity" href="#">Morning activity</a> -->
                   <input class="btn btn-primary btn-reroll-act" id = "btn-reroll-act-5" type="reset" value="Try Again?">
                   <p id = "sun-brunch-sum">Here's a quick sentence about this tourist place!</p>
                </li>

@@ -87,16 +87,32 @@ body {
     margin: 0px 10px;
 }
 
+.events{
+    border-bottom: 0px;
+}
+
+.yelp-pic{
+    width: 130px;
+    height: 100px;
+    float: left;
+    margin-right: 10px;
+    padding: .25rem;
+    background-color: #fff;
+    border: 1px solid #dee2e6;
+    border-radius: .25rem;
+
+}
+
 /* in each list group; holds date information; holds event information; bootstrap */
 .list-group-item {
     background: white;
 }
 
-.img-thumbnail {
+/* .img-thumbnail {
     width: 100px;
     float: left;
     margin-right: 10px;
-}
+} */
 
 /* container; holds the day of the week and the calendar date */
 .date-headlines {
@@ -126,3 +142,4 @@ body {
     background: rgba(255, 255, 255, 0.804);
     justify-content: center;
 }
+
