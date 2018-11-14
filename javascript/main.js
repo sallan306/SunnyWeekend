@@ -458,16 +458,10 @@ $("#itinerary-container-friday").hide();
     $("#submit-btn").on("click", function(event) {  
         event.preventDefault();
         console.log("button clicked");
-<<<<<<< HEAD
-        userAddress = $(".user-location").val();
-        userEmail = $(".user-email").val();
-        // cityArray.pop(sunnyCity);
-=======
         //userAddress = $(".user-location").val().trim();
        // userEmail = $(".user-email").val().trim();
         //console.log("user Address: "+userAddress)
         //console.log("user Email: "+userEmail)
->>>>>>> a362453ec31b135078dc1951e85e21b3c207dd0a
         isSunny = false;
         findSunnyCity();
         $("#trip-information").show();
@@ -481,10 +475,6 @@ $("#itinerary-container-friday").hide();
         console.log("button clicked")
         userAddress = $(".user-location").val();
         userEmail = $(".user-email").val();
-<<<<<<< HEAD
-        // cityArray.pop(sunnyCity);
-=======
->>>>>>> a362453ec31b135078dc1951e85e21b3c207dd0a
         isSunny = false;
         findSunnyCity();
     })
