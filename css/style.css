@@ -1,21 +1,28 @@
+html {
+    height: 100%;
+    margin: 0px;
+}
+
 body {
     background-image: url(../images/denys-nevozhai-280035-unsplash.jpg);
     display: flex;
-    position: relative;
     height: 100%;
-    padding-bottom: 100px;
+    padding-bottom: 600px;
+    margin-bottom: 200px;
 }
 
 /* All of our content is in here */
 .SW-container {
-    max-width: 80%;
+    width: 80%;
     height: 100%;
     margin: auto;
+    margin-bottom: 200px;
 }
 
 /* container class; bootstrap;  */
 .row {
     margin: 0px;
+    margin-bottom: 20px;
 }
 
 /* Holds the initial user input; bootstrap */
@@ -61,7 +68,8 @@ body {
 }
 
 .card-img-top {
-    background-size: contain; 
+    background-size: contain;
+    max-height: 250px; 
 }
 
 /* Holds the button for "plan my schedule" */
@@ -71,6 +79,7 @@ body {
     padding: 10px;
     margin: auto;
     margin: 20px;
+    margin-bottom: 100px;
 }
 
 #get-itinerary-btn {
@@ -110,11 +119,6 @@ body {
     background: white;
 }
 
-/* .img-thumbnail {
-    width: 100px;
-    float: left;
-    margin-right: 10px;
-} */
 
 /* container; holds the day of the week and the calendar date */
 .date-headlines {
@@ -136,11 +140,14 @@ body {
     border-color: gold;
 }
 
+#itinerary-container-sunday {
+    margin-bottom: 100px;
+}
+
 #footer {
     width: 100%;
-    height: 40px;
-    position: absolute;
-    bottom: 0;
+    position: fixed;
+    bottom: 0px;
     background: rgba(255, 255, 255, 0.804);
     justify-content: center;
 }
