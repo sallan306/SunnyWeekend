@@ -1,6 +1,10 @@
+html {
+    height: 100%;
+    margin: 0px;
+}
+
 body {
     background-image: url(../images/denys-nevozhai-280035-unsplash.jpg);
-    background-size: cover;
     display: flex;
     position: relative;
     height: 100%;
@@ -9,7 +13,7 @@ body {
 
 /* All of our content is in here */
 .SW-container {
-    max-width: 80%;
+    width: 80%;
     height: 100%;
     margin: auto;
 }
@@ -24,7 +28,8 @@ body {
     background: rgba(255, 255, 255, 0.804);
     text-align: center;
     width: 100%;
-    margin: 0px 10px;
+    margin: 0px;
+    margin-bottom: 20px;
 }
 
 /* LOADING SCREEN CSS ANIMATION HERE! */
@@ -46,12 +51,6 @@ body {
     100% { transform: rotate(360deg); }
 } */
 
-/* Container; Holds the cards with city, attaction, and weather
-.trip-information{
-    display: flex;
-    justify-content: space-between;
-    margin: auto;
-}
 
 .sorry-message {
     background: rgba(255, 255, 255, 0.804);
@@ -66,6 +65,10 @@ body {
     margin: 10px;
 }
 
+.card-img-top {
+    background-size: contain;
+    max-height: 250px; 
+}
 
 /* Holds the button for "plan my schedule" */
 #plan-btn-container {
@@ -113,11 +116,6 @@ body {
     background: white;
 }
 
-/* .img-thumbnail {
-    width: 100px;
-    float: left;
-    margin-right: 10px;
-} */
 
 /* container; holds the day of the week and the calendar date */
 .date-headlines {
@@ -147,4 +145,3 @@ body {
     background: rgba(255, 255, 255, 0.804);
     justify-content: center;
 }
-
