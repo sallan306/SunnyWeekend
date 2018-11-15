@@ -7,96 +7,37 @@
       <title>Sunny Weekend</title>
       <link rel="stylesheet" type="text/css" href=css/reset.css>
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-
       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    
       <link rel="stylesheet" type="text/css" href=css/style.css>
-
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
       <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
       <script src="https://www.gstatic.com/firebasejs/5.5.8/firebase-app.js"></script>
       <script src="https://www.gstatic.com/firebasejs/5.5.8/firebase-database.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
       <script src=javascript/main.js></script> 
       <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDrYhqyBH2hkafHTgA89V5lqBVXzXesLfE&callback=initMap"    type="text/javascript"></script>
-      
-
    </head>
    <body>
       <div class = "SW-container">
-        <div class = "row">
+         <div class = "row">
             <div class="col-md-12 jumbotron">
-                <h1 class="display-4">Sunny Weekend</h1>
-                <p class="lead">Let us plan your spontaneous weekend getaway. </p>
-                <hr class="my-4">
-                
-                <form id="email-val" data-parsley-validate = "">
-                   <!-- <div class="form-group">
-                       <label for="exampleInputEmail1">Email address</label>
-                     
-                      <label for="email">Email * :</label>
-                      <input type="email" class="form-control" name="email" data-parsley-trigger="change" required="">
-                      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                   </div> -->
-
-                   
-                  
-                   <div class="form-group">
-                      <label for="formControlRange">Location</label>
-                      <input type="" class="form-control" id="user-location" placeholder="Enter Location" required>
-                   </div>
-                   <!-- <div class="form-group form-check">
-                      <input type="checkbox" class="form-check-input" id="pet-friendly-btn">
-                      <label class="form-check-label" for="exampleCheck1">Pet-Friendly</label>
-                      </div> -->
-                    
-
-                      <button type="submit" class="btn btn-primary" id ="submit-btn" value="validate" >Find My Sunny Weekend!</button>
-                      
-                     </form> 
-             </div>
-        </div>
-         
-         <!-- These cards will be hidden until needed -->
-         <!-- This card holds all the city and attraction information -->
-         <div class ="loading-sun"></div>
-         <div class = "row" id = "trip-information">
-          <!-- This holds all the info for the individual cities -->
-            <div class ="col-md-4">
-                <div class="card" id = "city-card">
-                  <div class="card-body">
-                      <h5 class="card-title" id = "city-name">New York City</h5>
-                      <h6 class="card-subtitle" id = "city-distance">Distance: </a>
-                      <button class="btn btn-primary" id ="reset-city" >Try Again</button>
-                  </div>
-                </div>
-                <h1 class="display-4">Sunny Weekend</h1>
-                <p class="lead">Let us plan your spontaneous weekend getaway. </p>
-                <hr class="my-4">
-                <form data-parsley-validate action="#" onsubmit="return false">
-                      <div class="form-group">
-                         <label for="formControlRange">Your Location</label>
-                         <input type="" class="form-control" id="user-location" placeholder="Austin, TX">
-                      </div>
-                      <div class="card-body" id="name-and-miles">
-                            <h5 class="card-title" id = "city-name"></h5>
-                            <h6 class="card-subtitle" id = "city-distance"></a>
+               <h1 class="display-4">Sunny Weekend</h1>
+               <p class="lead">Let us plan your spontaneous weekend getaway. </p>
+               <hr class="my-4">
+               <form data-parsley-validate action="#" onsubmit="return false">
+                     <div class="form-group">
+                        <label for="formControlRange">Your Location</label>
+                        <input type="" class="form-control" id="user-location" placeholder="Austin, TX">
+                     </div>
+                     <div class="card-body" id="name-and-miles">
+                           <h5 class="card-title" id = "city-name"></h5>
+                           <h6 class="card-subtitle" id = "city-distance"></a>
+                           </div>
+                     <button type="submit" class="btn btn-primary" id ="submit-btn" >Find My Sunny Weekend!</button>
+                  </form>
+               </div>
             </div>
             
-            <!-- This holds info for primary attraction -->
-            <div class = "col-md-4">
-                <div class="card" id = "attraction card">
-                  <img class="card-img-top" id = "main-attraction-image" src="https://placehold.it/250x200" alt="Card image cap">
-                  <div class="card-body">
-                    <h5 class="card-title" id ="main-attraction-name">Card title</h5>
-                    <p class="card-text" id ="main-attraction-rating">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                    <a href="#" class="card-link" id="attraction-link" target = "blank">More Info!</a>
-                    <button class="btn btn-primary" id ="reset-attraction-main" >Try Again</button>
-                  </div>
-                  <button type="submit" class="btn btn-primary" id ="submit-btn" >Find My Sunny Weekend!</button>
-                </form>
-                </div>
-            </div>
-                      
             <!-- These cards will be hidden until needed -->
             <!-- This card holds all the city and attraction information -->
             <div class ="loading-sun"></div>
@@ -106,62 +47,68 @@
                <!-- This holds all the info for the individual cities -->
                <!-- <div class ="col-md-4">
                   <div class="card" id = "city-card">
-
                      </div>
                   </div> -->
-            
 
-            <!-- This holds the weather and distance information -->
-            <div class ="col-md-4">
-                <div class="card" id = "logistics-card">
-                    <img class="card-img-top" id = "sun-image" src="images/yellow-sun.png" alt="sun">
-                    <div class="card-body">
-                       <h3 id = "saturday-date"></h3>
-                       <h4 id = "saturday-text">Sky: </h3>
-                       <h5 id = "saturday-high">High: </h3>
-                       <h5 id = "saturday-low">Low: </h3>
-                    </div>
-                    </div>
-              </div>
-             <!-- This holds the weather and distance information -->
-              <div class ="col-md-4">  
-              <div class="card" id = "logistics-card">
+
+                  <!-- This holds the weather and distance information -->
+                  <div class ="col-md-4">
+                        <div class="card" id = "logistics-card">
+                           <img class="card-img-top" id = "sun-image" src="images/yellow-sun.png" alt="sun">
+                           <div class="card-body">
+                              <h3 id = "saturday-date"></h3>
+                              <h4 id = "saturday-text">Sky: </h3>
+                              <h5 id = "saturday-high">High: </h3>
+                              <h5 id = "saturday-low">Low: </h3>
+                           </div>
+                           </div>
+                     </div>
+                  
+
+                  
+                  <!-- This holds the weather and distance information -->
+                  <div class ="col-md-4">
+                     <div class="card" id = "logistics-card">
                         <img class="card-img-top" id = "sun-image" src="images/yellow-sun.png" alt="sun">
-                  <div class="card-body">
-                      <h3 id = "sunday-date"></h3>
-                      <h4 id = "sunday-text">Sky: </h3>
-                      <h5 id = "sunday-high">High: </h3>
-                      <h5 id = "sunday-low">Low: </h3>
-                   </div>
-                 </div>
-             </div>
-
-             <!-- This holds info for primary attraction -->
-             <div class = "col-md-4">
-                   <div class="card" id = "attraction card">
-                      <img class="card-img-top" id = "main-attraction-image" src="https://placehold.it/250x200" alt="Card image cap">
-                      <div class="card-body">
-                         <h5 class="card-title" id ="main-attraction-name">Card title</h5>
-                         <p class="card-text" id ="main-attraction-rating">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                         <a href="#" class="card-link" id="attraction-link" target = "blank">More Info!</a>
-                         <button class="btn btn-primary" id ="reset-attraction-main" >New Activity</button>
+                        <div class="card-body">
+                           <h3 id = "sunday-date"></h3>
+                           <h4 id = "sunday-text">Sky: </h3>
+                           <h5 id = "sunday-high">High: </h3>
+                           <h5 id = "sunday-low">Low: </h3>
+                        </div>
+                      </div>
                   </div>
-                </div>
-            </div>
-         </div>
-          
-          <div class ="row" id = "plan-btn-container">
-            <div class = "col-md-12">            
-            <button class = "btn btn-primary" id = "get-itinerary-btn">Plan My Sunny Weekend!</button>
-          </div>
-          </div>
 
-         
+                  <!-- This holds info for primary attraction -->
+                  <div class = "col-md-4">
+                        <div class="card" id = "attraction card">
+                           <img class="card-img-top" id = "main-attraction-image" src="https://placehold.it/250x200" alt="Card image cap">
+                           <div class="card-body">
+                              <h5 class="card-title" id ="main-attraction-name">Card title</h5>
+                              <p class="card-text" id ="main-attraction-rating">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                              <a href="#" class="card-link" id="attraction-link" target = "blank">More Info!</a>
+                              <button class="btn btn-primary" id ="reset-attraction-main" >New Activity</button>
+                           </div>
+                        </div>
+                     </div>
 
-      <div class = "row schedule-box" id = "itinerary-container-friday">
-         <!-- Schedule stuff goes here! -->
-         <div class = "col-md-12">
-               <ul class="list-group">
+
+               </div>
+                  
+                  
+                  
+                  <div class ="row" id = "plan-btn-container">
+                     <div class = "col-md-12">            
+                        <button class = "btn btn-primary" id = "get-itinerary-btn">Plan My Sunny Weekend!</button>
+                     </div>
+                  </div>
+                  
+                  
+                  
+                  <div class = "row schedule-box" id = "itinerary-container-friday">
+                     <!-- Schedule stuff goes here! -->
+                     <div class = "col-md-12">
+                        <ul class="list-group">
                      <li class="list-group-item date-headlines">
                         <h1>Friday</h1>
                         <h1 class = "date" id="fri-date"></h1>
@@ -272,11 +219,12 @@
       </div>
     </div>
     <br><br><br><br><br>
+
     <nav class="navbar navbar-light bg-light" id ="footer">
       <span class="navbar-brand mb-0 h1">Have a Sunny Weekend!</span>
-    </nav>
-    
+   </nav>
 
-   
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+   <!-- <script src="parsley.min.js"></script> -->
   </body>
 </html>

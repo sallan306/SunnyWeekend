@@ -472,7 +472,9 @@ function locationVal(){
     }
     else{
         M.toast({html: 'Please wait!'})
+        isSunny = false;
         findSunnyCity();
+        $("#submit-btn").text("Find Another Sunny City!")
 
 
     }
@@ -492,19 +494,16 @@ $(document).ready(function() {
     //when the button "find a sunny city" is pressed:
     $("#submit-btn").on("click", function() {  
         //change button text after it is
-        $("#submit-btn").text("Find Another Sunny City!")
+
 
         //show the first row of cards
         $("#trip-information").show();
         $("#plan-btn-container").show();
         //make sure isSunny is false so we can find a sunny city
-        isSunny = false;
-        //call the sunny city function
-        findSunnyCity();
+        locationVal();
         //get the data from the form and store the values
         userEmail = $("#user-email").val()
         userAddress = $("#user-location").val()
-        console.log(userAddress+userEmail)
      })
     
     $("#get-itinerary-btn").on("click", function(event){ 
