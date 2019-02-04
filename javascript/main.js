@@ -65,8 +65,15 @@ var weatherAPIKEY = "aiWmhP4Z6BLSJr0dqd2BGsGg6vqzh4yt",
     isSunny = false,
     sunnyCity = "Boston,MA",
     numberOfMiles = '',
-    sunnyHigh = '',
-    sunnyLow = '',
+    satHigh = '',
+    satLow = '',
+    satDate = '',
+    satSky = '',
+    sunHigh = '',
+    sunLow = '',
+    sunDate = '',
+    sunSky = '',
+
     randomCity = '',
     randomCityIndex = 0,
 
@@ -124,21 +131,26 @@ function getFire() {
 
 function compareDates() {
     if (todaysDate === localFireDate) {
+
         cityRef.on('value',function(snapshot){
-            cityArray = snapshot.val().fireCities
+
+            cityArray = snapshot.val().fireCities 
         })
     }
 
     else {
         cityArray = cityConstant;
+
         cityRef.set({
-            fireCities: cityArray
+            fireCities: cityConstant
           });
           timeRef.set({
             fireDate: todaysDate
           });
-        console.log("cities reset")
+        console.log("cities and date reset")
+        //if the date is not equal to today, set the firebase library and the local cityArray equal to the constant
     }
+
 }
 
 //calls the yahoo weather API to run a loop to find all the sunny cities in the US from our list. Checks to see if both Saturday and Sunday is sunny.
@@ -156,11 +168,6 @@ function getMainAct() {
         method: 'GET',
         dataType: 'json',
         success: function (response) {
-            //console.log(response)
-            // console.log(response.businesses[0].name);
-            // console.log(response.businesses[0].image_url);
-            // console.log(response.businesses[0].rating);
-            // console.log(response.businesses[0].url);
 
             mainAct = response.businesses[0];
             $("#main-attraction-name").text(mainAct.name);
@@ -183,70 +190,98 @@ function findSunnyCity() {
     if (isSunny === true) {
         console.log("all done, sunny found")
         }
-        else {
-                    $.ajax({
-                        url: yahooURL,
-                        method: "GET",
-                        type: "PUT",
-                        dataType: 'jsonp',
-                        async: false,
-                        cache:false,
-                        success: function() { 
-                            //console.log("yahoo ajax: Success"); 
-                        },
-                        error: function() { 
-                            console.log('yahoo ajax: Failed!'); 
-                        }
-                    })
-                    .done(function(data) {
-                        // console.log(data)
-                        // console.log(cityArray.length)
-                        var SaturdayWeather = data.query.results.channel.item.forecast[daysToFriday+1].text
-                        var SaturdayDate = data.query.results.channel.item.forecast[daysToFriday+1].date
-                        var SundayWeather = data.query.results.channel.item.forecast[daysToFriday+2].text
-                        var SundayDate = data.query.results.channel.item.forecast[daysToFriday+2].date
+    else {
+        $.ajax({
+            url: yahooURL,
+            method: "GET",
+            type: "PUT",
+            dataType: 'jsonp',
+            async: false,
+            cache:false,
+            success: function() { 
+                //console.log("yahoo ajax: Success"); 
+            },
+            error: function() { 
+                console.log('yahoo ajax: Failed!'); 
+            }
+        })
+        .done(function(data) {
+
+            if (data.query.results === null) {
+                cityRef.set({
+                    fireCities: cityConstant
+                  });
+                  cityArray = cityConstant
+                  console.log("reset library")
+            }
+            var SaturdayWeather = data.query.results.channel.item.forecast[daysToFriday+1].text
+            var SundayWeather = data.query.results.channel.item.forecast[daysToFriday+2].text
 
 
-                        if (SaturdayWeather.includes("Sunny") === true && SundayWeather.includes("Sunny") === true) {
-                            //console.log(data.query.results.channel)
+            if (SaturdayWeather.includes("Sunny") === true && SundayWeather.includes("Sunny") === true) {
 
-                            randomCity = data.query.results.channel.item.title
-                            randomCity = randomCity.replace("Conditions for ","")
-                            randomCity = randomCity.slice(0,randomCity.indexOf(", US at"))
-                            isSunny = true;
-                            sunnyCity = randomCity;
-                            getDistance(userAddress,sunnyCity);
-                            // console.log("Weather for "+sunnyCity+" looks to be "+ SaturdayWeather + " on Saturday, "+SaturdayDate)
-                            // console.log("Weather for "+sunnyCity+" looks to be "+ SundayWeather + " on Sunday, "+SundayDate)
-                            console.log("sunny city is now: "+sunnyCity)
-                            sunnyHigh = data.query.results.channel.item.forecast[daysToFriday+1].high
-                            sunnyLow =  data.query.results.channel.item.forecast[daysToFriday+1].low
-                            $("#saturday-high").text("High: "+sunnyHigh)
-                            $("#saturday-low").text("Low: "+sunnyLow)
-                            getMainAct();
+                //console.log(data.query.results.channel)
 
-             
-                        }
-                        else {
-                            //console.log("not sunny all weekend, "+randomCity+" has been removed");
-                                          
-                            cityArray.pop(randomCityIndex);
-                            cityRef.set({
-                                fireCities: cityArray
-                              });
-                             // console.log("database updated");
-                            //console.log("NOTSUNNY Weather for "+randomCity+" looks to be "+ SaturdayWeather + " on Saturday, "+SaturdayDate)
-                            //console.log("NOTSUNNY Weather for "+randomCity+" looks to be "+ SundayWeather + " on Sunday, "+SundayDate)
-                            findSunnyCity();
-                        }
-                    })
-                }
+                //formatting for randomCity
+                randomCity = data.query.results.channel.item.title
+                randomCity = randomCity.replace("Conditions for ","")
+                randomCity = randomCity.slice(0,randomCity.indexOf(", US at"))
+
+                //set issunny to true if the city returns sunny on saturday and sunday, and set the sunny city to the neatly formatted randomCity
+                isSunny = true;
+                sunnyCity = randomCity;
+
+                //call the my custom google getDistance function to return the distance between where the user selected and the sunny city
+                console.log()
+                getDistance(userAddress,sunnyCity);
+                console.log("sunny city is now: "+sunnyCity)
+                
+                //assign temperature,date, and sky status values, and send all the data to the cards that contains it
+                satHigh = data.query.results.channel.item.forecast[daysToFriday+1].high
+                satLow =  data.query.results.channel.item.forecast[daysToFriday+1].low
+                satDate =  data.query.results.channel.item.forecast[daysToFriday+1].date
+                satSky =  data.query.results.channel.item.forecast[daysToFriday+1].text
+
+                sunHigh = data.query.results.channel.item.forecast[daysToFriday+2].high
+                sunLow =  data.query.results.channel.item.forecast[daysToFriday+2].low
+                sunDate =  data.query.results.channel.item.forecast[daysToFriday+2].date
+                sunSky =  data.query.results.channel.item.forecast[daysToFriday+2].text
+
+                $("#saturday-date").text(satDate)
+                $("#saturday-text").text(satSky)
+                $("#saturday-high").text("High: "+satHigh)
+                $("#saturday-low").text("Low: "+satLow)
+                
+                $("#sunday-date").text(sunDate)
+                $("#sunday-text").text(sunSky)
+                $("#sunday-high").text("High: "+sunHigh)
+                $("#sunday-low").text("Low: "+sunLow)
+
+                //call the yelp function to populate the activities list
+                getMainAct();
+
+    
+            }
+            else {             
+                //if the city is not sunny, pop it from the array, update firebase, and run the code again
+                cityArray.pop(randomCityIndex);
+                cityRef.set({
+                    fireCities: cityArray
+                    });
+
+                //recursive function
+                findSunnyCity();
+            }
+        })
+        }
 }
 
 
-
+    //accepts two values, a starting location and ending location, acceptable formats are "CITY" "CITY,STATE" "CITY,COUNTRY" "CITY,STATE,COUNTRY"
 function getDistance(start,end){
     // google Maps function that takes two locations and checks the distance between them
+
+    console.log(start + end)
     GoogleService.getDistanceMatrix(
         {
             origins: [start],
@@ -258,19 +293,16 @@ function getDistance(start,end){
           }, callback);
 
     function callback(response, status) {
+        //assign the number of miles between the two points
        numberOfMiles = response.rows[0].elements[0].distance["text"];
        console.log(response.rows[0].elements[0].distance["text"])
+       //sets the city name and the distance on the card on the page
        $("#city-distance").text(numberOfMiles+" away")
        $("#city-name").text(sunnyCity)
     }
 }
 
-
-
-function getWeatherInfo() {
-    //print out projected high's and lows for saturday
-}
-
+//moment handler to get the date and spit out how many days to friday it will be
 function getDates() {
     var today = +moment().format("d")
     var daysUntilFriday = 0;
@@ -322,6 +354,7 @@ function getFood(id) {
         method: 'GET',
         dataType: 'json',
         success: function(response){
+            console.log(response)
             var emptyArray = [];
             for(var i = 0; i < response.businesses.length; i++){
                 emptyArray.push(response.businesses[i]);
@@ -330,7 +363,8 @@ function getFood(id) {
             // console.log(emptyArray);
             // console.log(rand);
             // console.log(rand.name); //get name of random park
-            $("#" + id).html("<img src = '" + rand.image_url + "' a;t = '" + rand.name + "' class = 'yelp-pic'> <a href = ' " + rand.url + " '>" + rand.name + "</a> <br> " + rand.location.address1 + ", " + rand.location.city + ", " + rand.location.state + ", " + rand.location.zip_code + " <br> Rating: " + rand.rating + "/5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Price: " +rand.price+ "<br> " + rand.display_phone );
+            $("#" + id).html("<img src = '" + rand.image_url + "' a;t = '" + rand.name + "' class = 'yelp-pic'> <a href = ' " + rand.url + " '>" + rand.name + "</a> <br> " + rand.location.address1 + ", " + rand.location.city + ", " + rand.location.state + ", " + rand.location.zip_code + " <br> Rating: " + rand.rating + "/5 <br> Price: " +rand.price);
+
             // console.log(rand.image_url);
 
 
@@ -358,7 +392,7 @@ function getBrunch(id){
             // console.log(emptyArray);
             // console.log(rand);
             // console.log(rand.name); //get name of random park
-            $("#" + id).html("<img src = '" + rand.image_url + "' a;t = '" + rand.name + "' class = 'yelp-pic'> <a href = ' " + rand.url + " '>" + rand.name + "</a> <br> " + rand.location.address1 + ", " + rand.location.city + ", " + rand.location.state + ", " + rand.location.zip_code + " <br> Rating: " + rand.rating + "/5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Price: " +rand.price+ "<br> " + rand.display_phone );
+            $("#" + id).html("<img src = '" + rand.image_url + "' a;t = '" + rand.name + "' class = 'yelp-pic'> <a href = ' " + rand.url + " '>" + rand.name + "</a> <br> " + rand.location.address1 + ", " + rand.location.city + ", " + rand.location.state + ", " + rand.location.zip_code + " <br> Rating: " + rand.rating + "/5 <br> Price: " +rand.price);
             // console.log(rand.image_url);
 
         }
@@ -388,16 +422,21 @@ function getAttraction(id) {
         // console.log(rand);
         // console.log(rand.name); //get name of random park
         
-        $("#" + id).html("<img src = '" + rand.image_url + "' a;t = '" + rand.name + "' class = 'yelp-pic'> <a href = ' " + rand.url + " '>" + rand.name + "</a> <br> " + rand.location.address1 + ", " + rand.location.city + ", " + rand.location.state + ", " + rand.location.zip_code + " <br> Rating: " + rand.rating + "/5 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Price: " +rand.price+ "<br> " + rand.display_phone );
+        $("#" + id).html("<img src = '" + rand.image_url + "' a;t = '" + rand.name + "' class = 'yelp-pic'> <a href = ' " + rand.url + " '>" + rand.name + "</a> <br> " + rand.location.address1 + ", " + rand.location.city + ", " + rand.location.state + ", " + rand.location.zip_code + " <br> Rating: " + rand.rating + "/5 <br> ");
+
+        if(rand.price === undefined){
+            $("#"+id).append("Price: Free");
+        }else{
+            $("#"+id).append("Price: " + rand.price);
+        }
         // console.log(rand.image_url);
         }
+
+        
     });
         
 }
 
-function getActivity() {
-    //code for calling API and printing results to correct p tags goes here
-}
 function getItinerary() {
     getFood("fri-dinner-sum");
     getBrunch("sat-brunch-sum");
@@ -421,13 +460,26 @@ function errorMessage() {
     $("#trip-information").append(sorryMessage);
 }
 
+function locationVal(){
+    var locationInput = $("#user-location").val();
+    console.log(locationInput);
+    if(locationInput === ""){
+        // alert("Location must be filled out");
+        $("#trip-information").hide();
+        $("#plan-btn-container").hide();
+        M.toast({html: 'Location must be filled out!'})
+
+    }
+    else{
+        M.toast({html: 'Please wait!'})
+        isSunny = false;
+        findSunnyCity();
+        $("#submit-btn").text("Find Another Sunny City!")
 
 
-// $("#trip-information").hide();
-// $("#plan-btn-container").hide();
-// $("#itinerary-container-friday").hide();
-// $("#itinerary-container-saturday").hide();
-// $("#itinerary-container-sunday").hide();
+    }
+
+}
 
 //--------------------------------------------------------------------------------buttonclick events-------------------------------------------------------------//
 
@@ -439,92 +491,51 @@ $(document).ready(function() {
     $("#itinerary-container-saturday").hide();
     $("#itinerary-container-sunday").hide();
 
-    $("#submit-btn").on("click", function(event) {  
-        event.preventDefault();
-        console.log("button clicked");
+    //when the button "find a sunny city" is pressed:
+    $("#submit-btn").on("click", function() {  
+        //change button text after it is
 
-        
-        //userAddress = $(".user-location").val().trim();
-        // userEmail = $(".user-email").val().trim();
-        //console.log("user Address: "+userAddress)
-        //console.log("user Email: "+userEmail)
-        
+
+        //show the first row of cards
         $("#trip-information").show();
         $("#plan-btn-container").show();
-        
-        isSunny = false;
-        findSunnyCity();
+        //make sure isSunny is false so we can find a sunny city
+        locationVal();
+        //get the data from the form and store the values
+        userEmail = $("#user-email").val()
+        userAddress = $("#user-location").val()
      })
     
-     
-    $("#reset-city").on('click', function () {
-        console.log("button clicked")
-        userAddress = $(".user-location").val();
-        userEmail = $(".user-email").val();
-        isSunny = false;
-        findSunnyCity();
-    })
-    $(".form-group").on('submit', function (event) {
-        event.preventDefault()
-    })
-    
-    $("#get-itinerary-btn").on("click", function(event){ //prints out entire itinerary 
-        //main activity needs to be printed out on main attraction on saturday 
+    $("#get-itinerary-btn").on("click", function(event){ 
+        //shows the second layer of cards
         $("#itinerary-container-friday").show();
         $("#itinerary-container-saturday").show();
         $("#itinerary-container-sunday").show();
+        //populates all of the event cards, added timeouts to them so the calls per second get spread out and the yelp API doesnt get mad
+        setTimeout(function() {getFood("fri-dinner-sum")},50);
+        setTimeout(function() {getFood("sat-dinner-sum")},100)
+        setTimeout(function() {getBrunch("sat-brunch-sum")},150)
+        setTimeout(function() {getBrunch("sat-lun-sum")},200)
+        setTimeout(function() {getBrunch("sun-brunch-sum")},250)
+        setTimeout(function() {getAttraction("fri-nightlife-sum")},300)
+        setTimeout(function() {getAttraction("sat-mor-act-sum")},350)
+        setTimeout(function() {getAttraction("sat-aft-act-sum")},400)
+        setTimeout(function() {getAttraction("sat-nightlife-sum")},450)
+        setTimeout(function() {getAttraction("sun-act-sum")},500)
+    
+    });
+    
 
-        getFood("fri-dinner-sum");
-        getFood("sat-dinner-sum");
-        getBrunch("sat-brunch-sum");
-        getBrunch("sat-lun-sum");
-        getBrunch("sun-brunch-sum");
-        getAttraction("fri-nightlife-sum");
-        getAttraction("sat-mor-act-sum");
-        getAttraction("sat-aft-act-sum");
-        getAttraction("sat-nightlife-sum");
-        getAttraction("sun-act-sum");
-        console.log("button clicked")
-    
-    });
-    
-    $("#btn-reroll-food-1").on("click", function(event){
-        getFood("fri-dinner-sum");
-    });
-    
-    $("#btn-reroll-food-4").on("click", function(event){
-        getFood("sat-dinner-sum");
-    });
-    $("#btn-reroll-food-2").on("click", function(event){
-        getBrunch("sat-brunch-sum");
-    });
-    
-    $("#btn-reroll-food-3").on("click", function(event){
-        getBrunch("sat-lun-sum");
-    });
-    
-    $("#btn-reroll-food-5").on("click", function(event){
-        getBrunch("sun-brunch-sum");
-    });
-    
-    $("#btn-reroll-act-1").on("click", function(event){
-        getAttraction("fri-nightlife-sum");
-    });
-    
-    $("#btn-reroll-act-2").on("click", function(event){
-        getAttraction("sat-mor-act-sum");
-    });
-    
-    $("#btn-reroll-act-3").on("click", function(event){
-        getAttraction("sat-aft-act-sum");
-    });
-    
-    $("#btn-reroll-act-4").on("click", function(event){
-        getAttraction("sat-nightlife-sum");
-    });
-    
-    $("#btn-reroll-act-5").on("click", function(event){
-        getAttraction("sun-act-sum");
-    });
+    //all the buttons below repopulate with a new attraction when clicked
+    $("#btn-reroll-food-1").on("click", function(event){getFood("fri-dinner-sum")});
+    $("#btn-reroll-food-4").on("click", function(event){getFood("sat-dinner-sum")});
+    $("#btn-reroll-food-2").on("click", function(event){getBrunch("sat-brunch-sum")});
+    $("#btn-reroll-food-3").on("click", function(event){getBrunch("sat-lun-sum")})
+    $("#btn-reroll-food-5").on("click", function(event){getBrunch("sun-brunch-sum")})
+    $("#btn-reroll-act-1").on("click", function(event){getAttraction("fri-nightlife-sum")});
+    $("#btn-reroll-act-2").on("click", function(event){getAttraction("sat-mor-act-sum")});
+    $("#btn-reroll-act-3").on("click", function(event){getAttraction("sat-aft-act-sum")});
+    $("#btn-reroll-act-4").on("click", function(event){getAttraction("sat-nightlife-sum")});
+    $("#btn-reroll-act-5").on("click", function(event){getAttraction("sun-act-sum")});
     
 })
