@@ -163,7 +163,7 @@ function getMainAct() {
     $.ajax({
         url: myurl,
         headers: {
-            'Authorization': 'Bearer 7gSCDmwYjt-iVamuC7Lo2YQ07Zit43lHiOeSj9mklTtTBjGeKMEDBbOP_jTg-pC52g1mXCEOluBGkXbjOYKroPEoxwnm5rnJT2BAR_R5uHHhmUtiDc4RdYab027kW3Yx',
+            'Authorization': 'Bearer dGH5k9F7TiE6L6GuP_035wYow8gh8OjwYcRIXVEnDjbyzYMlO0kn-PRz6Tfbl5nhZcqQpVGPk3uMPhifKzh_JyfGg14jTGzqIP03AX67VAxFWwmp83Ob2zJcZpFYXHYx',
         },
         method: 'GET',
         dataType: 'json',
